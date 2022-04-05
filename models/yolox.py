@@ -35,8 +35,9 @@ def get_model(opt):
     
     #define backbone and neck
     if opt.backbone.split("-")[0] == "Swin":
+        in_channel = [192, 384, 768]
         backbone = SwinTransformer(pretrain_img_size=224, yolo_width=width)
-        neck = YOLOXPAFPN(depth=depth, width=width, in_channels=[192, 384, 768], depthwise=opt.depth_wise)
+        neck = YOLOXPAFPN(depth=depth, width=width, in_channels=in_channel, depthwise=opt.depth_wise)
     else:
         backbone = CSPDarknet(dep_mul=depth, wid_mul=width, out_indices=(3, 4, 5), depthwise=opt.depth_wise)
         neck = YOLOXPAFPN(depth=depth, width=width, in_channels=in_channel, depthwise=opt.depth_wise)
@@ -91,7 +92,7 @@ class YOLOX(nn.Module):
         coco_pretrain = torch.load(weights_path, map_location=map_location)['state_dict']
         coco_pretrain = {k.replace('backbone.',''): v for k,v in coco_pretrain.items() if 'backbone' in k}
         print("Used pretrained model parameters:{}".format(coco_pretrain.keys()))
-        
+
         swin_dict.update(coco_pretrain)
         self.backbone.load_state_dict(swin_dict, strict=False)
         
