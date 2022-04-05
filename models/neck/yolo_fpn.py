@@ -822,17 +822,10 @@ class PPYOLOPAN(nn.Module):
 
 
 class YOLOXPAFPN(nn.Module):
-    def __init__(self, depth=1.0, width=1.0, in_channels=[256, 512, 1024], depthwise=False, act="silu", swin=False):
+    def __init__(self, depth=1.0, width=1.0, in_channels=[256, 512, 1024], depthwise=False, act="silu"):
         super().__init__()
         self.in_channels = in_channels
         Conv = DWConv if depthwise else BaseConv
-
-        self.swin_used = swin
-
-        if swin:
-            self.clb1 = BaseConv(192, int(width*64*4), 1, stride=1, act="lrelu")
-            self.clb2 = BaseConv(384, int(width*64*8), 1, stride=1, act="lrelu")
-            self.clb3 = BaseConv(768, int(width*64*16), 1, stride=1, act="lrelu")
 
         self.upsample = nn.Upsample(scale_factor=2, mode="nearest")
         self.lateral_conv0 = BaseConv(
@@ -895,16 +888,11 @@ class YOLOXPAFPN(nn.Module):
         assert len(blocks) == len(self.in_channels)
         [x2, x1, x0] = blocks
 
-        if self.swin_used:
-            x2 = self.clb1(blocks[0])
-            x1 = self.clb2(blocks[1])
-            x0 = self.clb3(blocks[2])
-        
         fpn_out0 = self.lateral_conv0(x0)  # 1024->512/32
-        print(fpn_out0.size())
+        
 
         f_out0 = self.upsample(fpn_out0)  # 512/16
-        print(f_out0.size())
+       
         f_out0 = torch.cat([f_out0, x1], 1)  # 512->1024/16
         f_out0 = self.C3_p4(f_out0)  # 1024->512/16
 
