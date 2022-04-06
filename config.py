@@ -53,6 +53,7 @@ opt.master_batch_size = -1  # batch size in first gpu. -1 means: master_batch_si
 opt.num_epochs = 300
 opt.swin_pretrained = False
 opt.swin_weights_path = None
+opt.freeze_backbone = False
 
 # coco 80 classes
 opt.label_name = [

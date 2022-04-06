@@ -78,6 +78,9 @@ class YOLOX(nn.Module):
         else:
             self.backbone.init_weights()
 
+        if opt.freeze_backbone:
+            for param in self.backbone.parameters():
+                param.requires_grad = False
         self.neck.init_weights()
         self.head.init_weights()
     
@@ -90,15 +93,11 @@ class YOLOX(nn.Module):
             map_location='cpu'
 
         coco_pretrain = torch.load(weights_path, map_location=map_location)['state_dict']
-        coco_pretrain = {k.replace('backbone.',''): v for k,v in coco_pretrain.items() if 'backbone' in k}
         print("Used pretrained model parameters:{}".format(coco_pretrain.keys()))
 
         swin_dict.update(coco_pretrain)
         self.backbone.load_state_dict(swin_dict, strict=False)
-        
-        #freeze backbone for faster training of head
-        for param in self.backbone.parameters():
-            param.requires_grad = False
+    
 
     def forward(self, inputs, targets=None, show_time=False):
         with torch.cuda.amp.autocast(enabled=self.opt.use_amp):
