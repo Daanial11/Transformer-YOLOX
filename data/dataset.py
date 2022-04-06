@@ -40,7 +40,7 @@ def remove_useless_info(coco):
 class COCODataset(torch.utils.data.Dataset):
 
     def __init__(self, cfg, img_size=(640, 640), name="train2017", json_file="instances_train2017.json", preproc=None,
-                 no_aug=True, tracking=False, logger=None, cache=False):
+                 no_aug=True, tracking=False, logger=None, cache=False, batch_size=16):
 
         super(COCODataset, self).__init__()
         self.opt = cfg
@@ -52,7 +52,7 @@ class COCODataset(torch.utils.data.Dataset):
         self.tracking = tracking
         self.logger = logger
         self.data_dir = self.opt.data_dir
-        self.batch_size = self.opt.batch_size
+        self.batch_size = batch_size
 
         # data augment params
         self.random_size = self.opt.random_size
@@ -461,7 +461,8 @@ def get_dataloader(opt, no_aug=False, logger=None, val_loader=True):
                                 no_aug=no_aug,
                                 tracking=do_tracking,
                                 logger=logger,
-                                cache=opt.cache
+                                cache=opt.cache,
+                                batch_size=opt.batch_size
                                 )
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
@@ -485,10 +486,11 @@ def get_dataloader(opt, no_aug=False, logger=None, val_loader=True):
                               no_aug=True,
                               tracking=do_tracking,
                               logger=logger,
-                              cache=opt.cache)
+                              cache=opt.cache,
+                              batch_size=opt.val_batch_size)
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
-        batch_size=opt.batch_size,
+        batch_size=opt.val_batch_size,
         shuffle=False,
         num_workers=opt.data_num_workers,
         pin_memory=True,
