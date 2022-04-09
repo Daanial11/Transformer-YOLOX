@@ -75,6 +75,9 @@ class YOLOX(nn.Module):
         if opt.swin_pretrained:
             self.load_swin_backbone_weights(opt.swin_weights_path)
             print("Swin-T weights loaded and frozen")
+        elif opt.csp_pretrained:
+            self.load_csp_backbone_weights(opt.csp_weights_path)
+            print("CSP weights loaded and frozen")
         else:
             self.backbone.init_weights()
 
@@ -97,6 +100,20 @@ class YOLOX(nn.Module):
 
         swin_dict.update(coco_pretrain)
         self.backbone.load_state_dict(swin_dict, strict=False)
+
+    def load_csp_backbone_weights(self, weights_path):
+        csp_dict = self.backbone.state_dict()
+
+        if torch.cuda.is_available():
+            map_location=lambda storage, loc: storage.cuda()
+        else:
+            map_location='cpu'
+
+        coco_pretrain = torch.load(weights_path, map_location=map_location)['state_dict']
+        print("Used pretrained model parameters:{}".format(coco_pretrain.keys()))
+
+        csp_dict.update(coco_pretrain)
+        self.backbone.load_state_dict(csp_dict, strict=False)
     
 
     def forward(self, inputs, targets=None, show_time=False):
