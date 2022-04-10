@@ -107,35 +107,27 @@ class YOLOX(nn.Module):
         checkpoint = torch.load(weights_path, map_location=lambda storage, loc: storage)
         print('==>> loaded {}'.format(weights_path))
         state_dict_ = checkpoint['state_dict']
-        state_dict = {}
 
 
         state_dict_ = {k.replace('backbone.',''): v for k,v in state_dict_.items() if 'backbone' in k}
-        # convert data_parallal to model
-        for k in state_dict_:
-            if k.startswith('module') and not k.startswith('module_list'):
-                state_dict[k[7:]] = state_dict_[k]
-            else:
-                state_dict[k] = state_dict_[k]
         model_state_dict = self.backbone.state_dict()
 
-        # check loaded parameters and created model parameters
-        for k in state_dict:
+        for k in state_dict_:
             if k in model_state_dict:
-                if state_dict[k].shape != model_state_dict[k].shape:
-                    print('--> Skip loading parameter {}, required shape {}, loaded shape{}.'.format(
-                        k, model_state_dict[k].shape, state_dict[k].shape))
-                    state_dict[k] = model_state_dict[k]
+                print("Used parameter:{}".format(k))
             else:
-                print('--> Drop parameter {}.'.format(k))
-        for k in model_state_dict:
-            if not (k in state_dict):
-                print('No param {}.'.format(k))
-                state_dict[k] = model_state_dict[k]
+                print("Not used parameter:{}".format(k))
+
+
+        model_state_dict.update(state_dict_)
+
+       
+
+        
         # for index, (k, v) in enumerate(state_dict.items()):
         #    print("Load pretrained weights: {}, {}, {}".format(index, k, v.size()))
 
-        self.backbone.load_state_dict(state_dict, strict=False)
+        self.backbone.load_state_dict(model_state_dict, strict=False)
     
 
     def forward(self, inputs, targets=None, show_time=False):
