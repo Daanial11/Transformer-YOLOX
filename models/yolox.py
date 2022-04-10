@@ -7,6 +7,7 @@ import time
 import numpy as np
 import torch
 import torch.nn as nn
+import os
 
 from models.backbone import CSPDarknet
 from models.backbone.swin_transformer import SwinTransformer
@@ -102,18 +103,37 @@ class YOLOX(nn.Module):
         self.backbone.load_state_dict(swin_dict, strict=False)
 
     def load_csp_backbone_weights(self, weights_path):
-        csp_dict = self.backbone.state_dict()
+        assert os.path.isfile(weights_path), "model {} not find".format(weights_path)
+        checkpoint = torch.load(weights_path, map_location=lambda storage, loc: storage)
+        print('==>> loaded {}'.format(weights_path))
+        state_dict_ = checkpoint['state_dict']
+        state_dict = {}
 
-        if torch.cuda.is_available():
-            map_location=lambda storage, loc: storage.cuda()
-        else:
-            map_location='cpu'
+        # convert data_parallal to model
+        for k in state_dict_:
+            if k.startswith('module') and not k.startswith('module_list'):
+                state_dict[k[7:]] = state_dict_[k]
+            else:
+                state_dict[k] = state_dict_[k]
+        model_state_dict = self.backbone.state_dict()
 
-        coco_pretrain = torch.load(weights_path, map_location=map_location)['state_dict']
-        print("Used pretrained model parameters:{}".format(coco_pretrain.keys()))
+        # check loaded parameters and created model parameters
+        for k in state_dict:
+            if k in model_state_dict:
+                if state_dict[k].shape != model_state_dict[k].shape:
+                    print('--> Skip loading parameter {}, required shape {}, loaded shape{}.'.format(
+                        k, model_state_dict[k].shape, state_dict[k].shape))
+                    state_dict[k] = model_state_dict[k]
+            else:
+                print('--> Drop parameter {}.'.format(k))
+        for k in model_state_dict:
+            if not (k in state_dict):
+                print('No param {}.'.format(k))
+                state_dict[k] = model_state_dict[k]
+        # for index, (k, v) in enumerate(state_dict.items()):
+        #    print("Load pretrained weights: {}, {}, {}".format(index, k, v.size()))
 
-        csp_dict.update(coco_pretrain)
-        self.backbone.load_state_dict(csp_dict, strict=False)
+        self.backbone.load_state_dict(state_dict, strict=False)
     
 
     def forward(self, inputs, targets=None, show_time=False):
