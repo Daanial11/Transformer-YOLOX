@@ -109,6 +109,8 @@ class YOLOX(nn.Module):
         state_dict_ = checkpoint['state_dict']
         state_dict = {}
 
+
+        state_dict_ = {k.replace('backbone.',''): v for k,v in state_dict_.items() if 'backbone' in k}
         # convert data_parallal to model
         for k in state_dict_:
             if k.startswith('module') and not k.startswith('module_list'):
