@@ -40,7 +40,7 @@ opt.exp_id = "gputest1"  # experiment name, you can change it to any other name
 #opt.dataset_path = "/data/dataset/coco_dataset"  # COCO detection
 
 
-opt.dataset_path = os.path.join(getDataDir(), 'COCO')
+opt.dataset_path = os.path.join(getDataDir(), 'TACO')
 #opt.dataset_path = r"C:\Users\Daanial\Desktop\yolox-pytorch\data\dataset\coco_dataset"  # Windows system
 
 opt.backbone = "CSPDarknet-s"  # CSPDarknet-nano, CSPDarknet-tiny, CSPDarknet-s, CSPDarknet-m, l, x
@@ -59,7 +59,7 @@ opt.csp_weights_path = None
 opt.freeze_backbone = False
 
 # coco 80 classes
-opt.label_name = [
+"""opt.label_name = [
     'person', 'bicycle', 'car', 'motorcycle', 'airplane',
     'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
     'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse',
@@ -72,9 +72,9 @@ opt.label_name = [
     'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv',
     'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave',
     'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
-    'scissors', 'teddy bear', 'hair drier', 'toothbrush']
+    'scissors', 'teddy bear', 'hair drier', 'toothbrush']"""
 
-#opt.label_name = ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw']
+opt.label_name = ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw']
 
 # TODO: support MOT(multi-object tracking) like FairMot/JDE when reid_dim > 0
 opt.reid_dim = 0  # 128  used in MOT, will add embedding branch if reid_dim>0
@@ -115,7 +115,7 @@ opt.print_iter = 10  # print loss every 1 iteration
 opt.val_intervals = 2  # evaluate val dataset and save best ckpt every 2 epoch
 opt.save_epoch = 5  # save check point every 1 epoch
 opt.resume = False  # resume from 'model_last.pth' when set True
-opt.use_amp = False  # True, Automatic mixed precision
+opt.use_amp = True  # True, Automatic mixed precision
 opt.cuda_benchmark = True
 opt.nms_thresh = 0.65  # nms IOU threshold in post process
 opt.occupy_mem = False  # pre-allocate gpu memory for training to avoid memory Fragmentation.
