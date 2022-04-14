@@ -17,6 +17,6 @@ source work-env/bin/activate
 
 cd yolox-pytorch
 
-python train.py gpus='0,1,2,3' backbone="YOLO-l" num_epochs=100 exp_id="Taco_yolo_100_epoch" use_amp=True val_intervals=2 data_num_workers=14 batch_size=32 random_size=[14,26] input_size=[608,608] test_size=[608,608] load_model="exp/Final_yolo_l_50_epoch/model_best.pth"
+python train.py gpus='0,1,2,3' backbone="YOLO-l" num_epochs=100 exp_id="Taco10_pretrainedSwin" use_amp=True val_intervals=2 data_num_workers=14 batch_size=64 random_size=[14,26] input_size=[640,640] test_size=[640,640] freeze_backbone=True load_model="exp/Swin_l_pretrained_yolo_l/model_50.pth"
 
 sleep 60
