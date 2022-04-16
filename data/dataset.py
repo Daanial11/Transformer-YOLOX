@@ -66,7 +66,10 @@ class COCODataset(torch.utils.data.Dataset):
         self.enable_mixup = self.opt.enable_mixup
         self.mosaic_prob = self.opt.mosaic_prob
         self.mixup_prob = self.opt.mixup_prob
+        self.fold = self.opt.fold
 
+        if self.fold != None:
+            self.name = "images"
         #################
         # self.json_file = self.json_file.replace("train", "val")
         # self.name = self.name.replace("train", "val")

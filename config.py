@@ -85,7 +85,7 @@ opt.tracking_id_nums = None  # [1829, 853, 323, 3017, 295, 159, 215, 79, 55, 749
 
 # base params
 opt.warmup_lr = 0  # start lr when warmup
-opt.basic_lr_per_img = 0.01 / 64.0
+opt.basic_lr_per_img = 0.01
 opt.scheduler = "yoloxwarmcos"
 opt.no_aug_epochs = 15  # close mixup and mosaic augments in the last 15 epochs
 opt.min_lr_ratio = 0.05
@@ -120,6 +120,7 @@ opt.cuda_benchmark = True
 opt.nms_thresh = 0.65  # nms IOU threshold in post process
 opt.occupy_mem = False  # pre-allocate gpu memory for training to avoid memory Fragmentation.
 opt.cache = False
+opt.fold = None
 
 opt.rgb_means = [0.485, 0.456, 0.406]
 opt.std = [0.229, 0.224, 0.225]
@@ -128,9 +129,16 @@ opt, input_params = merge_opt(opt, sys.argv[1:])
 if opt.backbone.lower().split("-")[1] in ["tiny", "nano"]:
     opt = update_nano_tiny(opt, input_params)
 
+opt.basic_lr_per_img = opt.basic_lr_per_img / 64.0
+
 # do not modify the following params
-opt.train_ann = opt.dataset_path + "/annotations/instances_train2017.json"
-opt.val_ann = opt.dataset_path + "/annotations/instances_val2017.json"
+if opt.fold != None:
+    opt.train_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_train2017.json"
+    opt.val_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_val2017.json"
+else:
+    opt.train_ann = opt.dataset_path + "/annotations/instances_train2017.json"
+    opt.val_ann = opt.dataset_path + "/annotations/instances_val2017.json"
+
 opt.data_dir = opt.dataset_path
 if isinstance(opt.label_name, str):
     new_label = opt.label_name.split(",")
