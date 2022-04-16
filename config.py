@@ -129,7 +129,7 @@ opt, input_params = merge_opt(opt, sys.argv[1:])
 if opt.backbone.lower().split("-")[1] in ["tiny", "nano"]:
     opt = update_nano_tiny(opt, input_params)
 
-opt.basic_lr_per_img = opt.basic_lr_per_img / 64.0
+opt.basic_lr_per_img = opt.basic_lr_per_img / opt.batch_size
 
 # do not modify the following params
 if opt.fold != None:
