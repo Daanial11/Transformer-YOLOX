@@ -1,0 +1,935 @@
+cpu-bind=MASK - bp1-gpu001, task 4294967295 4294967295 [0]: mask 0x101 set
+==>> input params: ['gpus=0,1,2,3', 'backbone=YOLO-l', 'num_epochs=100', 'exp_id=Taco10_pretrainedSwin', 'use_amp=True', 'val_intervals=2', 'data_num_workers=14', 'batch_size=64', 'random_size=[14,26]', 'input_size=[640,640]', 'test_size=[640,640]', 'freeze_backbone=True', 'load_model=exp/Swin_l_pretrained_yolo_l/model_50.pth']
+[INFO] change param: gpus 0 -> (0, 1, 2, 3) ('tuple')
+[INFO] change param: backbone CSPDarknet-s -> YOLO-l ('str')
+[INFO] change param: num_epochs 300 -> 100 ('int')
+[INFO] change param: exp_id gputest1 -> Taco10_pretrainedSwin ('str')
+[INFO] same param: use_amp=True ('bool')
+[INFO] same param: val_intervals=2 ('int')
+[INFO] change param: data_num_workers 4 -> 14 ('int')
+[INFO] change param: batch_size 24 -> 64 ('int')
+[INFO] change param: random_size None -> [14, 26] ('list')
+[INFO] same param: input_size=[640, 640] ('list')
+[INFO] same param: test_size=[640, 640] ('list')
+[INFO] change param: freeze_backbone False -> True ('bool')
+[INFO] change param: load_model  -> exp/Swin_l_pretrained_yolo_l/model_50.pth ('str')
+[INFO] re-change param: gpus [0, 1, 2, 3] to 0,1,2,3 'str' 
+
+-------------------- final config: --------------------
+{'exp_id': 'Taco10_pretrainedSwin', 'dataset_path': '/user/home/bq18557/scratch/TACO', 'backbone': 'YOLO-l', 'input_size': [640, 640], 'random_size': [14, 26], 'test_size': [640, 640], 'gpus': [0, 1, 2, 3], 'batch_size': 64, 'val_batch_size': 4, 'master_batch_size': 16, 'num_epochs': 100, 'swin_pretrained': False, 'swin_weights_path': None, 'csp_pretrained': False, 'csp_weights_path': None, 'freeze_backbone': True, 'label_name': ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw'], 'reid_dim': 0, 'tracking_id_nums': None, 'warmup_lr': 0, 'basic_lr_per_img': 0.00015625, 'scheduler': 'yoloxwarmcos', 'no_aug_epochs': 15, 'min_lr_ratio': 0.05, 'weight_decay': 0.0005, 'warmup_epochs': 5, 'depth_wise': False, 'stride': [8, 16, 32], 'degrees': 10.0, 'translate': 0.1, 'scale': [0.1, 2], 'shear': 2.0, 'perspective': 0.0, 'enable_mixup': True, 'seed': None, 'mosaic_prob': 1.0, 'mixup_prob': 1.0, 'data_num_workers': 14, 'momentum': 0.9, 'vis_thresh': 0.3, 'load_model': 'exp/Swin_l_pretrained_yolo_l/model_50.pth', 'ema': True, 'grad_clip': {'max_norm': 35, 'norm_type': 2}, 'print_iter': 10, 'val_intervals': 2, 'save_epoch': 5, 'resume': False, 'use_amp': True, 'cuda_benchmark': False, 'nms_thresh': 0.65, 'occupy_mem': False, 'cache': False, 'rgb_means': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225], 'train_ann': '/user/home/bq18557/scratch/TACO/annotations/instances_train2017.json', 'val_ann': '/user/home/bq18557/scratch/TACO/annotations/instances_val2017.json', 'data_dir': '/user/home/bq18557/scratch/TACO', 'num_classes': 10, 'gpus_str': '0,1,2,3', 'chunk_sizes': [16, 16, 16, 16], 'root_dir': '/user/home/bq18557/Transformer-YOLOX', 'save_dir': '/user/home/bq18557/Transformer-YOLOX/exp/Taco10_pretrainedSwin'}
+log file will be saved to /user/home/bq18557/Transformer-YOLOX/exp/Taco10_pretrainedSwin/logs_2022-04-14-02-09/log.txt
+================================================================================
+Layer (type:depth-idx)                                  Param #
+================================================================================
+YOLOX                                                   --
+├─CSPDarknet: 1-1                                       --
+│    └─Focus: 2-1                                       --
+│    │    └─BaseConv: 3-1                               (7,040)
+│    └─Sequential: 2-2                                  --
+│    │    └─BaseConv: 3-2                               (73,984)
+│    │    └─CSPLayer: 3-3                               (156,928)
+│    └─Sequential: 2-3                                  --
+│    │    └─BaseConv: 3-4                               (295,424)
+│    │    └─CSPLayer: 3-5                               (1,611,264)
+│    └─Sequential: 2-4                                  --
+│    │    └─BaseConv: 3-6                               (1,180,672)
+│    │    └─CSPLayer: 3-7                               (6,433,792)
+│    └─Sequential: 2-5                                  --
+│    │    └─BaseConv: 3-8                               (4,720,640)
+│    │    └─SPPBottleneck: 3-9                          (2,624,512)
+│    │    └─CSPLayer: 3-10                              (9,971,712)
+├─YOLOXPAFPN: 1-2                                       --
+│    └─Upsample: 2-6                                    --
+│    └─BaseConv: 2-7                                    --
+│    │    └─Conv2d: 3-11                                524,288
+│    │    └─BatchNorm2d: 3-12                           1,024
+│    │    └─SiLU: 3-13                                  --
+│    └─CSPLayer: 2-8                                    --
+│    │    └─BaseConv: 3-14                              262,656
+│    │    └─BaseConv: 3-15                              262,656
+│    │    └─BaseConv: 3-16                              263,168
+│    │    └─Sequential: 3-17                            1,969,152
+│    └─BaseConv: 2-9                                    --
+│    │    └─Conv2d: 3-18                                131,072
+│    │    └─BatchNorm2d: 3-19                           512
+│    │    └─SiLU: 3-20                                  --
+│    └─CSPLayer: 2-10                                   --
+│    │    └─BaseConv: 3-21                              65,792
+│    │    └─BaseConv: 3-22                              65,792
+│    │    └─BaseConv: 3-23                              66,048
+│    │    └─Sequential: 3-24                            493,056
+│    └─BaseConv: 2-11                                   --
+│    │    └─Conv2d: 3-25                                589,824
+│    │    └─BatchNorm2d: 3-26                           512
+│    │    └─SiLU: 3-27                                  --
+│    └─CSPLayer: 2-12                                   --
+│    │    └─BaseConv: 3-28                              131,584
+│    │    └─BaseConv: 3-29                              131,584
+│    │    └─BaseConv: 3-30                              263,168
+│    │    └─Sequential: 3-31                            1,969,152
+│    └─BaseConv: 2-13                                   --
+│    │    └─Conv2d: 3-32                                2,359,296
+│    │    └─BatchNorm2d: 3-33                           1,024
+│    │    └─SiLU: 3-34                                  --
+│    └─CSPLayer: 2-14                                   --
+│    │    └─BaseConv: 3-35                              525,312
+│    │    └─BaseConv: 3-36                              525,312
+│    │    └─BaseConv: 3-37                              1,050,624
+│    │    └─Sequential: 3-38                            7,870,464
+├─YOLOXHead: 1-3                                        --
+│    └─ModuleList: 2-15                                 --
+│    │    └─BaseConv: 3-39                              66,048
+│    │    └─BaseConv: 3-40                              131,584
+│    │    └─BaseConv: 3-41                              262,656
+│    └─ModuleList: 2-16                                 --
+│    │    └─Sequential: 3-42                            1,180,672
+│    │    └─Sequential: 3-43                            1,180,672
+│    │    └─Sequential: 3-44                            1,180,672
+│    └─ModuleList: 2-17                                 --
+│    │    └─Sequential: 3-45                            1,180,672
+│    │    └─Sequential: 3-46                            1,180,672
+│    │    └─Sequential: 3-47                            1,180,672
+│    └─ModuleList: 2-18                                 --
+│    │    └─Conv2d: 3-48                                2,570
+│    │    └─Conv2d: 3-49                                2,570
+│    │    └─Conv2d: 3-50                                2,570
+│    └─ModuleList: 2-19                                 --
+│    │    └─Conv2d: 3-51                                1,028
+│    │    └─Conv2d: 3-52                                1,028
+│    │    └─Conv2d: 3-53                                1,028
+│    └─ModuleList: 2-20                                 --
+│    │    └─Conv2d: 3-54                                257
+│    │    └─Conv2d: 3-55                                257
+│    │    └─Conv2d: 3-56                                257
+├─YOLOXLoss: 1-4                                        --
+│    └─L1Loss: 2-21                                     --
+│    └─BCEWithLogitsLoss: 2-22                          --
+│    └─IOUloss: 2-23                                    --
+================================================================================
+Total params: 54,154,925
+Trainable params: 27,078,957
+Non-trainable params: 27,075,968
+================================================================================
+==>> loaded exp/Swin_l_pretrained_yolo_l/model_50.pth, epoch 50
+--> Drop parameter backbone.patch_embed.proj.weight.
+--> Drop parameter backbone.patch_embed.proj.bias.
+--> Drop parameter backbone.patch_embed.norm.weight.
+--> Drop parameter backbone.patch_embed.norm.bias.
+--> Drop parameter backbone.layers.0.blocks.0.norm1.weight.
+--> Drop parameter backbone.layers.0.blocks.0.norm1.bias.
+--> Drop parameter backbone.layers.0.blocks.0.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.0.blocks.0.attn.relative_position_index.
+--> Drop parameter backbone.layers.0.blocks.0.attn.qkv.weight.
+--> Drop parameter backbone.layers.0.blocks.0.attn.qkv.bias.
+--> Drop parameter backbone.layers.0.blocks.0.attn.proj.weight.
+--> Drop parameter backbone.layers.0.blocks.0.attn.proj.bias.
+--> Drop parameter backbone.layers.0.blocks.0.norm2.weight.
+--> Drop parameter backbone.layers.0.blocks.0.norm2.bias.
+--> Drop parameter backbone.layers.0.blocks.0.mlp.fc1.weight.
+--> Drop parameter backbone.layers.0.blocks.0.mlp.fc1.bias.
+--> Drop parameter backbone.layers.0.blocks.0.mlp.fc2.weight.
+--> Drop parameter backbone.layers.0.blocks.0.mlp.fc2.bias.
+--> Drop parameter backbone.layers.0.blocks.1.norm1.weight.
+--> Drop parameter backbone.layers.0.blocks.1.norm1.bias.
+--> Drop parameter backbone.layers.0.blocks.1.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.0.blocks.1.attn.relative_position_index.
+--> Drop parameter backbone.layers.0.blocks.1.attn.qkv.weight.
+--> Drop parameter backbone.layers.0.blocks.1.attn.qkv.bias.
+--> Drop parameter backbone.layers.0.blocks.1.attn.proj.weight.
+--> Drop parameter backbone.layers.0.blocks.1.attn.proj.bias.
+--> Drop parameter backbone.layers.0.blocks.1.norm2.weight.
+--> Drop parameter backbone.layers.0.blocks.1.norm2.bias.
+--> Drop parameter backbone.layers.0.blocks.1.mlp.fc1.weight.
+--> Drop parameter backbone.layers.0.blocks.1.mlp.fc1.bias.
+--> Drop parameter backbone.layers.0.blocks.1.mlp.fc2.weight.
+--> Drop parameter backbone.layers.0.blocks.1.mlp.fc2.bias.
+--> Drop parameter backbone.layers.0.downsample.reduction.weight.
+--> Drop parameter backbone.layers.0.downsample.norm.weight.
+--> Drop parameter backbone.layers.0.downsample.norm.bias.
+--> Drop parameter backbone.layers.1.blocks.0.norm1.weight.
+--> Drop parameter backbone.layers.1.blocks.0.norm1.bias.
+--> Drop parameter backbone.layers.1.blocks.0.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.1.blocks.0.attn.relative_position_index.
+--> Drop parameter backbone.layers.1.blocks.0.attn.qkv.weight.
+--> Drop parameter backbone.layers.1.blocks.0.attn.qkv.bias.
+--> Drop parameter backbone.layers.1.blocks.0.attn.proj.weight.
+--> Drop parameter backbone.layers.1.blocks.0.attn.proj.bias.
+--> Drop parameter backbone.layers.1.blocks.0.norm2.weight.
+--> Drop parameter backbone.layers.1.blocks.0.norm2.bias.
+--> Drop parameter backbone.layers.1.blocks.0.mlp.fc1.weight.
+--> Drop parameter backbone.layers.1.blocks.0.mlp.fc1.bias.
+--> Drop parameter backbone.layers.1.blocks.0.mlp.fc2.weight.
+--> Drop parameter backbone.layers.1.blocks.0.mlp.fc2.bias.
+--> Drop parameter backbone.layers.1.blocks.1.norm1.weight.
+--> Drop parameter backbone.layers.1.blocks.1.norm1.bias.
+--> Drop parameter backbone.layers.1.blocks.1.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.1.blocks.1.attn.relative_position_index.
+--> Drop parameter backbone.layers.1.blocks.1.attn.qkv.weight.
+--> Drop parameter backbone.layers.1.blocks.1.attn.qkv.bias.
+--> Drop parameter backbone.layers.1.blocks.1.attn.proj.weight.
+--> Drop parameter backbone.layers.1.blocks.1.attn.proj.bias.
+--> Drop parameter backbone.layers.1.blocks.1.norm2.weight.
+--> Drop parameter backbone.layers.1.blocks.1.norm2.bias.
+--> Drop parameter backbone.layers.1.blocks.1.mlp.fc1.weight.
+--> Drop parameter backbone.layers.1.blocks.1.mlp.fc1.bias.
+--> Drop parameter backbone.layers.1.blocks.1.mlp.fc2.weight.
+--> Drop parameter backbone.layers.1.blocks.1.mlp.fc2.bias.
+--> Drop parameter backbone.layers.1.downsample.reduction.weight.
+--> Drop parameter backbone.layers.1.downsample.norm.weight.
+--> Drop parameter backbone.layers.1.downsample.norm.bias.
+--> Drop parameter backbone.layers.2.blocks.0.norm1.weight.
+--> Drop parameter backbone.layers.2.blocks.0.norm1.bias.
+--> Drop parameter backbone.layers.2.blocks.0.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.2.blocks.0.attn.relative_position_index.
+--> Drop parameter backbone.layers.2.blocks.0.attn.qkv.weight.
+--> Drop parameter backbone.layers.2.blocks.0.attn.qkv.bias.
+--> Drop parameter backbone.layers.2.blocks.0.attn.proj.weight.
+--> Drop parameter backbone.layers.2.blocks.0.attn.proj.bias.
+--> Drop parameter backbone.layers.2.blocks.0.norm2.weight.
+--> Drop parameter backbone.layers.2.blocks.0.norm2.bias.
+--> Drop parameter backbone.layers.2.blocks.0.mlp.fc1.weight.
+--> Drop parameter backbone.layers.2.blocks.0.mlp.fc1.bias.
+--> Drop parameter backbone.layers.2.blocks.0.mlp.fc2.weight.
+--> Drop parameter backbone.layers.2.blocks.0.mlp.fc2.bias.
+--> Drop parameter backbone.layers.2.blocks.1.norm1.weight.
+--> Drop parameter backbone.layers.2.blocks.1.norm1.bias.
+--> Drop parameter backbone.layers.2.blocks.1.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.2.blocks.1.attn.relative_position_index.
+--> Drop parameter backbone.layers.2.blocks.1.attn.qkv.weight.
+--> Drop parameter backbone.layers.2.blocks.1.attn.qkv.bias.
+--> Drop parameter backbone.layers.2.blocks.1.attn.proj.weight.
+--> Drop parameter backbone.layers.2.blocks.1.attn.proj.bias.
+--> Drop parameter backbone.layers.2.blocks.1.norm2.weight.
+--> Drop parameter backbone.layers.2.blocks.1.norm2.bias.
+--> Drop parameter backbone.layers.2.blocks.1.mlp.fc1.weight.
+--> Drop parameter backbone.layers.2.blocks.1.mlp.fc1.bias.
+--> Drop parameter backbone.layers.2.blocks.1.mlp.fc2.weight.
+--> Drop parameter backbone.layers.2.blocks.1.mlp.fc2.bias.
+--> Drop parameter backbone.layers.2.blocks.2.norm1.weight.
+--> Drop parameter backbone.layers.2.blocks.2.norm1.bias.
+--> Drop parameter backbone.layers.2.blocks.2.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.2.blocks.2.attn.relative_position_index.
+--> Drop parameter backbone.layers.2.blocks.2.attn.qkv.weight.
+--> Drop parameter backbone.layers.2.blocks.2.attn.qkv.bias.
+--> Drop parameter backbone.layers.2.blocks.2.attn.proj.weight.
+--> Drop parameter backbone.layers.2.blocks.2.attn.proj.bias.
+--> Drop parameter backbone.layers.2.blocks.2.norm2.weight.
+--> Drop parameter backbone.layers.2.blocks.2.norm2.bias.
+--> Drop parameter backbone.layers.2.blocks.2.mlp.fc1.weight.
+--> Drop parameter backbone.layers.2.blocks.2.mlp.fc1.bias.
+--> Drop parameter backbone.layers.2.blocks.2.mlp.fc2.weight.
+--> Drop parameter backbone.layers.2.blocks.2.mlp.fc2.bias.
+--> Drop parameter backbone.layers.2.blocks.3.norm1.weight.
+--> Drop parameter backbone.layers.2.blocks.3.norm1.bias.
+--> Drop parameter backbone.layers.2.blocks.3.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.2.blocks.3.attn.relative_position_index.
+--> Drop parameter backbone.layers.2.blocks.3.attn.qkv.weight.
+--> Drop parameter backbone.layers.2.blocks.3.attn.qkv.bias.
+--> Drop parameter backbone.layers.2.blocks.3.attn.proj.weight.
+--> Drop parameter backbone.layers.2.blocks.3.attn.proj.bias.
+--> Drop parameter backbone.layers.2.blocks.3.norm2.weight.
+--> Drop parameter backbone.layers.2.blocks.3.norm2.bias.
+--> Drop parameter backbone.layers.2.blocks.3.mlp.fc1.weight.
+--> Drop parameter backbone.layers.2.blocks.3.mlp.fc1.bias.
+--> Drop parameter backbone.layers.2.blocks.3.mlp.fc2.weight.
+--> Drop parameter backbone.layers.2.blocks.3.mlp.fc2.bias.
+--> Drop parameter backbone.layers.2.blocks.4.norm1.weight.
+--> Drop parameter backbone.layers.2.blocks.4.norm1.bias.
+--> Drop parameter backbone.layers.2.blocks.4.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.2.blocks.4.attn.relative_position_index.
+--> Drop parameter backbone.layers.2.blocks.4.attn.qkv.weight.
+--> Drop parameter backbone.layers.2.blocks.4.attn.qkv.bias.
+--> Drop parameter backbone.layers.2.blocks.4.attn.proj.weight.
+--> Drop parameter backbone.layers.2.blocks.4.attn.proj.bias.
+--> Drop parameter backbone.layers.2.blocks.4.norm2.weight.
+--> Drop parameter backbone.layers.2.blocks.4.norm2.bias.
+--> Drop parameter backbone.layers.2.blocks.4.mlp.fc1.weight.
+--> Drop parameter backbone.layers.2.blocks.4.mlp.fc1.bias.
+--> Drop parameter backbone.layers.2.blocks.4.mlp.fc2.weight.
+--> Drop parameter backbone.layers.2.blocks.4.mlp.fc2.bias.
+--> Drop parameter backbone.layers.2.blocks.5.norm1.weight.
+--> Drop parameter backbone.layers.2.blocks.5.norm1.bias.
+--> Drop parameter backbone.layers.2.blocks.5.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.2.blocks.5.attn.relative_position_index.
+--> Drop parameter backbone.layers.2.blocks.5.attn.qkv.weight.
+--> Drop parameter backbone.layers.2.blocks.5.attn.qkv.bias.
+--> Drop parameter backbone.layers.2.blocks.5.attn.proj.weight.
+--> Drop parameter backbone.layers.2.blocks.5.attn.proj.bias.
+--> Drop parameter backbone.layers.2.blocks.5.norm2.weight.
+--> Drop parameter backbone.layers.2.blocks.5.norm2.bias.
+--> Drop parameter backbone.layers.2.blocks.5.mlp.fc1.weight.
+--> Drop parameter backbone.layers.2.blocks.5.mlp.fc1.bias.
+--> Drop parameter backbone.layers.2.blocks.5.mlp.fc2.weight.
+--> Drop parameter backbone.layers.2.blocks.5.mlp.fc2.bias.
+--> Drop parameter backbone.layers.2.downsample.reduction.weight.
+--> Drop parameter backbone.layers.2.downsample.norm.weight.
+--> Drop parameter backbone.layers.2.downsample.norm.bias.
+--> Drop parameter backbone.layers.3.blocks.0.norm1.weight.
+--> Drop parameter backbone.layers.3.blocks.0.norm1.bias.
+--> Drop parameter backbone.layers.3.blocks.0.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.3.blocks.0.attn.relative_position_index.
+--> Drop parameter backbone.layers.3.blocks.0.attn.qkv.weight.
+--> Drop parameter backbone.layers.3.blocks.0.attn.qkv.bias.
+--> Drop parameter backbone.layers.3.blocks.0.attn.proj.weight.
+--> Drop parameter backbone.layers.3.blocks.0.attn.proj.bias.
+--> Drop parameter backbone.layers.3.blocks.0.norm2.weight.
+--> Drop parameter backbone.layers.3.blocks.0.norm2.bias.
+--> Drop parameter backbone.layers.3.blocks.0.mlp.fc1.weight.
+--> Drop parameter backbone.layers.3.blocks.0.mlp.fc1.bias.
+--> Drop parameter backbone.layers.3.blocks.0.mlp.fc2.weight.
+--> Drop parameter backbone.layers.3.blocks.0.mlp.fc2.bias.
+--> Drop parameter backbone.layers.3.blocks.1.norm1.weight.
+--> Drop parameter backbone.layers.3.blocks.1.norm1.bias.
+--> Drop parameter backbone.layers.3.blocks.1.attn.relative_position_bias_table.
+--> Drop parameter backbone.layers.3.blocks.1.attn.relative_position_index.
+--> Drop parameter backbone.layers.3.blocks.1.attn.qkv.weight.
+--> Drop parameter backbone.layers.3.blocks.1.attn.qkv.bias.
+--> Drop parameter backbone.layers.3.blocks.1.attn.proj.weight.
+--> Drop parameter backbone.layers.3.blocks.1.attn.proj.bias.
+--> Drop parameter backbone.layers.3.blocks.1.norm2.weight.
+--> Drop parameter backbone.layers.3.blocks.1.norm2.bias.
+--> Drop parameter backbone.layers.3.blocks.1.mlp.fc1.weight.
+--> Drop parameter backbone.layers.3.blocks.1.mlp.fc1.bias.
+--> Drop parameter backbone.layers.3.blocks.1.mlp.fc2.weight.
+--> Drop parameter backbone.layers.3.blocks.1.mlp.fc2.bias.
+--> Drop parameter backbone.norm0.weight.
+--> Drop parameter backbone.norm0.bias.
+--> Drop parameter backbone.norm1.weight.
+--> Drop parameter backbone.norm1.bias.
+--> Drop parameter backbone.norm2.weight.
+--> Drop parameter backbone.norm2.bias.
+--> Drop parameter backbone.norm3.weight.
+--> Drop parameter backbone.norm3.bias.
+--> Skip loading parameter neck.lateral_conv0.conv.weight, required shape torch.Size([512, 1024, 1, 1]), loaded shapetorch.Size([384, 768, 1, 1]).
+--> Skip loading parameter neck.lateral_conv0.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.lateral_conv0.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.lateral_conv0.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.lateral_conv0.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_p4.conv1.conv.weight, required shape torch.Size([256, 1024, 1, 1]), loaded shapetorch.Size([192, 768, 1, 1]).
+--> Skip loading parameter neck.C3_p4.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv2.conv.weight, required shape torch.Size([256, 1024, 1, 1]), loaded shapetorch.Size([192, 768, 1, 1]).
+--> Skip loading parameter neck.C3_p4.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.conv3.conv.weight, required shape torch.Size([512, 512, 1, 1]), loaded shapetorch.Size([384, 384, 1, 1]).
+--> Skip loading parameter neck.C3_p4.conv3.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_p4.conv3.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_p4.conv3.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_p4.conv3.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_p4.m.0.conv1.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_p4.m.0.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.C3_p4.m.0.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.0.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv1.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_p4.m.1.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.C3_p4.m.1.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.1.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv1.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_p4.m.2.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.C3_p4.m.2.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p4.m.2.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.reduce_conv1.conv.weight, required shape torch.Size([256, 512, 1, 1]), loaded shapetorch.Size([192, 384, 1, 1]).
+--> Skip loading parameter neck.reduce_conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.reduce_conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.reduce_conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.reduce_conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p3.conv1.conv.weight, required shape torch.Size([128, 512, 1, 1]), loaded shapetorch.Size([96, 384, 1, 1]).
+--> Skip loading parameter neck.C3_p3.conv1.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv1.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv1.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv1.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv2.conv.weight, required shape torch.Size([128, 512, 1, 1]), loaded shapetorch.Size([96, 384, 1, 1]).
+--> Skip loading parameter neck.C3_p3.conv2.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv2.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv2.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv2.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.conv3.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_p3.conv3.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p3.conv3.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p3.conv3.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p3.conv3.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_p3.m.0.conv1.conv.weight, required shape torch.Size([128, 128, 1, 1]), loaded shapetorch.Size([96, 96, 1, 1]).
+--> Skip loading parameter neck.C3_p3.m.0.conv1.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv1.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv1.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv1.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv2.conv.weight, required shape torch.Size([128, 128, 3, 3]), loaded shapetorch.Size([96, 96, 3, 3]).
+--> Skip loading parameter neck.C3_p3.m.0.conv2.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv2.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv2.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.0.conv2.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv1.conv.weight, required shape torch.Size([128, 128, 1, 1]), loaded shapetorch.Size([96, 96, 1, 1]).
+--> Skip loading parameter neck.C3_p3.m.1.conv1.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv1.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv1.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv1.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv2.conv.weight, required shape torch.Size([128, 128, 3, 3]), loaded shapetorch.Size([96, 96, 3, 3]).
+--> Skip loading parameter neck.C3_p3.m.1.conv2.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv2.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv2.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.1.conv2.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv1.conv.weight, required shape torch.Size([128, 128, 1, 1]), loaded shapetorch.Size([96, 96, 1, 1]).
+--> Skip loading parameter neck.C3_p3.m.2.conv1.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv1.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv1.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv1.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv2.conv.weight, required shape torch.Size([128, 128, 3, 3]), loaded shapetorch.Size([96, 96, 3, 3]).
+--> Skip loading parameter neck.C3_p3.m.2.conv2.bn.weight, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv2.bn.bias, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv2.bn.running_mean, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.C3_p3.m.2.conv2.bn.running_var, required shape torch.Size([128]), loaded shapetorch.Size([96]).
+--> Skip loading parameter neck.bu_conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.bu_conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.bu_conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.bu_conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.bu_conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv1.conv.weight, required shape torch.Size([256, 512, 1, 1]), loaded shapetorch.Size([192, 384, 1, 1]).
+--> Skip loading parameter neck.C3_n3.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv2.conv.weight, required shape torch.Size([256, 512, 1, 1]), loaded shapetorch.Size([192, 384, 1, 1]).
+--> Skip loading parameter neck.C3_n3.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.conv3.conv.weight, required shape torch.Size([512, 512, 1, 1]), loaded shapetorch.Size([384, 384, 1, 1]).
+--> Skip loading parameter neck.C3_n3.conv3.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n3.conv3.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n3.conv3.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n3.conv3.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n3.m.0.conv1.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_n3.m.0.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.C3_n3.m.0.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.0.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv1.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_n3.m.1.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.C3_n3.m.1.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.1.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv1.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([192, 192, 1, 1]).
+--> Skip loading parameter neck.C3_n3.m.2.conv1.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv1.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv1.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv1.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv2.conv.weight, required shape torch.Size([256, 256, 3, 3]), loaded shapetorch.Size([192, 192, 3, 3]).
+--> Skip loading parameter neck.C3_n3.m.2.conv2.bn.weight, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv2.bn.bias, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv2.bn.running_mean, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.C3_n3.m.2.conv2.bn.running_var, required shape torch.Size([256]), loaded shapetorch.Size([192]).
+--> Skip loading parameter neck.bu_conv1.conv.weight, required shape torch.Size([512, 512, 3, 3]), loaded shapetorch.Size([384, 384, 3, 3]).
+--> Skip loading parameter neck.bu_conv1.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.bu_conv1.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.bu_conv1.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.bu_conv1.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv1.conv.weight, required shape torch.Size([512, 1024, 1, 1]), loaded shapetorch.Size([384, 768, 1, 1]).
+--> Skip loading parameter neck.C3_n4.conv1.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv1.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv1.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv1.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv2.conv.weight, required shape torch.Size([512, 1024, 1, 1]), loaded shapetorch.Size([384, 768, 1, 1]).
+--> Skip loading parameter neck.C3_n4.conv2.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv2.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv2.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv2.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.conv3.conv.weight, required shape torch.Size([1024, 1024, 1, 1]), loaded shapetorch.Size([768, 768, 1, 1]).
+--> Skip loading parameter neck.C3_n4.conv3.bn.weight, required shape torch.Size([1024]), loaded shapetorch.Size([768]).
+--> Skip loading parameter neck.C3_n4.conv3.bn.bias, required shape torch.Size([1024]), loaded shapetorch.Size([768]).
+--> Skip loading parameter neck.C3_n4.conv3.bn.running_mean, required shape torch.Size([1024]), loaded shapetorch.Size([768]).
+--> Skip loading parameter neck.C3_n4.conv3.bn.running_var, required shape torch.Size([1024]), loaded shapetorch.Size([768]).
+--> Skip loading parameter neck.C3_n4.m.0.conv1.conv.weight, required shape torch.Size([512, 512, 1, 1]), loaded shapetorch.Size([384, 384, 1, 1]).
+--> Skip loading parameter neck.C3_n4.m.0.conv1.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv1.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv1.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv1.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv2.conv.weight, required shape torch.Size([512, 512, 3, 3]), loaded shapetorch.Size([384, 384, 3, 3]).
+--> Skip loading parameter neck.C3_n4.m.0.conv2.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv2.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv2.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.0.conv2.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv1.conv.weight, required shape torch.Size([512, 512, 1, 1]), loaded shapetorch.Size([384, 384, 1, 1]).
+--> Skip loading parameter neck.C3_n4.m.1.conv1.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv1.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv1.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv1.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv2.conv.weight, required shape torch.Size([512, 512, 3, 3]), loaded shapetorch.Size([384, 384, 3, 3]).
+--> Skip loading parameter neck.C3_n4.m.1.conv2.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv2.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv2.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.1.conv2.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv1.conv.weight, required shape torch.Size([512, 512, 1, 1]), loaded shapetorch.Size([384, 384, 1, 1]).
+--> Skip loading parameter neck.C3_n4.m.2.conv1.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv1.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv1.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv1.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv2.conv.weight, required shape torch.Size([512, 512, 3, 3]), loaded shapetorch.Size([384, 384, 3, 3]).
+--> Skip loading parameter neck.C3_n4.m.2.conv2.bn.weight, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv2.bn.bias, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv2.bn.running_mean, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter neck.C3_n4.m.2.conv2.bn.running_var, required shape torch.Size([512]), loaded shapetorch.Size([384]).
+--> Skip loading parameter head.stems.0.conv.weight, required shape torch.Size([256, 256, 1, 1]), loaded shapetorch.Size([256, 192, 1, 1]).
+--> Skip loading parameter head.stems.1.conv.weight, required shape torch.Size([256, 512, 1, 1]), loaded shapetorch.Size([256, 384, 1, 1]).
+--> Skip loading parameter head.stems.2.conv.weight, required shape torch.Size([256, 1024, 1, 1]), loaded shapetorch.Size([256, 768, 1, 1]).
+--> Skip loading parameter head.cls_preds.0.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.0.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+--> Skip loading parameter head.cls_preds.1.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.1.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+--> Skip loading parameter head.cls_preds.2.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.2.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+No param backbone.stem.conv.conv.weight.
+No param backbone.stem.conv.bn.weight.
+No param backbone.stem.conv.bn.bias.
+No param backbone.stem.conv.bn.running_mean.
+No param backbone.stem.conv.bn.running_var.
+No param backbone.stem.conv.bn.num_batches_tracked.
+No param backbone.dark2.0.conv.weight.
+No param backbone.dark2.0.bn.weight.
+No param backbone.dark2.0.bn.bias.
+No param backbone.dark2.0.bn.running_mean.
+No param backbone.dark2.0.bn.running_var.
+No param backbone.dark2.0.bn.num_batches_tracked.
+No param backbone.dark2.1.conv1.conv.weight.
+No param backbone.dark2.1.conv1.bn.weight.
+No param backbone.dark2.1.conv1.bn.bias.
+No param backbone.dark2.1.conv1.bn.running_mean.
+No param backbone.dark2.1.conv1.bn.running_var.
+No param backbone.dark2.1.conv1.bn.num_batches_tracked.
+No param backbone.dark2.1.conv2.conv.weight.
+No param backbone.dark2.1.conv2.bn.weight.
+No param backbone.dark2.1.conv2.bn.bias.
+No param backbone.dark2.1.conv2.bn.running_mean.
+No param backbone.dark2.1.conv2.bn.running_var.
+No param backbone.dark2.1.conv2.bn.num_batches_tracked.
+No param backbone.dark2.1.conv3.conv.weight.
+No param backbone.dark2.1.conv3.bn.weight.
+No param backbone.dark2.1.conv3.bn.bias.
+No param backbone.dark2.1.conv3.bn.running_mean.
+No param backbone.dark2.1.conv3.bn.running_var.
+No param backbone.dark2.1.conv3.bn.num_batches_tracked.
+No param backbone.dark2.1.m.0.conv1.conv.weight.
+No param backbone.dark2.1.m.0.conv1.bn.weight.
+No param backbone.dark2.1.m.0.conv1.bn.bias.
+No param backbone.dark2.1.m.0.conv1.bn.running_mean.
+No param backbone.dark2.1.m.0.conv1.bn.running_var.
+No param backbone.dark2.1.m.0.conv1.bn.num_batches_tracked.
+No param backbone.dark2.1.m.0.conv2.conv.weight.
+No param backbone.dark2.1.m.0.conv2.bn.weight.
+No param backbone.dark2.1.m.0.conv2.bn.bias.
+No param backbone.dark2.1.m.0.conv2.bn.running_mean.
+No param backbone.dark2.1.m.0.conv2.bn.running_var.
+No param backbone.dark2.1.m.0.conv2.bn.num_batches_tracked.
+No param backbone.dark2.1.m.1.conv1.conv.weight.
+No param backbone.dark2.1.m.1.conv1.bn.weight.
+No param backbone.dark2.1.m.1.conv1.bn.bias.
+No param backbone.dark2.1.m.1.conv1.bn.running_mean.
+No param backbone.dark2.1.m.1.conv1.bn.running_var.
+No param backbone.dark2.1.m.1.conv1.bn.num_batches_tracked.
+No param backbone.dark2.1.m.1.conv2.conv.weight.
+No param backbone.dark2.1.m.1.conv2.bn.weight.
+No param backbone.dark2.1.m.1.conv2.bn.bias.
+No param backbone.dark2.1.m.1.conv2.bn.running_mean.
+No param backbone.dark2.1.m.1.conv2.bn.running_var.
+No param backbone.dark2.1.m.1.conv2.bn.num_batches_tracked.
+No param backbone.dark2.1.m.2.conv1.conv.weight.
+No param backbone.dark2.1.m.2.conv1.bn.weight.
+No param backbone.dark2.1.m.2.conv1.bn.bias.
+No param backbone.dark2.1.m.2.conv1.bn.running_mean.
+No param backbone.dark2.1.m.2.conv1.bn.running_var.
+No param backbone.dark2.1.m.2.conv1.bn.num_batches_tracked.
+No param backbone.dark2.1.m.2.conv2.conv.weight.
+No param backbone.dark2.1.m.2.conv2.bn.weight.
+No param backbone.dark2.1.m.2.conv2.bn.bias.
+No param backbone.dark2.1.m.2.conv2.bn.running_mean.
+No param backbone.dark2.1.m.2.conv2.bn.running_var.
+No param backbone.dark2.1.m.2.conv2.bn.num_batches_tracked.
+No param backbone.dark3.0.conv.weight.
+No param backbone.dark3.0.bn.weight.
+No param backbone.dark3.0.bn.bias.
+No param backbone.dark3.0.bn.running_mean.
+No param backbone.dark3.0.bn.running_var.
+No param backbone.dark3.0.bn.num_batches_tracked.
+No param backbone.dark3.1.conv1.conv.weight.
+No param backbone.dark3.1.conv1.bn.weight.
+No param backbone.dark3.1.conv1.bn.bias.
+No param backbone.dark3.1.conv1.bn.running_mean.
+No param backbone.dark3.1.conv1.bn.running_var.
+No param backbone.dark3.1.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.conv2.conv.weight.
+No param backbone.dark3.1.conv2.bn.weight.
+No param backbone.dark3.1.conv2.bn.bias.
+No param backbone.dark3.1.conv2.bn.running_mean.
+No param backbone.dark3.1.conv2.bn.running_var.
+No param backbone.dark3.1.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.conv3.conv.weight.
+No param backbone.dark3.1.conv3.bn.weight.
+No param backbone.dark3.1.conv3.bn.bias.
+No param backbone.dark3.1.conv3.bn.running_mean.
+No param backbone.dark3.1.conv3.bn.running_var.
+No param backbone.dark3.1.conv3.bn.num_batches_tracked.
+No param backbone.dark3.1.m.0.conv1.conv.weight.
+No param backbone.dark3.1.m.0.conv1.bn.weight.
+No param backbone.dark3.1.m.0.conv1.bn.bias.
+No param backbone.dark3.1.m.0.conv1.bn.running_mean.
+No param backbone.dark3.1.m.0.conv1.bn.running_var.
+No param backbone.dark3.1.m.0.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.0.conv2.conv.weight.
+No param backbone.dark3.1.m.0.conv2.bn.weight.
+No param backbone.dark3.1.m.0.conv2.bn.bias.
+No param backbone.dark3.1.m.0.conv2.bn.running_mean.
+No param backbone.dark3.1.m.0.conv2.bn.running_var.
+No param backbone.dark3.1.m.0.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.1.conv1.conv.weight.
+No param backbone.dark3.1.m.1.conv1.bn.weight.
+No param backbone.dark3.1.m.1.conv1.bn.bias.
+No param backbone.dark3.1.m.1.conv1.bn.running_mean.
+No param backbone.dark3.1.m.1.conv1.bn.running_var.
+No param backbone.dark3.1.m.1.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.1.conv2.conv.weight.
+No param backbone.dark3.1.m.1.conv2.bn.weight.
+No param backbone.dark3.1.m.1.conv2.bn.bias.
+No param backbone.dark3.1.m.1.conv2.bn.running_mean.
+No param backbone.dark3.1.m.1.conv2.bn.running_var.
+No param backbone.dark3.1.m.1.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.2.conv1.conv.weight.
+No param backbone.dark3.1.m.2.conv1.bn.weight.
+No param backbone.dark3.1.m.2.conv1.bn.bias.
+No param backbone.dark3.1.m.2.conv1.bn.running_mean.
+No param backbone.dark3.1.m.2.conv1.bn.running_var.
+No param backbone.dark3.1.m.2.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.2.conv2.conv.weight.
+No param backbone.dark3.1.m.2.conv2.bn.weight.
+No param backbone.dark3.1.m.2.conv2.bn.bias.
+No param backbone.dark3.1.m.2.conv2.bn.running_mean.
+No param backbone.dark3.1.m.2.conv2.bn.running_var.
+No param backbone.dark3.1.m.2.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.3.conv1.conv.weight.
+No param backbone.dark3.1.m.3.conv1.bn.weight.
+No param backbone.dark3.1.m.3.conv1.bn.bias.
+No param backbone.dark3.1.m.3.conv1.bn.running_mean.
+No param backbone.dark3.1.m.3.conv1.bn.running_var.
+No param backbone.dark3.1.m.3.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.3.conv2.conv.weight.
+No param backbone.dark3.1.m.3.conv2.bn.weight.
+No param backbone.dark3.1.m.3.conv2.bn.bias.
+No param backbone.dark3.1.m.3.conv2.bn.running_mean.
+No param backbone.dark3.1.m.3.conv2.bn.running_var.
+No param backbone.dark3.1.m.3.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.4.conv1.conv.weight.
+No param backbone.dark3.1.m.4.conv1.bn.weight.
+No param backbone.dark3.1.m.4.conv1.bn.bias.
+No param backbone.dark3.1.m.4.conv1.bn.running_mean.
+No param backbone.dark3.1.m.4.conv1.bn.running_var.
+No param backbone.dark3.1.m.4.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.4.conv2.conv.weight.
+No param backbone.dark3.1.m.4.conv2.bn.weight.
+No param backbone.dark3.1.m.4.conv2.bn.bias.
+No param backbone.dark3.1.m.4.conv2.bn.running_mean.
+No param backbone.dark3.1.m.4.conv2.bn.running_var.
+No param backbone.dark3.1.m.4.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.5.conv1.conv.weight.
+No param backbone.dark3.1.m.5.conv1.bn.weight.
+No param backbone.dark3.1.m.5.conv1.bn.bias.
+No param backbone.dark3.1.m.5.conv1.bn.running_mean.
+No param backbone.dark3.1.m.5.conv1.bn.running_var.
+No param backbone.dark3.1.m.5.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.5.conv2.conv.weight.
+No param backbone.dark3.1.m.5.conv2.bn.weight.
+No param backbone.dark3.1.m.5.conv2.bn.bias.
+No param backbone.dark3.1.m.5.conv2.bn.running_mean.
+No param backbone.dark3.1.m.5.conv2.bn.running_var.
+No param backbone.dark3.1.m.5.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.6.conv1.conv.weight.
+No param backbone.dark3.1.m.6.conv1.bn.weight.
+No param backbone.dark3.1.m.6.conv1.bn.bias.
+No param backbone.dark3.1.m.6.conv1.bn.running_mean.
+No param backbone.dark3.1.m.6.conv1.bn.running_var.
+No param backbone.dark3.1.m.6.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.6.conv2.conv.weight.
+No param backbone.dark3.1.m.6.conv2.bn.weight.
+No param backbone.dark3.1.m.6.conv2.bn.bias.
+No param backbone.dark3.1.m.6.conv2.bn.running_mean.
+No param backbone.dark3.1.m.6.conv2.bn.running_var.
+No param backbone.dark3.1.m.6.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.7.conv1.conv.weight.
+No param backbone.dark3.1.m.7.conv1.bn.weight.
+No param backbone.dark3.1.m.7.conv1.bn.bias.
+No param backbone.dark3.1.m.7.conv1.bn.running_mean.
+No param backbone.dark3.1.m.7.conv1.bn.running_var.
+No param backbone.dark3.1.m.7.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.7.conv2.conv.weight.
+No param backbone.dark3.1.m.7.conv2.bn.weight.
+No param backbone.dark3.1.m.7.conv2.bn.bias.
+No param backbone.dark3.1.m.7.conv2.bn.running_mean.
+No param backbone.dark3.1.m.7.conv2.bn.running_var.
+No param backbone.dark3.1.m.7.conv2.bn.num_batches_tracked.
+No param backbone.dark3.1.m.8.conv1.conv.weight.
+No param backbone.dark3.1.m.8.conv1.bn.weight.
+No param backbone.dark3.1.m.8.conv1.bn.bias.
+No param backbone.dark3.1.m.8.conv1.bn.running_mean.
+No param backbone.dark3.1.m.8.conv1.bn.running_var.
+No param backbone.dark3.1.m.8.conv1.bn.num_batches_tracked.
+No param backbone.dark3.1.m.8.conv2.conv.weight.
+No param backbone.dark3.1.m.8.conv2.bn.weight.
+No param backbone.dark3.1.m.8.conv2.bn.bias.
+No param backbone.dark3.1.m.8.conv2.bn.running_mean.
+No param backbone.dark3.1.m.8.conv2.bn.running_var.
+No param backbone.dark3.1.m.8.conv2.bn.num_batches_tracked.
+No param backbone.dark4.0.conv.weight.
+No param backbone.dark4.0.bn.weight.
+No param backbone.dark4.0.bn.bias.
+No param backbone.dark4.0.bn.running_mean.
+No param backbone.dark4.0.bn.running_var.
+No param backbone.dark4.0.bn.num_batches_tracked.
+No param backbone.dark4.1.conv1.conv.weight.
+No param backbone.dark4.1.conv1.bn.weight.
+No param backbone.dark4.1.conv1.bn.bias.
+No param backbone.dark4.1.conv1.bn.running_mean.
+No param backbone.dark4.1.conv1.bn.running_var.
+No param backbone.dark4.1.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.conv2.conv.weight.
+No param backbone.dark4.1.conv2.bn.weight.
+No param backbone.dark4.1.conv2.bn.bias.
+No param backbone.dark4.1.conv2.bn.running_mean.
+No param backbone.dark4.1.conv2.bn.running_var.
+No param backbone.dark4.1.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.conv3.conv.weight.
+No param backbone.dark4.1.conv3.bn.weight.
+No param backbone.dark4.1.conv3.bn.bias.
+No param backbone.dark4.1.conv3.bn.running_mean.
+No param backbone.dark4.1.conv3.bn.running_var.
+No param backbone.dark4.1.conv3.bn.num_batches_tracked.
+No param backbone.dark4.1.m.0.conv1.conv.weight.
+No param backbone.dark4.1.m.0.conv1.bn.weight.
+No param backbone.dark4.1.m.0.conv1.bn.bias.
+No param backbone.dark4.1.m.0.conv1.bn.running_mean.
+No param backbone.dark4.1.m.0.conv1.bn.running_var.
+No param backbone.dark4.1.m.0.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.0.conv2.conv.weight.
+No param backbone.dark4.1.m.0.conv2.bn.weight.
+No param backbone.dark4.1.m.0.conv2.bn.bias.
+No param backbone.dark4.1.m.0.conv2.bn.running_mean.
+No param backbone.dark4.1.m.0.conv2.bn.running_var.
+No param backbone.dark4.1.m.0.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.1.conv1.conv.weight.
+No param backbone.dark4.1.m.1.conv1.bn.weight.
+No param backbone.dark4.1.m.1.conv1.bn.bias.
+No param backbone.dark4.1.m.1.conv1.bn.running_mean.
+No param backbone.dark4.1.m.1.conv1.bn.running_var.
+No param backbone.dark4.1.m.1.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.1.conv2.conv.weight.
+No param backbone.dark4.1.m.1.conv2.bn.weight.
+No param backbone.dark4.1.m.1.conv2.bn.bias.
+No param backbone.dark4.1.m.1.conv2.bn.running_mean.
+No param backbone.dark4.1.m.1.conv2.bn.running_var.
+No param backbone.dark4.1.m.1.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.2.conv1.conv.weight.
+No param backbone.dark4.1.m.2.conv1.bn.weight.
+No param backbone.dark4.1.m.2.conv1.bn.bias.
+No param backbone.dark4.1.m.2.conv1.bn.running_mean.
+No param backbone.dark4.1.m.2.conv1.bn.running_var.
+No param backbone.dark4.1.m.2.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.2.conv2.conv.weight.
+No param backbone.dark4.1.m.2.conv2.bn.weight.
+No param backbone.dark4.1.m.2.conv2.bn.bias.
+No param backbone.dark4.1.m.2.conv2.bn.running_mean.
+No param backbone.dark4.1.m.2.conv2.bn.running_var.
+No param backbone.dark4.1.m.2.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.3.conv1.conv.weight.
+No param backbone.dark4.1.m.3.conv1.bn.weight.
+No param backbone.dark4.1.m.3.conv1.bn.bias.
+No param backbone.dark4.1.m.3.conv1.bn.running_mean.
+No param backbone.dark4.1.m.3.conv1.bn.running_var.
+No param backbone.dark4.1.m.3.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.3.conv2.conv.weight.
+No param backbone.dark4.1.m.3.conv2.bn.weight.
+No param backbone.dark4.1.m.3.conv2.bn.bias.
+No param backbone.dark4.1.m.3.conv2.bn.running_mean.
+No param backbone.dark4.1.m.3.conv2.bn.running_var.
+No param backbone.dark4.1.m.3.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.4.conv1.conv.weight.
+No param backbone.dark4.1.m.4.conv1.bn.weight.
+No param backbone.dark4.1.m.4.conv1.bn.bias.
+No param backbone.dark4.1.m.4.conv1.bn.running_mean.
+No param backbone.dark4.1.m.4.conv1.bn.running_var.
+No param backbone.dark4.1.m.4.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.4.conv2.conv.weight.
+No param backbone.dark4.1.m.4.conv2.bn.weight.
+No param backbone.dark4.1.m.4.conv2.bn.bias.
+No param backbone.dark4.1.m.4.conv2.bn.running_mean.
+No param backbone.dark4.1.m.4.conv2.bn.running_var.
+No param backbone.dark4.1.m.4.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.5.conv1.conv.weight.
+No param backbone.dark4.1.m.5.conv1.bn.weight.
+No param backbone.dark4.1.m.5.conv1.bn.bias.
+No param backbone.dark4.1.m.5.conv1.bn.running_mean.
+No param backbone.dark4.1.m.5.conv1.bn.running_var.
+No param backbone.dark4.1.m.5.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.5.conv2.conv.weight.
+No param backbone.dark4.1.m.5.conv2.bn.weight.
+No param backbone.dark4.1.m.5.conv2.bn.bias.
+No param backbone.dark4.1.m.5.conv2.bn.running_mean.
+No param backbone.dark4.1.m.5.conv2.bn.running_var.
+No param backbone.dark4.1.m.5.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.6.conv1.conv.weight.
+No param backbone.dark4.1.m.6.conv1.bn.weight.
+No param backbone.dark4.1.m.6.conv1.bn.bias.
+No param backbone.dark4.1.m.6.conv1.bn.running_mean.
+No param backbone.dark4.1.m.6.conv1.bn.running_var.
+No param backbone.dark4.1.m.6.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.6.conv2.conv.weight.
+No param backbone.dark4.1.m.6.conv2.bn.weight.
+No param backbone.dark4.1.m.6.conv2.bn.bias.
+No param backbone.dark4.1.m.6.conv2.bn.running_mean.
+No param backbone.dark4.1.m.6.conv2.bn.running_var.
+No param backbone.dark4.1.m.6.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.7.conv1.conv.weight.
+No param backbone.dark4.1.m.7.conv1.bn.weight.
+No param backbone.dark4.1.m.7.conv1.bn.bias.
+No param backbone.dark4.1.m.7.conv1.bn.running_mean.
+No param backbone.dark4.1.m.7.conv1.bn.running_var.
+No param backbone.dark4.1.m.7.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.7.conv2.conv.weight.
+No param backbone.dark4.1.m.7.conv2.bn.weight.
+No param backbone.dark4.1.m.7.conv2.bn.bias.
+No param backbone.dark4.1.m.7.conv2.bn.running_mean.
+No param backbone.dark4.1.m.7.conv2.bn.running_var.
+No param backbone.dark4.1.m.7.conv2.bn.num_batches_tracked.
+No param backbone.dark4.1.m.8.conv1.conv.weight.
+No param backbone.dark4.1.m.8.conv1.bn.weight.
+No param backbone.dark4.1.m.8.conv1.bn.bias.
+No param backbone.dark4.1.m.8.conv1.bn.running_mean.
+No param backbone.dark4.1.m.8.conv1.bn.running_var.
+No param backbone.dark4.1.m.8.conv1.bn.num_batches_tracked.
+No param backbone.dark4.1.m.8.conv2.conv.weight.
+No param backbone.dark4.1.m.8.conv2.bn.weight.
+No param backbone.dark4.1.m.8.conv2.bn.bias.
+No param backbone.dark4.1.m.8.conv2.bn.running_mean.
+No param backbone.dark4.1.m.8.conv2.bn.running_var.
+No param backbone.dark4.1.m.8.conv2.bn.num_batches_tracked.
+No param backbone.dark5.0.conv.weight.
+No param backbone.dark5.0.bn.weight.
+No param backbone.dark5.0.bn.bias.
+No param backbone.dark5.0.bn.running_mean.
+No param backbone.dark5.0.bn.running_var.
+No param backbone.dark5.0.bn.num_batches_tracked.
+No param backbone.dark5.1.conv1.conv.weight.
+No param backbone.dark5.1.conv1.bn.weight.
+No param backbone.dark5.1.conv1.bn.bias.
+No param backbone.dark5.1.conv1.bn.running_mean.
+No param backbone.dark5.1.conv1.bn.running_var.
+No param backbone.dark5.1.conv1.bn.num_batches_tracked.
+No param backbone.dark5.1.conv2.conv.weight.
+No param backbone.dark5.1.conv2.bn.weight.
+No param backbone.dark5.1.conv2.bn.bias.
+No param backbone.dark5.1.conv2.bn.running_mean.
+No param backbone.dark5.1.conv2.bn.running_var.
+No param backbone.dark5.1.conv2.bn.num_batches_tracked.
+No param backbone.dark5.2.conv1.conv.weight.
+No param backbone.dark5.2.conv1.bn.weight.
+No param backbone.dark5.2.conv1.bn.bias.
+No param backbone.dark5.2.conv1.bn.running_mean.
+No param backbone.dark5.2.conv1.bn.running_var.
+No param backbone.dark5.2.conv1.bn.num_batches_tracked.
+No param backbone.dark5.2.conv2.conv.weight.
+No param backbone.dark5.2.conv2.bn.weight.
+No param backbone.dark5.2.conv2.bn.bias.
+No param backbone.dark5.2.conv2.bn.running_mean.
+No param backbone.dark5.2.conv2.bn.running_var.
+No param backbone.dark5.2.conv2.bn.num_batches_tracked.
+No param backbone.dark5.2.conv3.conv.weight.
+No param backbone.dark5.2.conv3.bn.weight.
+No param backbone.dark5.2.conv3.bn.bias.
+No param backbone.dark5.2.conv3.bn.running_mean.
+No param backbone.dark5.2.conv3.bn.running_var.
+No param backbone.dark5.2.conv3.bn.num_batches_tracked.
+No param backbone.dark5.2.m.0.conv1.conv.weight.
+No param backbone.dark5.2.m.0.conv1.bn.weight.
+No param backbone.dark5.2.m.0.conv1.bn.bias.
+No param backbone.dark5.2.m.0.conv1.bn.running_mean.
+No param backbone.dark5.2.m.0.conv1.bn.running_var.
+No param backbone.dark5.2.m.0.conv1.bn.num_batches_tracked.
+No param backbone.dark5.2.m.0.conv2.conv.weight.
+No param backbone.dark5.2.m.0.conv2.bn.weight.
+No param backbone.dark5.2.m.0.conv2.bn.bias.
+No param backbone.dark5.2.m.0.conv2.bn.running_mean.
+No param backbone.dark5.2.m.0.conv2.bn.running_var.
+No param backbone.dark5.2.m.0.conv2.bn.num_batches_tracked.
+No param backbone.dark5.2.m.1.conv1.conv.weight.
+No param backbone.dark5.2.m.1.conv1.bn.weight.
+No param backbone.dark5.2.m.1.conv1.bn.bias.
+No param backbone.dark5.2.m.1.conv1.bn.running_mean.
+No param backbone.dark5.2.m.1.conv1.bn.running_var.
+No param backbone.dark5.2.m.1.conv1.bn.num_batches_tracked.
+No param backbone.dark5.2.m.1.conv2.conv.weight.
+No param backbone.dark5.2.m.1.conv2.bn.weight.
+No param backbone.dark5.2.m.1.conv2.bn.bias.
+No param backbone.dark5.2.m.1.conv2.bn.running_mean.
+No param backbone.dark5.2.m.1.conv2.bn.running_var.
+No param backbone.dark5.2.m.1.conv2.bn.num_batches_tracked.
+No param backbone.dark5.2.m.2.conv1.conv.weight.
+No param backbone.dark5.2.m.2.conv1.bn.weight.
+No param backbone.dark5.2.m.2.conv1.bn.bias.
+No param backbone.dark5.2.m.2.conv1.bn.running_mean.
+No param backbone.dark5.2.m.2.conv1.bn.running_var.
+No param backbone.dark5.2.m.2.conv1.bn.num_batches_tracked.
+No param backbone.dark5.2.m.2.conv2.conv.weight.
+No param backbone.dark5.2.m.2.conv2.bn.weight.
+No param backbone.dark5.2.m.2.conv2.bn.bias.
+No param backbone.dark5.2.m.2.conv2.bn.running_mean.
+No param backbone.dark5.2.m.2.conv2.bn.running_var.
+No param backbone.dark5.2.m.2.conv2.bn.num_batches_tracked.
+==>> Set start_epoch 0
+creating data loaders, start time: 1649898568.327124
+==> Loading train2017 annotation /user/home/bq18557/scratch/TACO/annotations/instances_train2017.json
+loading annotations into memory...
+Done (t=0.19s)
+creating index...
+index created!
+images number 4012
+==> Loading val2017 annotation /user/home/bq18557/scratch/TACO/annotations/instances_val2017.json
+loading annotations into memory...
+Done (t=0.06s)
+creating index...
+index created!
+images number 501
+classes index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+class names in dataset: ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw']
+data loaders created in: 0.776160478591919
+shuffle images list in /user/home/bq18557/scratch/TACO/annotations/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/utils/data/dataloader.py:487: UserWarning: This DataLoader will create 14 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+slurmstepd: error: *** JOB 1430662 ON bp1-gpu001 CANCELLED AT 2022-04-14T02:10:46 ***

@@ -1,0 +1,34 @@
+cpu-bind=MASK - bp1-gpu001, task 4294967295 4294967295 [0]: mask 0x101 set
+==>> input params: ['gpus=0,1,2,3', 'backbone=CSP-l', 'num_epochs=100', 'exp_id=CSP_l_pretrained_yolo_l', 'freeze_backbone=True', 'csp_pretrained=True', 'csp_weights_path=weights/yolox_l.pth', 'use_amp=True', 'val_intervals=2', 'data_num_workers=14', 'batch_size=64', 'random_size=[14,26]', 'input_size=[640,640]', 'test_size=[640,640]']
+[INFO] change param: gpus 0 -> (0, 1, 2, 3) ('tuple')
+[INFO] change param: backbone CSPDarknet-s -> CSP-l ('str')
+[INFO] change param: num_epochs 300 -> 100 ('int')
+[INFO] change param: exp_id gputest1 -> CSP_l_pretrained_yolo_l ('str')
+[INFO] change param: freeze_backbone False -> True ('bool')
+[INFO] change param: csp_pretrained False -> True ('bool')
+[INFO] change param: csp_weights_path None -> weights/yolox_l.pth ('str')
+[INFO] change param: use_amp False -> True ('bool')
+[INFO] same param: val_intervals=2 ('int')
+[INFO] change param: data_num_workers 4 -> 14 ('int')
+[INFO] change param: batch_size 24 -> 64 ('int')
+[INFO] change param: random_size None -> [14, 26] ('list')
+[INFO] same param: input_size=[640, 640] ('list')
+[INFO] same param: test_size=[640, 640] ('list')
+[INFO] re-change param: gpus [0, 1, 2, 3] to 0,1,2,3 'str' 
+
+-------------------- final config: --------------------
+{'exp_id': 'CSP_l_pretrained_yolo_l', 'dataset_path': '/user/home/bq18557/scratch/COCO', 'backbone': 'CSP-l', 'input_size': [640, 640], 'random_size': [14, 26], 'test_size': [640, 640], 'gpus': [0, 1, 2, 3], 'batch_size': 64, 'val_batch_size': 4, 'master_batch_size': 16, 'num_epochs': 100, 'swin_pretrained': False, 'swin_weights_path': None, 'csp_pretrained': True, 'csp_weights_path': 'weights/yolox_l.pth', 'freeze_backbone': True, 'label_name': ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'], 'reid_dim': 0, 'tracking_id_nums': None, 'warmup_lr': 0, 'basic_lr_per_img': 0.00015625, 'scheduler': 'yoloxwarmcos', 'no_aug_epochs': 15, 'min_lr_ratio': 0.05, 'weight_decay': 0.0005, 'warmup_epochs': 5, 'depth_wise': False, 'stride': [8, 16, 32], 'degrees': 10.0, 'translate': 0.1, 'scale': [0.1, 2], 'shear': 2.0, 'perspective': 0.0, 'enable_mixup': True, 'seed': None, 'mosaic_prob': 1.0, 'mixup_prob': 1.0, 'data_num_workers': 14, 'momentum': 0.9, 'vis_thresh': 0.3, 'load_model': '', 'ema': True, 'grad_clip': {'max_norm': 35, 'norm_type': 2}, 'print_iter': 10, 'val_intervals': 2, 'save_epoch': 5, 'resume': False, 'use_amp': True, 'cuda_benchmark': False, 'nms_thresh': 0.65, 'occupy_mem': False, 'cache': False, 'rgb_means': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225], 'train_ann': '/user/home/bq18557/scratch/COCO/annotations/instances_train2017.json', 'val_ann': '/user/home/bq18557/scratch/COCO/annotations/instances_val2017.json', 'data_dir': '/user/home/bq18557/scratch/COCO', 'num_classes': 80, 'gpus_str': '0,1,2,3', 'chunk_sizes': [16, 16, 16, 16], 'root_dir': '/user/home/bq18557/Transformer-YOLOX', 'save_dir': '/user/home/bq18557/Transformer-YOLOX/exp/CSP_l_pretrained_yolo_l'}
+log file will be saved to /user/home/bq18557/Transformer-YOLOX/exp/CSP_l_pretrained_yolo_l/logs_2022-04-10-15-11/log.txt
+==>> loaded weights/yolox_l.pth
+Traceback (most recent call last):
+  File "train.py", line 213, in <module>
+    main()
+  File "train.py", line 156, in main
+    model = get_model(opt)
+  File "/user/home/bq18557/Transformer-YOLOX/models/yolox.py", line 53, in get_model
+    model = YOLOX(opt, backbone=backbone, neck=neck, head=head, loss=loss)
+  File "/user/home/bq18557/Transformer-YOLOX/models/yolox.py", line 80, in __init__
+    self.load_csp_backbone_weights(opt.csp_weights_path)
+  File "/user/home/bq18557/Transformer-YOLOX/models/yolox.py", line 109, in load_csp_backbone_weights
+    state_dict_ = checkpoint['state_dict']
+KeyError: 'state_dict'

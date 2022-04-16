@@ -1,0 +1,7 @@
+cpu-bind=MASK - bp1-gpu001, task 4294967295 4294967295 [0]: mask 0x101 set
+/var/spool/slurmd/job1438926/slurm_script: line 16: work-env/bin/activate: No such file or directory
+/var/spool/slurmd/job1438926/slurm_script: line 18: cd: Transformer-YOLOX: No such file or directory
+Traceback (most recent call last):
+  File "train.py", line 13, in <module>
+    from progress.bar import Bar
+ModuleNotFoundError: No module named 'progress'

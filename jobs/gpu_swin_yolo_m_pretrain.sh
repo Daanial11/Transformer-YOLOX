@@ -17,6 +17,6 @@ source work-env/bin/activate
 
 cd Transformer-YOLOX
 
-python train.py gpus='0,1,2,3' backbone="CSP-l" num_epochs=100 exp_id="CSP_l_pretrained_yolo_l" freeze_backbone=True csp_pretrained=True csp_weights_path="weights/yolox_l.pth" use_amp=True val_intervals=2 data_num_workers=14 batch_size=64 random_size=[14,26] input_size=[640,640] test_size=[640,640]
+python train.py gpus='0,1,2,3' backbone="Swin-m" num_epochs=100 exp_id="Swin_t_pretrained_yolo_m" use_amp=True val_intervals=2 data_num_workers=14 batch_size=64 random_size=[14,26] input_size=[640,640] test_size=[640,640] swin_pretrained=True swin_weights_path='weights/swin_t.pth'
 
 sleep 60

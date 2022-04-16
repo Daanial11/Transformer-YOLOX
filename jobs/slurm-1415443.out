@@ -1,0 +1,187 @@
+cpu-bind=MASK - bp1-gpu001, task 4294967295 4294967295 [0]: mask 0x101 set
+==>> input params: ['gpus=0,1,2,3', 'backbone=Swin-l', 'num_epochs=100', 'exp_id=pretrained_unfrozen_test', 'use_amp=True', 'load_model=exp/Swin_l_pretrained_yolo_l/model_last.pth', 'resume=True', 'freeze_backbone=False', 'use_amp=True', 'val_intervals=2', 'data_num_workers=14', 'batch_size=64', 'random_size=[14,26]', 'input_size=[640,640]', 'test_size=[640,640]']
+[INFO] change param: gpus 0 -> (0, 1, 2, 3) ('tuple')
+[INFO] change param: backbone CSPDarknet-s -> Swin-l ('str')
+[INFO] change param: num_epochs 300 -> 100 ('int')
+[INFO] change param: exp_id gputest1 -> pretrained_unfrozen_test ('str')
+[INFO] change param: use_amp False -> True ('bool')
+[INFO] change param: load_model  -> exp/Swin_l_pretrained_yolo_l/model_last.pth ('str')
+[INFO] change param: resume False -> True ('bool')
+[INFO] same param: freeze_backbone=False ('bool')
+[INFO] same param: use_amp=True ('bool')
+[INFO] same param: val_intervals=2 ('int')
+[INFO] change param: data_num_workers 4 -> 14 ('int')
+[INFO] change param: batch_size 24 -> 64 ('int')
+[INFO] change param: random_size None -> [14, 26] ('list')
+[INFO] same param: input_size=[640, 640] ('list')
+[INFO] same param: test_size=[640, 640] ('list')
+[INFO] re-change param: gpus [0, 1, 2, 3] to 0,1,2,3 'str' 
+
+-------------------- final config: --------------------
+{'exp_id': 'pretrained_unfrozen_test', 'dataset_path': '/user/home/bq18557/scratch/COCO', 'backbone': 'Swin-l', 'input_size': [640, 640], 'random_size': [14, 26], 'test_size': [640, 640], 'gpus': [0, 1, 2, 3], 'batch_size': 64, 'val_batch_size': 4, 'master_batch_size': 16, 'num_epochs': 100, 'swin_pretrained': False, 'swin_weights_path': None, 'csp_pretrained': False, 'csp_weights_path': None, 'freeze_backbone': False, 'label_name': ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'], 'reid_dim': 0, 'tracking_id_nums': None, 'warmup_lr': 0, 'basic_lr_per_img': 0.00015625, 'scheduler': 'yoloxwarmcos', 'no_aug_epochs': 15, 'min_lr_ratio': 0.05, 'weight_decay': 0.0005, 'warmup_epochs': 5, 'depth_wise': False, 'stride': [8, 16, 32], 'degrees': 10.0, 'translate': 0.1, 'scale': [0.1, 2], 'shear': 2.0, 'perspective': 0.0, 'enable_mixup': True, 'seed': None, 'mosaic_prob': 1.0, 'mixup_prob': 1.0, 'data_num_workers': 14, 'momentum': 0.9, 'vis_thresh': 0.3, 'load_model': 'exp/Swin_l_pretrained_yolo_l/model_last.pth', 'ema': True, 'grad_clip': {'max_norm': 35, 'norm_type': 2}, 'print_iter': 10, 'val_intervals': 2, 'save_epoch': 5, 'resume': True, 'use_amp': True, 'cuda_benchmark': False, 'nms_thresh': 0.65, 'occupy_mem': False, 'cache': False, 'rgb_means': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225], 'train_ann': '/user/home/bq18557/scratch/COCO/annotations/instances_train2017.json', 'val_ann': '/user/home/bq18557/scratch/COCO/annotations/instances_val2017.json', 'data_dir': '/user/home/bq18557/scratch/COCO', 'num_classes': 80, 'gpus_str': '0,1,2,3', 'chunk_sizes': [16, 16, 16, 16], 'root_dir': '/user/home/bq18557/Transformer-YOLOX', 'save_dir': '/user/home/bq18557/Transformer-YOLOX/exp/pretrained_unfrozen_test'}
+log file will be saved to /user/home/bq18557/Transformer-YOLOX/exp/pretrained_unfrozen_test/logs_2022-04-10-01-13/log.txt
+================================================================================
+Layer (type:depth-idx)                                  Param #
+================================================================================
+YOLOX                                                   --
+├─SwinTransformer: 1-1                                  --
+│    └─PatchEmbed: 2-1                                  --
+│    │    └─Conv2d: 3-1                                 4,704
+│    │    └─LayerNorm: 3-2                              192
+│    └─Dropout: 2-2                                     --
+│    └─ModuleList: 2-3                                  --
+│    │    └─BasicLayer: 3-3                             299,190
+│    │    └─BasicLayer: 3-4                             1,188,204
+│    │    └─BasicLayer: 3-5                             11,841,672
+│    │    └─BasicLayer: 3-6                             14,183,856
+│    └─LayerNorm: 2-4                                   192
+│    └─LayerNorm: 2-5                                   384
+│    └─LayerNorm: 2-6                                   768
+│    └─LayerNorm: 2-7                                   1,536
+├─YOLOXPAFPN: 1-2                                       --
+│    └─Upsample: 2-8                                    --
+│    └─BaseConv: 2-9                                    --
+│    │    └─Conv2d: 3-7                                 294,912
+│    │    └─BatchNorm2d: 3-8                            768
+│    │    └─SiLU: 3-9                                   --
+│    └─CSPLayer: 2-10                                   --
+│    │    └─BaseConv: 3-10                              147,840
+│    │    └─BaseConv: 3-11                              147,840
+│    │    └─BaseConv: 3-12                              148,224
+│    │    └─Sequential: 3-13                            1,108,224
+│    └─BaseConv: 2-11                                   --
+│    │    └─Conv2d: 3-14                                73,728
+│    │    └─BatchNorm2d: 3-15                           384
+│    │    └─SiLU: 3-16                                  --
+│    └─CSPLayer: 2-12                                   --
+│    │    └─BaseConv: 3-17                              37,056
+│    │    └─BaseConv: 3-18                              37,056
+│    │    └─BaseConv: 3-19                              37,248
+│    │    └─Sequential: 3-20                            277,632
+│    └─BaseConv: 2-13                                   --
+│    │    └─Conv2d: 3-21                                331,776
+│    │    └─BatchNorm2d: 3-22                           384
+│    │    └─SiLU: 3-23                                  --
+│    └─CSPLayer: 2-14                                   --
+│    │    └─BaseConv: 3-24                              74,112
+│    │    └─BaseConv: 3-25                              74,112
+│    │    └─BaseConv: 3-26                              148,224
+│    │    └─Sequential: 3-27                            1,108,224
+│    └─BaseConv: 2-15                                   --
+│    │    └─Conv2d: 3-28                                1,327,104
+│    │    └─BatchNorm2d: 3-29                           768
+│    │    └─SiLU: 3-30                                  --
+│    └─CSPLayer: 2-16                                   --
+│    │    └─BaseConv: 3-31                              295,680
+│    │    └─BaseConv: 3-32                              295,680
+│    │    └─BaseConv: 3-33                              591,360
+│    │    └─Sequential: 3-34                            4,428,288
+├─YOLOXHead: 1-3                                        --
+│    └─ModuleList: 2-17                                 --
+│    │    └─BaseConv: 3-35                              49,664
+│    │    └─BaseConv: 3-36                              98,816
+│    │    └─BaseConv: 3-37                              197,120
+│    └─ModuleList: 2-18                                 --
+│    │    └─Sequential: 3-38                            1,180,672
+│    │    └─Sequential: 3-39                            1,180,672
+│    │    └─Sequential: 3-40                            1,180,672
+│    └─ModuleList: 2-19                                 --
+│    │    └─Sequential: 3-41                            1,180,672
+│    │    └─Sequential: 3-42                            1,180,672
+│    │    └─Sequential: 3-43                            1,180,672
+│    └─ModuleList: 2-20                                 --
+│    │    └─Conv2d: 3-44                                20,560
+│    │    └─Conv2d: 3-45                                20,560
+│    │    └─Conv2d: 3-46                                20,560
+│    └─ModuleList: 2-21                                 --
+│    │    └─Conv2d: 3-47                                1,028
+│    │    └─Conv2d: 3-48                                1,028
+│    │    └─Conv2d: 3-49                                1,028
+│    └─ModuleList: 2-22                                 --
+│    │    └─Conv2d: 3-50                                257
+│    │    └─Conv2d: 3-51                                257
+│    │    └─Conv2d: 3-52                                257
+├─YOLOXLoss: 1-4                                        --
+│    └─L1Loss: 2-23                                     --
+│    └─BCEWithLogitsLoss: 2-24                          --
+│    └─IOUloss: 2-25                                    --
+================================================================================
+Total params: 45,979,167
+Trainable params: 45,979,167
+Non-trainable params: 0
+================================================================================
+==>> loaded exp/Swin_l_pretrained_yolo_l/model_last.pth, epoch 24
+==>> Resumed optimizer
+==>> Resumed scaler
+==>> Set start_epoch 24
+creating data loaders, start time: 1649549587.2512057
+==> Loading train2017 annotation /user/home/bq18557/scratch/COCO/annotations/instances_train2017.json
+loading annotations into memory...
+Done (t=16.34s)
+creating index...
+index created!
+images number 118287
+==> Loading val2017 annotation /user/home/bq18557/scratch/COCO/annotations/instances_val2017.json
+loading annotations into memory...
+Done (t=0.49s)
+creating index...
+index created!
+images number 5000
+classes index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 89, 90]
+class names in dataset: ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
+data loaders created in: 50.32464838027954
+shuffle images list in /user/home/bq18557/scratch/COCO/annotations/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/functional.py:568: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2228.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/utils/data/dataloader.py:487: UserWarning: This DataLoader will create 14 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Traceback (most recent call last):
+  File "train.py", line 213, in <module>
+    main()
+  File "train.py", line 200, in main
+    train(model, scaler, train_loader, val_loader, optimizer, lr_scheduler, start_epoch, no_aug)
+  File "train.py", line 123, in train
+    loss_dict_train, _ = run_epoch(model, optimizer, scaler, ema, "train", epoch, train_loader,
+  File "train.py", line 50, in run_epoch
+    _, loss_stats = model_with_loss(inps, targets=targets)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/Transformer-YOLOX/models/yolox.py", line 124, in forward
+    body_feats = self.backbone(inputs)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/Transformer-YOLOX/models/backbone/swin_transformer.py", line 735, in forward
+    x_out, H, W, x, Wh, Ww = layer(x, Wh, Ww)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/Transformer-YOLOX/models/backbone/swin_transformer.py", line 508, in forward
+    x = blk(x, attn_mask)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/Transformer-YOLOX/models/backbone/swin_transformer.py", line 364, in forward
+    x = x + self.drop_path(self.mlp(self.norm2(x)))
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/Transformer-YOLOX/models/backbone/swin_transformer.py", line 145, in forward
+    x = self.act(x)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 670, in forward
+    return F.gelu(input)
+RuntimeError: CUDA out of memory. Tried to allocate 236.00 MiB (GPU 0; 10.76 GiB total capacity; 9.07 GiB already allocated; 49.44 MiB free; 9.41 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+

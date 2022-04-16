@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:4
+#SBATCH --partition gpu
+#SBATCH --job-name=gpujobb32
+#SBATCH --mem=85000M
+
+
+export YOLOX_DATADIR=~/scratch/
+
+module load lang/python/anaconda/3.8.8-2021.05-torch
+module load lang/gcc/9.3.0
+
+cd "${SLURM_SUBMIT_DIR}"
+cd ../..
+source work-env/bin/activate
+
+cd Transformer-YOLOX
+
+python train.py gpus='0,1,2,3' backbone="Swin-l" num_epochs=100 exp_id="Swin_l_pretrained_yolo_lb32" freeze_backbone=True use_amp=True val_intervals=2 data_num_workers=14 batch_size=32 random_size=[14,26] input_size=[640,640] test_size=[640,640] swin_pretrained=True swin_weights_path='weights/swin_t.pth'
+
+sleep 60

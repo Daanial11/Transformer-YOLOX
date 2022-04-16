@@ -1,0 +1,142 @@
+cpu-bind=MASK - bp1-gpu001, task 4294967295 4294967295 [0]: mask 0x101 set
+==>> input params: ['gpus=0,1,2,3', 'backbone=Swin-l', 'num_epochs=100', 'exp_id=Taco10_pretrainedSwin', 'use_amp=True', 'val_intervals=2', 'data_num_workers=14', 'batch_size=64', 'random_size=[14,26]', 'input_size=[640,640]', 'test_size=[640,640]', 'freeze_backbone=True', 'load_model=exp/Swin_l_pretrained_yolo_l/model_50.pth']
+[INFO] change param: gpus 0 -> (0, 1, 2, 3) ('tuple')
+[INFO] change param: backbone CSPDarknet-s -> Swin-l ('str')
+[INFO] change param: num_epochs 300 -> 100 ('int')
+[INFO] change param: exp_id gputest1 -> Taco10_pretrainedSwin ('str')
+[INFO] same param: use_amp=True ('bool')
+[INFO] same param: val_intervals=2 ('int')
+[INFO] change param: data_num_workers 4 -> 14 ('int')
+[INFO] change param: batch_size 24 -> 64 ('int')
+[INFO] change param: random_size None -> [14, 26] ('list')
+[INFO] same param: input_size=[640, 640] ('list')
+[INFO] same param: test_size=[640, 640] ('list')
+[INFO] change param: freeze_backbone False -> True ('bool')
+[INFO] change param: load_model  -> exp/Swin_l_pretrained_yolo_l/model_50.pth ('str')
+[INFO] re-change param: gpus [0, 1, 2, 3] to 0,1,2,3 'str' 
+
+-------------------- final config: --------------------
+{'exp_id': 'Taco10_pretrainedSwin', 'dataset_path': '/user/home/bq18557/scratch/TACO', 'backbone': 'Swin-l', 'input_size': [640, 640], 'random_size': [14, 26], 'test_size': [640, 640], 'gpus': [0, 1, 2, 3], 'batch_size': 64, 'val_batch_size': 4, 'master_batch_size': 16, 'num_epochs': 100, 'swin_pretrained': False, 'swin_weights_path': None, 'csp_pretrained': False, 'csp_weights_path': None, 'freeze_backbone': True, 'label_name': ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw'], 'reid_dim': 0, 'tracking_id_nums': None, 'warmup_lr': 0, 'basic_lr_per_img': 0.00015625, 'scheduler': 'yoloxwarmcos', 'no_aug_epochs': 15, 'min_lr_ratio': 0.05, 'weight_decay': 0.0005, 'warmup_epochs': 5, 'depth_wise': False, 'stride': [8, 16, 32], 'degrees': 10.0, 'translate': 0.1, 'scale': [0.1, 2], 'shear': 2.0, 'perspective': 0.0, 'enable_mixup': True, 'seed': None, 'mosaic_prob': 1.0, 'mixup_prob': 1.0, 'data_num_workers': 14, 'momentum': 0.9, 'vis_thresh': 0.3, 'load_model': 'exp/Swin_l_pretrained_yolo_l/model_50.pth', 'ema': True, 'grad_clip': {'max_norm': 35, 'norm_type': 2}, 'print_iter': 10, 'val_intervals': 2, 'save_epoch': 5, 'resume': False, 'use_amp': True, 'cuda_benchmark': False, 'nms_thresh': 0.65, 'occupy_mem': False, 'cache': False, 'rgb_means': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225], 'train_ann': '/user/home/bq18557/scratch/TACO/annotations/instances_train2017.json', 'val_ann': '/user/home/bq18557/scratch/TACO/annotations/instances_val2017.json', 'data_dir': '/user/home/bq18557/scratch/TACO', 'num_classes': 10, 'gpus_str': '0,1,2,3', 'chunk_sizes': [16, 16, 16, 16], 'root_dir': '/user/home/bq18557/Transformer-YOLOX', 'save_dir': '/user/home/bq18557/Transformer-YOLOX/exp/Taco10_pretrainedSwin'}
+log file will be saved to /user/home/bq18557/Transformer-YOLOX/exp/Taco10_pretrainedSwin/logs_2022-04-14-02-11/log.txt
+================================================================================
+Layer (type:depth-idx)                                  Param #
+================================================================================
+YOLOX                                                   --
+├─SwinTransformer: 1-1                                  --
+│    └─PatchEmbed: 2-1                                  --
+│    │    └─Conv2d: 3-1                                 (4,704)
+│    │    └─LayerNorm: 3-2                              (192)
+│    └─Dropout: 2-2                                     --
+│    └─ModuleList: 2-3                                  --
+│    │    └─BasicLayer: 3-3                             (299,190)
+│    │    └─BasicLayer: 3-4                             (1,188,204)
+│    │    └─BasicLayer: 3-5                             (11,841,672)
+│    │    └─BasicLayer: 3-6                             (14,183,856)
+│    └─LayerNorm: 2-4                                   (192)
+│    └─LayerNorm: 2-5                                   (384)
+│    └─LayerNorm: 2-6                                   (768)
+│    └─LayerNorm: 2-7                                   (1,536)
+├─YOLOXPAFPN: 1-2                                       --
+│    └─Upsample: 2-8                                    --
+│    └─BaseConv: 2-9                                    --
+│    │    └─Conv2d: 3-7                                 294,912
+│    │    └─BatchNorm2d: 3-8                            768
+│    │    └─SiLU: 3-9                                   --
+│    └─CSPLayer: 2-10                                   --
+│    │    └─BaseConv: 3-10                              147,840
+│    │    └─BaseConv: 3-11                              147,840
+│    │    └─BaseConv: 3-12                              148,224
+│    │    └─Sequential: 3-13                            1,108,224
+│    └─BaseConv: 2-11                                   --
+│    │    └─Conv2d: 3-14                                73,728
+│    │    └─BatchNorm2d: 3-15                           384
+│    │    └─SiLU: 3-16                                  --
+│    └─CSPLayer: 2-12                                   --
+│    │    └─BaseConv: 3-17                              37,056
+│    │    └─BaseConv: 3-18                              37,056
+│    │    └─BaseConv: 3-19                              37,248
+│    │    └─Sequential: 3-20                            277,632
+│    └─BaseConv: 2-13                                   --
+│    │    └─Conv2d: 3-21                                331,776
+│    │    └─BatchNorm2d: 3-22                           384
+│    │    └─SiLU: 3-23                                  --
+│    └─CSPLayer: 2-14                                   --
+│    │    └─BaseConv: 3-24                              74,112
+│    │    └─BaseConv: 3-25                              74,112
+│    │    └─BaseConv: 3-26                              148,224
+│    │    └─Sequential: 3-27                            1,108,224
+│    └─BaseConv: 2-15                                   --
+│    │    └─Conv2d: 3-28                                1,327,104
+│    │    └─BatchNorm2d: 3-29                           768
+│    │    └─SiLU: 3-30                                  --
+│    └─CSPLayer: 2-16                                   --
+│    │    └─BaseConv: 3-31                              295,680
+│    │    └─BaseConv: 3-32                              295,680
+│    │    └─BaseConv: 3-33                              591,360
+│    │    └─Sequential: 3-34                            4,428,288
+├─YOLOXHead: 1-3                                        --
+│    └─ModuleList: 2-17                                 --
+│    │    └─BaseConv: 3-35                              49,664
+│    │    └─BaseConv: 3-36                              98,816
+│    │    └─BaseConv: 3-37                              197,120
+│    └─ModuleList: 2-18                                 --
+│    │    └─Sequential: 3-38                            1,180,672
+│    │    └─Sequential: 3-39                            1,180,672
+│    │    └─Sequential: 3-40                            1,180,672
+│    └─ModuleList: 2-19                                 --
+│    │    └─Sequential: 3-41                            1,180,672
+│    │    └─Sequential: 3-42                            1,180,672
+│    │    └─Sequential: 3-43                            1,180,672
+│    └─ModuleList: 2-20                                 --
+│    │    └─Conv2d: 3-44                                2,570
+│    │    └─Conv2d: 3-45                                2,570
+│    │    └─Conv2d: 3-46                                2,570
+│    └─ModuleList: 2-21                                 --
+│    │    └─Conv2d: 3-47                                1,028
+│    │    └─Conv2d: 3-48                                1,028
+│    │    └─Conv2d: 3-49                                1,028
+│    └─ModuleList: 2-22                                 --
+│    │    └─Conv2d: 3-50                                257
+│    │    └─Conv2d: 3-51                                257
+│    │    └─Conv2d: 3-52                                257
+├─YOLOXLoss: 1-4                                        --
+│    └─L1Loss: 2-23                                     --
+│    └─BCEWithLogitsLoss: 2-24                          --
+│    └─IOUloss: 2-25                                    --
+================================================================================
+Total params: 45,925,197
+Trainable params: 18,427,821
+Non-trainable params: 27,497,376
+================================================================================
+==>> loaded exp/Swin_l_pretrained_yolo_l/model_50.pth, epoch 50
+--> Skip loading parameter head.cls_preds.0.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.0.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+--> Skip loading parameter head.cls_preds.1.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.1.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+--> Skip loading parameter head.cls_preds.2.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.2.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+==>> Set start_epoch 0
+creating data loaders, start time: 1649898686.4361324
+==> Loading train2017 annotation /user/home/bq18557/scratch/TACO/annotations/instances_train2017.json
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+images number 4012
+==> Loading val2017 annotation /user/home/bq18557/scratch/TACO/annotations/instances_val2017.json
+loading annotations into memory...
+Done (t=0.03s)
+creating index...
+index created!
+images number 501
+classes index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+class names in dataset: ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw']
+data loaders created in: 0.7064716815948486
+shuffle images list in /user/home/bq18557/scratch/TACO/annotations/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/functional.py:568: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2228.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/utils/data/dataloader.py:487: UserWarning: This DataLoader will create 14 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Invalid SOS parameters for sequential JPEG
+slurmstepd: error: *** JOB 1430668 ON bp1-gpu001 CANCELLED AT 2022-04-14T02:24:20 ***
