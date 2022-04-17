@@ -56,6 +56,8 @@ opt.swin_pretrained = False
 opt.swin_weights_path = None
 opt.csp_pretrained = False
 opt.csp_weights_path = None
+opt.cov_pretrained = False
+opt.coco_train = False
 opt.freeze_backbone = False
 
 # coco 80 classes
@@ -131,6 +133,25 @@ if opt.backbone.lower().split("-")[1] in ["tiny", "nano"]:
 
 opt.basic_lr_per_img = opt.basic_lr_per_img / opt.batch_size
 
+if opt.coco_train:
+
+    opt.label_name = [
+    'person', 'bicycle', 'car', 'motorcycle', 'airplane',
+    'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
+    'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse',
+    'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack',
+    'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
+    'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove',
+    'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass',
+    'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich',
+    'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake',
+    'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv',
+    'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave',
+    'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
+    'scissors', 'teddy bear', 'hair drier', 'toothbrush']
+
+    opt.dataset_path = os.path.join(getDataDir(), 'COCO')
+
 # do not modify the following params
 if opt.fold != None:
     opt.train_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_train2017.json"
@@ -138,6 +159,9 @@ if opt.fold != None:
 else:
     opt.train_ann = opt.dataset_path + "/annotations/instances_train2017.json"
     opt.val_ann = opt.dataset_path + "/annotations/instances_val2017.json"
+
+
+
 
 opt.data_dir = opt.dataset_path
 if isinstance(opt.label_name, str):

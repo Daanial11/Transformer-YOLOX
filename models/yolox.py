@@ -10,6 +10,7 @@ import torch.nn as nn
 import os
 
 from models.backbone import CSPDarknet
+from models.backbone.convnext import ConvNeXt
 from models.backbone.swin_transformer import SwinTransformer
 from models.neck.yolo_fpn import YOLOXPAFPN
 from models.neck.swin_fpn import Swin_FPN
@@ -21,6 +22,7 @@ from data.data_augment import preproc
 from utils.model_utils import load_model
 from utils.util import sync_time
 from torchinfo import summary
+import torchvision.models as models
 
 
 def get_model(opt):
@@ -39,9 +41,14 @@ def get_model(opt):
         in_channel = [192, 384, 768]
         backbone = SwinTransformer(pretrain_img_size=224, yolo_width=width)
         neck = YOLOXPAFPN(depth=depth, width=width, in_channels=in_channel, depthwise=opt.depth_wise)
+    elif opt.backbone.split("-")[0] == "Cov":
+        in_channel = [192, 384, 768]
+        backbone = ConvNeXt()
+        neck = YOLOXPAFPN(depth=depth, width=width, in_channels=in_channel, depthwise=opt.depth_wise)
     else:
         backbone = CSPDarknet(dep_mul=depth, wid_mul=width, out_indices=(3, 4, 5), depthwise=opt.depth_wise)
         neck = YOLOXPAFPN(depth=depth, width=width, in_channels=in_channel, depthwise=opt.depth_wise)
+
     
     # define head
     head = YOLOXHead(num_classes=opt.num_classes, reid_dim=opt.reid_dim, width=width, in_channels=in_channel,
@@ -79,8 +86,9 @@ class YOLOX(nn.Module):
         elif opt.csp_pretrained:
             self.load_csp_backbone_weights(opt.csp_weights_path)
             print("CSP weights loaded and frozen")
-        else:
-            self.backbone.init_weights()
+        elif opt.cov_pretrained:
+            self.load_cov_backbone_weights()
+            print("Cov weights loaded and frozen")
 
         if opt.freeze_backbone:
             for param in self.backbone.parameters():
@@ -103,6 +111,34 @@ class YOLOX(nn.Module):
         self.backbone.load_state_dict(swin_dict, strict=False)
 
     def load_csp_backbone_weights(self, weights_path):
+        assert os.path.isfile(weights_path), "model {} not find".format(weights_path)
+        checkpoint = torch.load(weights_path, map_location=lambda storage, loc: storage)
+        print('==>> loaded {}'.format(weights_path))
+        state_dict_ = checkpoint['state_dict']
+
+
+        state_dict_ = {k.replace('backbone.',''): v for k,v in state_dict_.items() if 'backbone' in k}
+        model_state_dict = self.backbone.state_dict()
+
+        for k in state_dict_:
+            if k in model_state_dict:
+                print("Used parameter:{}".format(k))
+            else:
+                print("Not used parameter:{}".format(k))
+
+
+        model_state_dict.update(state_dict_)
+
+       
+
+        
+        # for index, (k, v) in enumerate(state_dict.items()):
+        #    print("Load pretrained weights: {}, {}, {}".format(index, k, v.size()))
+
+        self.backbone.load_state_dict(model_state_dict, strict=False)
+
+    def load_cov_backbone_weights(self):
+        weights_path = "weights/mask_rcnn_convnext_tiny_1k_3x.pth"
         assert os.path.isfile(weights_path), "model {} not find".format(weights_path)
         checkpoint = torch.load(weights_path, map_location=lambda storage, loc: storage)
         print('==>> loaded {}'.format(weights_path))
