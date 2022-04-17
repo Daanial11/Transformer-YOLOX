@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:4
-#SBATCH --partition gpu
+#SBATCH --partition gpu_short
 #SBATCH --job-name=grid2
 #SBATCH --mem=85000M
 
