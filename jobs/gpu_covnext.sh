@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:4
-#SBATCH --partition gpu_short
+#SBATCH --partition gpu
 #SBATCH --job-name=CovNext
 #SBATCH --mem=85000M
 
@@ -17,6 +17,6 @@ source work-env/bin/activate
 
 cd Transformer-YOLOX
 
-python train.py gpus='0,1,2,3' backbone="Cov-l" num_epochs=100 exp_id="Covnext-YOLO" freeze_backbone=True coco_train=True cov_pretrained=True save_epoch=10 use_amp=True val_intervals=2 data_num_workers=14 batch_size=64 random_size=[14,26] input_size=[640,640] test_size=[640,640]
+python train.py gpus='0,1,2,3' backbone="Cov-l" num_epochs=50 exp_id="Covnext-YOLO" freeze_backbone=True coco_train=True cov_pretrained=True save_epoch=10 use_amp=True val_intervals=2 data_num_workers=14 batch_size=64 random_size=[14,26] input_size=[640,640] test_size=[640,640]
 
 sleep 60

@@ -16,6 +16,6 @@ source ~/work-env/bin/activate
 
 cd ~/Transformer-YOLOX
 
-python train.py gpus='0,1,2,3' backbone="Swin-l" num_epochs=10 exp_id="grid5" fold=1 no_aug_epochs=1 save_epoch=100 use_amp=True val_intervals=2 data_num_workers=14 basic_lr_per_img=0.0001 batch_size=8 freeze_backbone=True use_amp=True random_size=[14,26] input_size=[640,640] test_size=[640,640] load_model="exp/Swin_l_pretrained_yolo_l/model_50.pth"
+python train.py gpus='0,1,2,3' backbone="Swin-l" num_epochs=10 exp_id="grid5" resume=True fold=1 no_aug_epochs=1 save_epoch=100 use_amp=True val_intervals=2 data_num_workers=14 basic_lr_per_img=0.0001 batch_size=8 freeze_backbone=True use_amp=True random_size=[14,26] input_size=[640,640] test_size=[640,640] load_model="exp/grid5/model_last.pth"
 
 sleep 60

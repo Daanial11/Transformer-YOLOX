@@ -1,0 +1,621 @@
+cpu-bind=MASK - bp1-gpu029, task 4294967295 4294967295 [0]: mask 0x1000100 set
+==>> input params: ['gpus=0,1,2,3', 'backbone=Swin-l', 'num_epochs=10', 'exp_id=grid11', 'fold=1', 'no_aug_epochs=1', 'save_epoch=100', 'use_amp=True', 'val_intervals=2', 'data_num_workers=14', 'basic_lr_per_img=0.0001', 'batch_size=32', 'freeze_backbone=True', 'use_amp=True', 'random_size=[14,26]', 'input_size=[640,640]', 'test_size=[640,640]', 'load_model=exp/Swin_l_pretrained_yolo_l/model_50.pth']
+[INFO] change param: gpus 0 -> (0, 1, 2, 3) ('tuple')
+[INFO] change param: backbone CSPDarknet-s -> Swin-l ('str')
+[INFO] change param: num_epochs 300 -> 10 ('int')
+[INFO] change param: exp_id gputest1 -> grid11 ('str')
+[INFO] change param: fold None -> 1 ('int')
+[INFO] change param: no_aug_epochs 15 -> 1 ('int')
+[INFO] change param: save_epoch 5 -> 100 ('int')
+[INFO] same param: use_amp=True ('bool')
+[INFO] same param: val_intervals=2 ('int')
+[INFO] change param: data_num_workers 4 -> 14 ('int')
+[INFO] change param: basic_lr_per_img 0.01 -> 0.0001 ('float')
+[INFO] change param: batch_size 24 -> 32 ('int')
+[INFO] change param: freeze_backbone False -> True ('bool')
+[INFO] same param: use_amp=True ('bool')
+[INFO] change param: random_size None -> [14, 26] ('list')
+[INFO] same param: input_size=[640, 640] ('list')
+[INFO] same param: test_size=[640, 640] ('list')
+[INFO] change param: load_model  -> exp/Swin_l_pretrained_yolo_l/model_50.pth ('str')
+[INFO] re-change param: gpus [0, 1, 2, 3] to 0,1,2,3 'str' 
+
+-------------------- final config: --------------------
+{'exp_id': 'grid11', 'dataset_path': '/user/home/bq18557/scratch/TACO', 'backbone': 'Swin-l', 'input_size': [640, 640], 'random_size': [14, 26], 'test_size': [640, 640], 'gpus': [0, 1, 2, 3], 'batch_size': 32, 'val_batch_size': 4, 'master_batch_size': 8, 'num_epochs': 10, 'swin_pretrained': False, 'swin_weights_path': None, 'csp_pretrained': False, 'csp_weights_path': None, 'cov_pretrained': False, 'coco_train': False, 'freeze_backbone': True, 'label_name': ['Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'Plastic bag + wrapper', 'Pop tab', 'Straw'], 'reid_dim': 0, 'tracking_id_nums': None, 'warmup_lr': 0, 'basic_lr_per_img': 3.125e-06, 'scheduler': 'yoloxwarmcos', 'no_aug_epochs': 1, 'min_lr_ratio': 0.05, 'weight_decay': 0.0005, 'warmup_epochs': 5, 'depth_wise': False, 'stride': [8, 16, 32], 'degrees': 10.0, 'translate': 0.1, 'scale': [0.1, 2], 'shear': 2.0, 'perspective': 0.0, 'enable_mixup': True, 'seed': None, 'mosaic_prob': 1.0, 'mixup_prob': 1.0, 'data_num_workers': 14, 'momentum': 0.9, 'vis_thresh': 0.3, 'load_model': 'exp/Swin_l_pretrained_yolo_l/model_50.pth', 'ema': True, 'grad_clip': {'max_norm': 35, 'norm_type': 2}, 'print_iter': 10, 'val_intervals': 2, 'save_epoch': 100, 'resume': False, 'use_amp': True, 'cuda_benchmark': False, 'nms_thresh': 0.65, 'occupy_mem': False, 'cache': False, 'fold': 1, 'rgb_means': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225], 'train_ann': '/user/home/bq18557/scratch/TACO/fold1/instances_train2017.json', 'val_ann': '/user/home/bq18557/scratch/TACO/fold1/instances_val2017.json', 'data_dir': '/user/home/bq18557/scratch/TACO', 'num_classes': 10, 'gpus_str': '0,1,2,3', 'chunk_sizes': [8, 8, 8, 8], 'root_dir': '/user/home/bq18557/Transformer-YOLOX', 'save_dir': '/user/home/bq18557/Transformer-YOLOX/exp/grid11'}
+log file will be saved to /user/home/bq18557/Transformer-YOLOX/exp/grid11/logs_2022-04-17-14-28/log.txt
+================================================================================
+Layer (type:depth-idx)                                  Param #
+================================================================================
+YOLOX                                                   --
+├─SwinTransformer: 1-1                                  --
+│    └─PatchEmbed: 2-1                                  --
+│    │    └─Conv2d: 3-1                                 (4,704)
+│    │    └─LayerNorm: 3-2                              (192)
+│    └─Dropout: 2-2                                     --
+│    └─ModuleList: 2-3                                  --
+│    │    └─BasicLayer: 3-3                             (299,190)
+│    │    └─BasicLayer: 3-4                             (1,188,204)
+│    │    └─BasicLayer: 3-5                             (11,841,672)
+│    │    └─BasicLayer: 3-6                             (14,183,856)
+│    └─LayerNorm: 2-4                                   (192)
+│    └─LayerNorm: 2-5                                   (384)
+│    └─LayerNorm: 2-6                                   (768)
+│    └─LayerNorm: 2-7                                   (1,536)
+├─YOLOXPAFPN: 1-2                                       --
+│    └─Upsample: 2-8                                    --
+│    └─BaseConv: 2-9                                    --
+│    │    └─Conv2d: 3-7                                 294,912
+│    │    └─BatchNorm2d: 3-8                            768
+│    │    └─SiLU: 3-9                                   --
+│    └─CSPLayer: 2-10                                   --
+│    │    └─BaseConv: 3-10                              147,840
+│    │    └─BaseConv: 3-11                              147,840
+│    │    └─BaseConv: 3-12                              148,224
+│    │    └─Sequential: 3-13                            1,108,224
+│    └─BaseConv: 2-11                                   --
+│    │    └─Conv2d: 3-14                                73,728
+│    │    └─BatchNorm2d: 3-15                           384
+│    │    └─SiLU: 3-16                                  --
+│    └─CSPLayer: 2-12                                   --
+│    │    └─BaseConv: 3-17                              37,056
+│    │    └─BaseConv: 3-18                              37,056
+│    │    └─BaseConv: 3-19                              37,248
+│    │    └─Sequential: 3-20                            277,632
+│    └─BaseConv: 2-13                                   --
+│    │    └─Conv2d: 3-21                                331,776
+│    │    └─BatchNorm2d: 3-22                           384
+│    │    └─SiLU: 3-23                                  --
+│    └─CSPLayer: 2-14                                   --
+│    │    └─BaseConv: 3-24                              74,112
+│    │    └─BaseConv: 3-25                              74,112
+│    │    └─BaseConv: 3-26                              148,224
+│    │    └─Sequential: 3-27                            1,108,224
+│    └─BaseConv: 2-15                                   --
+│    │    └─Conv2d: 3-28                                1,327,104
+│    │    └─BatchNorm2d: 3-29                           768
+│    │    └─SiLU: 3-30                                  --
+│    └─CSPLayer: 2-16                                   --
+│    │    └─BaseConv: 3-31                              295,680
+│    │    └─BaseConv: 3-32                              295,680
+│    │    └─BaseConv: 3-33                              591,360
+│    │    └─Sequential: 3-34                            4,428,288
+├─YOLOXHead: 1-3                                        --
+│    └─ModuleList: 2-17                                 --
+│    │    └─BaseConv: 3-35                              49,664
+│    │    └─BaseConv: 3-36                              98,816
+│    │    └─BaseConv: 3-37                              197,120
+│    └─ModuleList: 2-18                                 --
+│    │    └─Sequential: 3-38                            1,180,672
+│    │    └─Sequential: 3-39                            1,180,672
+│    │    └─Sequential: 3-40                            1,180,672
+│    └─ModuleList: 2-19                                 --
+│    │    └─Sequential: 3-41                            1,180,672
+│    │    └─Sequential: 3-42                            1,180,672
+│    │    └─Sequential: 3-43                            1,180,672
+│    └─ModuleList: 2-20                                 --
+│    │    └─Conv2d: 3-44                                2,570
+│    │    └─Conv2d: 3-45                                2,570
+│    │    └─Conv2d: 3-46                                2,570
+│    └─ModuleList: 2-21                                 --
+│    │    └─Conv2d: 3-47                                1,028
+│    │    └─Conv2d: 3-48                                1,028
+│    │    └─Conv2d: 3-49                                1,028
+│    └─ModuleList: 2-22                                 --
+│    │    └─Conv2d: 3-50                                257
+│    │    └─Conv2d: 3-51                                257
+│    │    └─Conv2d: 3-52                                257
+├─YOLOXLoss: 1-4                                        --
+│    └─L1Loss: 2-23                                     --
+│    └─BCEWithLogitsLoss: 2-24                          --
+│    └─IOUloss: 2-25                                    --
+================================================================================
+Total params: 45,925,197
+Trainable params: 18,427,821
+Non-trainable params: 27,497,376
+================================================================================
+==>> loaded exp/Swin_l_pretrained_yolo_l/model_50.pth, epoch 50
+--> Skip loading parameter head.cls_preds.0.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.0.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+--> Skip loading parameter head.cls_preds.1.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.1.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+--> Skip loading parameter head.cls_preds.2.weight, required shape torch.Size([10, 256, 1, 1]), loaded shapetorch.Size([80, 256, 1, 1]).
+--> Skip loading parameter head.cls_preds.2.bias, required shape torch.Size([10]), loaded shapetorch.Size([80]).
+==>> Set start_epoch 0
+creating data loaders, start time: 1650202097.5393307
+==> Loading images annotation /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+loading annotations into memory...
+Done (t=0.19s)
+creating index...
+index created!
+images number 4012
+==> Loading images annotation /user/home/bq18557/scratch/TACO/fold1/instances_val2017.json
+loading annotations into memory...
+Done (t=0.03s)
+creating index...
+index created!
+images number 1003
+data loaders created in: 0.7102360725402832
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/functional.py:568: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2228.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/utils/data/dataloader.py:487: UserWarning: This DataLoader will create 14 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[1/10] total_batch[10/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00000003 |Tot: 0:05:13 |ETA: 1:06:54 |loss 10.6765 |conf_loss 5.3509 |cls_loss 3.0023 |iou_loss 2.3232 |num_fg 5.7422 |Data 0.029s |Batch 2.436s
+grid11| train: total_epoch[1/10] total_batch[20/1250] batch[20/125] |size: 32x3x672x672 |lr: 0.00000010 |Tot: 0:08:30 |ETA: 0:34:51 |loss 10.4913 |conf_loss 5.1683 |cls_loss 3.0552 |iou_loss 2.2678 |num_fg 5.7791 |Data 0.001s |Batch 2.363s
+grid11| train: total_epoch[1/10] total_batch[30/1250] batch[30/125] |size: 32x3x768x768 |lr: 0.00000023 |Tot: 0:12:11 |ETA: 0:35:18 |loss 10.4913 |conf_loss 5.1557 |cls_loss 3.0736 |iou_loss 2.2620 |num_fg 5.7893 |Data 0.001s |Batch 2.563s
+grid11| train: total_epoch[1/10] total_batch[40/1250] batch[40/125] |size: 32x3x608x608 |lr: 0.00000041 |Tot: 0:12:38 |ETA: 0:03:57 |loss 10.4271 |conf_loss 5.0871 |cls_loss 3.0629 |iou_loss 2.2772 |num_fg 5.7395 |Data 0.024s |Batch 2.181s
+grid11| train: total_epoch[1/10] total_batch[50/1250] batch[50/125] |size: 32x3x640x640 |lr: 0.00000064 |Tot: 0:16:20 |ETA: 0:27:54 |loss 10.4333 |conf_loss 5.0844 |cls_loss 3.0534 |iou_loss 2.2955 |num_fg 5.6945 |Data 1.527s |Batch 3.985s
+grid11| train: total_epoch[1/10] total_batch[60/1250] batch[60/125] |size: 32x3x768x768 |lr: 0.00000092 |Tot: 0:20:15 |ETA: 0:25:59 |loss 10.4718 |conf_loss 5.1280 |cls_loss 3.0538 |iou_loss 2.2901 |num_fg 5.7441 |Data 0.025s |Batch 2.804s
+grid11| train: total_epoch[1/10] total_batch[70/1250] batch[70/125] |size: 32x3x704x704 |lr: 0.00000125 |Tot: 0:20:41 |ETA: 0:02:25 |loss 10.4584 |conf_loss 5.1116 |cls_loss 3.0536 |iou_loss 2.2932 |num_fg 5.7464 |Data 0.001s |Batch 2.378s
+grid11| train: total_epoch[1/10] total_batch[80/1250] batch[80/125] |size: 32x3x608x608 |lr: 0.00000164 |Tot: 0:24:15 |ETA: 0:16:23 |loss 10.4336 |conf_loss 5.0857 |cls_loss 3.0550 |iou_loss 2.2929 |num_fg 5.7285 |Data 0.001s |Batch 2.714s
+grid11| train: total_epoch[1/10] total_batch[90/1250] batch[90/125] |size: 32x3x640x640 |lr: 0.00000207 |Tot: 0:27:49 |ETA: 0:12:53 |loss 10.4187 |conf_loss 5.0719 |cls_loss 3.0528 |iou_loss 2.2940 |num_fg 5.7201 |Data 0.008s |Batch 2.313s
+grid11| train: total_epoch[1/10] total_batch[100/1250] batch[100/125] |size: 32x3x544x544 |lr: 0.00000256 |Tot: 0:31:10 |ETA: 0:08:42 |loss 10.3806 |conf_loss 5.0342 |cls_loss 3.0481 |iou_loss 2.2982 |num_fg 5.7041 |Data 0.001s |Batch 2.491s
+grid11| train: total_epoch[1/10] total_batch[110/1250] batch[110/125] |size: 32x3x512x512 |lr: 0.00000310 |Tot: 0:31:53 |ETA: 0:01:12 |loss 10.3474 |conf_loss 5.0059 |cls_loss 3.0363 |iou_loss 2.3053 |num_fg 5.6844 |Data 0.001s |Batch 1.938s
+grid11| train: total_epoch[1/10] total_batch[120/1250] batch[120/125] |size: 32x3x800x800 |lr: 0.00000369 |Tot: 0:34:50 |ETA: 0:01:47 |loss 10.3695 |conf_loss 5.0333 |cls_loss 3.0345 |iou_loss 2.3017 |num_fg 5.7001 |Data 0.000s |Batch 0.496s
+epoch 1, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+/user/home/bq18557/work-env/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:68: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[2/10] total_batch[135/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00000467 |Tot: 0:05:01 |ETA: 1:04:14 |loss 10.6496 |conf_loss 5.4127 |cls_loss 2.9328 |iou_loss 2.3041 |num_fg 5.8242 |Data 0.033s |Batch 2.451s
+grid11| train: total_epoch[2/10] total_batch[145/1250] batch[20/125] |size: 32x3x576x576 |lr: 0.00000538 |Tot: 0:08:38 |ETA: 0:38:15 |loss 10.2650 |conf_loss 5.0414 |cls_loss 2.9152 |iou_loss 2.3083 |num_fg 5.7105 |Data 0.001s |Batch 3.160s
+grid11| train: total_epoch[2/10] total_batch[155/1250] batch[30/125] |size: 32x3x608x608 |lr: 0.00000615 |Tot: 0:12:25 |ETA: 0:36:30 |loss 10.1384 |conf_loss 4.9343 |cls_loss 2.9002 |iou_loss 2.3038 |num_fg 5.6906 |Data 0.015s |Batch 2.349s
+grid11| train: total_epoch[2/10] total_batch[165/1250] batch[40/125] |size: 32x3x448x448 |lr: 0.00000697 |Tot: 0:12:48 |ETA: 0:03:17 |loss 10.0399 |conf_loss 4.8339 |cls_loss 2.8728 |iou_loss 2.3332 |num_fg 5.5709 |Data 0.001s |Batch 1.962s
+grid11| train: total_epoch[2/10] total_batch[175/1250] batch[50/125] |size: 32x3x672x672 |lr: 0.00000784 |Tot: 0:16:46 |ETA: 0:30:06 |loss 10.0537 |conf_loss 4.8648 |cls_loss 2.8570 |iou_loss 2.3319 |num_fg 5.6112 |Data 0.001s |Batch 2.150s
+grid11| train: total_epoch[2/10] total_batch[185/1250] batch[60/125] |size: 32x3x704x704 |lr: 0.00000876 |Tot: 0:20:38 |ETA: 0:25:34 |loss 10.0366 |conf_loss 4.8700 |cls_loss 2.8400 |iou_loss 2.3266 |num_fg 5.6449 |Data 0.001s |Batch 2.129s
+grid11| train: total_epoch[2/10] total_batch[195/1250] batch[70/125] |size: 32x3x736x736 |lr: 0.00000973 |Tot: 0:21:02 |ETA: 0:02:14 |loss 10.0073 |conf_loss 4.8619 |cls_loss 2.8318 |iou_loss 2.3137 |num_fg 5.6905 |Data 0.001s |Batch 2.390s
+grid11| train: total_epoch[2/10] total_batch[205/1250] batch[80/125] |size: 32x3x544x544 |lr: 0.00001076 |Tot: 0:24:40 |ETA: 0:16:45 |loss 9.9366 |conf_loss 4.8053 |cls_loss 2.8115 |iou_loss 2.3197 |num_fg 5.6698 |Data 0.006s |Batch 2.215s
+grid11| train: total_epoch[2/10] total_batch[215/1250] batch[90/125] |size: 32x3x448x448 |lr: 0.00001183 |Tot: 0:28:10 |ETA: 0:12:36 |loss 9.8577 |conf_loss 4.7355 |cls_loss 2.7975 |iou_loss 2.3247 |num_fg 5.6333 |Data 0.001s |Batch 2.161s
+grid11| train: total_epoch[2/10] total_batch[225/1250] batch[100/125] |size: 32x3x672x672 |lr: 0.00001296 |Tot: 0:31:42 |ETA: 0:09:11 |loss 9.8227 |conf_loss 4.7229 |cls_loss 2.7810 |iou_loss 2.3188 |num_fg 5.6480 |Data 0.028s |Batch 2.010s
+grid11| train: total_epoch[2/10] total_batch[235/1250] batch[110/125] |size: 32x3x768x768 |lr: 0.00001414 |Tot: 0:32:03 |ETA: 0:00:36 |loss 9.7895 |conf_loss 4.7205 |cls_loss 2.7597 |iou_loss 2.3093 |num_fg 5.6854 |Data 0.000s |Batch 0.708s
+grid11| train: total_epoch[2/10] total_batch[245/1250] batch[120/125] |size: 32x3x640x640 |lr: 0.00001537 |Tot: 0:34:43 |ETA: 0:01:37 |loss 9.7416 |conf_loss 4.6958 |cls_loss 2.7412 |iou_loss 2.3046 |num_fg 5.6988 |Data 0.000s |Batch 0.522s
+grid11| val: total_epoch[2/10] total_batch[10/251] batch[10/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:14 |ETA: 0:06:15 |loss 9.5022 |conf_loss 5.4501 |cls_loss 2.1161 |iou_loss 1.9360 |num_fg 6.8629 |Data 0.006s |Batch 0.452s
+grid11| val: total_epoch[2/10] total_batch[20/251] batch[20/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:19 |ETA: 0:02:08 |loss 9.6777 |conf_loss 5.4558 |cls_loss 2.2006 |iou_loss 2.0214 |num_fg 6.7246 |Data 0.025s |Batch 0.467s
+grid11| val: total_epoch[2/10] total_batch[30/251] batch[30/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:24 |ETA: 0:01:52 |loss 9.6652 |conf_loss 5.3197 |cls_loss 2.3047 |iou_loss 2.0408 |num_fg 6.5971 |Data 0.001s |Batch 0.531s
+grid11| val: total_epoch[2/10] total_batch[40/251] batch[40/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:29 |ETA: 0:01:34 |loss 9.5687 |conf_loss 5.2537 |cls_loss 2.3347 |iou_loss 1.9804 |num_fg 6.6792 |Data 0.010s |Batch 0.419s
+grid11| val: total_epoch[2/10] total_batch[50/251] batch[50/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:34 |ETA: 0:01:42 |loss 9.6740 |conf_loss 5.3356 |cls_loss 2.3751 |iou_loss 1.9633 |num_fg 6.6961 |Data 0.006s |Batch 0.546s
+grid11| val: total_epoch[2/10] total_batch[60/251] batch[60/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:39 |ETA: 0:01:44 |loss 9.7521 |conf_loss 5.4095 |cls_loss 2.3771 |iou_loss 1.9655 |num_fg 6.6915 |Data 0.006s |Batch 0.477s
+grid11| val: total_epoch[2/10] total_batch[70/251] batch[70/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:44 |ETA: 0:01:31 |loss 9.8299 |conf_loss 5.4355 |cls_loss 2.4152 |iou_loss 1.9792 |num_fg 6.6669 |Data 0.001s |Batch 0.479s
+grid11| val: total_epoch[2/10] total_batch[80/251] batch[80/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:49 |ETA: 0:01:19 |loss 9.7088 |conf_loss 5.3598 |cls_loss 2.4076 |iou_loss 1.9413 |num_fg 6.7397 |Data 0.021s |Batch 0.473s
+grid11| val: total_epoch[2/10] total_batch[90/251] batch[90/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:54 |ETA: 0:01:22 |loss 9.7187 |conf_loss 5.3605 |cls_loss 2.4141 |iou_loss 1.9441 |num_fg 6.7447 |Data 0.021s |Batch 0.469s
+grid11| val: total_epoch[2/10] total_batch[100/251] batch[100/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:00:59 |ETA: 0:01:19 |loss 9.6597 |conf_loss 5.3239 |cls_loss 2.4100 |iou_loss 1.9259 |num_fg 6.7738 |Data 0.008s |Batch 0.448s
+grid11| val: total_epoch[2/10] total_batch[110/251] batch[110/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:04 |ETA: 0:01:11 |loss 9.6611 |conf_loss 5.3049 |cls_loss 2.4354 |iou_loss 1.9209 |num_fg 6.7749 |Data 0.021s |Batch 0.567s
+grid11| val: total_epoch[2/10] total_batch[120/251] batch[120/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:09 |ETA: 0:01:14 |loss 9.7295 |conf_loss 5.3562 |cls_loss 2.4474 |iou_loss 1.9259 |num_fg 6.8161 |Data 0.001s |Batch 0.533s
+grid11| val: total_epoch[2/10] total_batch[130/251] batch[130/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:15 |ETA: 0:01:06 |loss 9.7746 |conf_loss 5.3836 |cls_loss 2.4391 |iou_loss 1.9519 |num_fg 6.7917 |Data 0.017s |Batch 0.451s
+grid11| val: total_epoch[2/10] total_batch[140/251] batch[140/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:20 |ETA: 0:00:56 |loss 9.7509 |conf_loss 5.3611 |cls_loss 2.4339 |iou_loss 1.9559 |num_fg 6.7694 |Data 0.016s |Batch 0.488s
+grid11| val: total_epoch[2/10] total_batch[150/251] batch[150/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:25 |ETA: 0:00:59 |loss 9.8281 |conf_loss 5.4436 |cls_loss 2.4284 |iou_loss 1.9560 |num_fg 6.7697 |Data 0.021s |Batch 0.509s
+grid11| val: total_epoch[2/10] total_batch[160/251] batch[160/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:30 |ETA: 0:00:42 |loss 9.8168 |conf_loss 5.4375 |cls_loss 2.4307 |iou_loss 1.9486 |num_fg 6.7876 |Data 0.008s |Batch 0.504s
+grid11| val: total_epoch[2/10] total_batch[170/251] batch[170/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:35 |ETA: 0:00:40 |loss 9.8041 |conf_loss 5.4319 |cls_loss 2.4229 |iou_loss 1.9492 |num_fg 6.7875 |Data 0.011s |Batch 0.351s
+grid11| val: total_epoch[2/10] total_batch[180/251] batch[180/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:36 |ETA: 0:00:25 |loss 9.7913 |conf_loss 5.4353 |cls_loss 2.4162 |iou_loss 1.9398 |num_fg 6.7965 |Data 0.001s |Batch 0.063s
+grid11| val: total_epoch[2/10] total_batch[190/251] batch[190/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:41 |ETA: 0:00:24 |loss 9.7603 |conf_loss 5.4055 |cls_loss 2.4140 |iou_loss 1.9408 |num_fg 6.8092 |Data 1.136s |Batch 1.204s
+grid11| val: total_epoch[2/10] total_batch[200/251] batch[200/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:50 |ETA: 0:00:49 |loss 9.7552 |conf_loss 5.4180 |cls_loss 2.4006 |iou_loss 1.9366 |num_fg 6.8239 |Data 0.319s |Batch 0.740s
+grid11| val: total_epoch[2/10] total_batch[210/251] batch[210/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:01:56 |ETA: 0:00:26 |loss 9.8467 |conf_loss 5.4973 |cls_loss 2.4030 |iou_loss 1.9465 |num_fg 6.8075 |Data 0.019s |Batch 0.683s
+grid11| val: total_epoch[2/10] total_batch[220/251] batch[220/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:02:02 |ETA: 0:00:20 |loss 9.8849 |conf_loss 5.5336 |cls_loss 2.3966 |iou_loss 1.9547 |num_fg 6.7782 |Data 0.001s |Batch 0.515s
+grid11| val: total_epoch[2/10] total_batch[230/251] batch[230/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:02:07 |ETA: 0:00:13 |loss 9.8965 |conf_loss 5.5504 |cls_loss 2.3925 |iou_loss 1.9536 |num_fg 6.7796 |Data 0.000s |Batch 0.358s
+grid11| val: total_epoch[2/10] total_batch[240/251] batch[240/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:02:09 |ETA: 0:00:05 |loss 9.8976 |conf_loss 5.5459 |cls_loss 2.3794 |iou_loss 1.9723 |num_fg 6.7390 |Data 0.000s |Batch 0.105s
+grid11| val: total_epoch[2/10] total_batch[250/251] batch[250/251] |size: 4x3x640x640 |lr: 0.00001600 |Tot: 0:02:10 |ETA: 0:00:01 |loss 9.8916 |conf_loss 5.5456 |cls_loss 2.3679 |iou_loss 1.9780 |num_fg 6.7366 |Data 0.000s |Batch 0.058s
+Loading and preparing results...
+DONE (t=0.15s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.56s).
+Accumulating evaluation results...
+DONE (t=0.42s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.008
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.015
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.008
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.003
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.011
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.048
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.083
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.086
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.035
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.104
+
+epoch 2, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_best.pth
+epoch 2, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[3/10] total_batch[260/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00001731 |Tot: 0:04:19 |ETA: 0:55:10 |loss 9.4147 |conf_loss 4.7194 |cls_loss 2.4251 |iou_loss 2.2703 |num_fg 6.0266 |Data 0.001s |Batch 2.757s
+grid11| train: total_epoch[3/10] total_batch[270/1250] batch[20/125] |size: 32x3x480x480 |lr: 0.00001866 |Tot: 0:07:51 |ETA: 0:37:38 |loss 9.1605 |conf_loss 4.4574 |cls_loss 2.4003 |iou_loss 2.3028 |num_fg 5.8674 |Data 0.001s |Batch 2.061s
+grid11| train: total_epoch[3/10] total_batch[280/1250] batch[30/125] |size: 32x3x704x704 |lr: 0.00002007 |Tot: 0:11:36 |ETA: 0:35:44 |loss 9.1330 |conf_loss 4.4580 |cls_loss 2.3825 |iou_loss 2.2925 |num_fg 5.8828 |Data 0.001s |Batch 2.978s
+grid11| train: total_epoch[3/10] total_batch[290/1250] batch[40/125] |size: 32x3x608x608 |lr: 0.00002153 |Tot: 0:12:09 |ETA: 0:04:55 |loss 9.0526 |conf_loss 4.3946 |cls_loss 2.3807 |iou_loss 2.2773 |num_fg 5.8919 |Data 0.001s |Batch 2.109s
+grid11| train: total_epoch[3/10] total_batch[300/1250] batch[50/125] |size: 32x3x480x480 |lr: 0.00002304 |Tot: 0:15:34 |ETA: 0:25:52 |loss 8.9584 |conf_loss 4.3178 |cls_loss 2.3579 |iou_loss 2.2827 |num_fg 5.8445 |Data 0.035s |Batch 2.772s
+grid11| train: total_epoch[3/10] total_batch[310/1250] batch[60/125] |size: 32x3x640x640 |lr: 0.00002460 |Tot: 0:19:09 |ETA: 0:23:47 |loss 8.9234 |conf_loss 4.2954 |cls_loss 2.3417 |iou_loss 2.2863 |num_fg 5.8215 |Data 0.020s |Batch 2.096s
+grid11| train: total_epoch[3/10] total_batch[320/1250] batch[70/125] |size: 32x3x480x480 |lr: 0.00002621 |Tot: 0:19:32 |ETA: 0:02:04 |loss 8.8663 |conf_loss 4.2433 |cls_loss 2.3314 |iou_loss 2.2917 |num_fg 5.7850 |Data 0.013s |Batch 2.588s
+grid11| train: total_epoch[3/10] total_batch[330/1250] batch[80/125] |size: 32x3x512x512 |lr: 0.00002788 |Tot: 0:23:14 |ETA: 0:17:05 |loss 8.8309 |conf_loss 4.2236 |cls_loss 2.3127 |iou_loss 2.2946 |num_fg 5.7712 |Data 0.001s |Batch 2.194s
+grid11| train: total_epoch[3/10] total_batch[340/1250] batch[90/125] |size: 32x3x800x800 |lr: 0.00002959 |Tot: 0:26:54 |ETA: 0:13:11 |loss 8.8640 |conf_loss 4.2649 |cls_loss 2.3062 |iou_loss 2.2929 |num_fg 5.7944 |Data 0.008s |Batch 2.248s
+grid11| train: total_epoch[3/10] total_batch[350/1250] batch[100/125] |size: 32x3x576x576 |lr: 0.00003136 |Tot: 0:30:19 |ETA: 0:08:54 |loss 8.8304 |conf_loss 4.2435 |cls_loss 2.2937 |iou_loss 2.2932 |num_fg 5.7886 |Data 0.001s |Batch 1.923s
+grid11| train: total_epoch[3/10] total_batch[360/1250] batch[110/125] |size: 32x3x704x704 |lr: 0.00003318 |Tot: 0:30:51 |ETA: 0:00:52 |loss 8.8176 |conf_loss 4.2422 |cls_loss 2.2826 |iou_loss 2.2928 |num_fg 5.8003 |Data 0.001s |Batch 2.209s
+grid11| train: total_epoch[3/10] total_batch[370/1250] batch[120/125] |size: 32x3x480x480 |lr: 0.00003505 |Tot: 0:33:25 |ETA: 0:01:34 |loss 8.7641 |conf_loss 4.2008 |cls_loss 2.2708 |iou_loss 2.2925 |num_fg 5.7936 |Data 0.000s |Batch 0.420s
+epoch 3, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[4/10] total_batch[385/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00003795 |Tot: 0:04:17 |ETA: 0:54:40 |loss 8.6343 |conf_loss 4.2459 |cls_loss 2.1671 |iou_loss 2.2213 |num_fg 6.1188 |Data 0.032s |Batch 2.677s
+grid11| train: total_epoch[4/10] total_batch[395/1250] batch[20/125] |size: 32x3x576x576 |lr: 0.00003994 |Tot: 0:07:57 |ETA: 0:39:02 |loss 8.4935 |conf_loss 4.1103 |cls_loss 2.1280 |iou_loss 2.2552 |num_fg 5.9553 |Data 0.030s |Batch 2.155s
+grid11| train: total_epoch[4/10] total_batch[405/1250] batch[30/125] |size: 32x3x512x512 |lr: 0.00004199 |Tot: 0:10:56 |ETA: 0:28:39 |loss 8.3818 |conf_loss 4.0111 |cls_loss 2.1096 |iou_loss 2.2611 |num_fg 5.9128 |Data 0.411s |Batch 2.590s
+grid11| train: total_epoch[4/10] total_batch[415/1250] batch[40/125] |size: 32x3x736x736 |lr: 0.00004409 |Tot: 0:12:08 |ETA: 0:10:15 |loss 8.4225 |conf_loss 4.0559 |cls_loss 2.1042 |iou_loss 2.2624 |num_fg 5.9433 |Data 0.025s |Batch 2.137s
+grid11| train: total_epoch[4/10] total_batch[425/1250] batch[50/125] |size: 32x3x768x768 |lr: 0.00004624 |Tot: 0:15:48 |ETA: 0:27:50 |loss 8.4609 |conf_loss 4.0991 |cls_loss 2.1012 |iou_loss 2.2605 |num_fg 5.9710 |Data 0.022s |Batch 2.712s
+grid11| train: total_epoch[4/10] total_batch[435/1250] batch[60/125] |size: 32x3x672x672 |lr: 0.00004844 |Tot: 0:19:30 |ETA: 0:24:32 |loss 8.4170 |conf_loss 4.0708 |cls_loss 2.0945 |iou_loss 2.2517 |num_fg 6.0011 |Data 0.029s |Batch 2.082s
+grid11| train: total_epoch[4/10] total_batch[445/1250] batch[70/125] |size: 32x3x544x544 |lr: 0.00005069 |Tot: 0:19:53 |ETA: 0:02:11 |loss 8.3747 |conf_loss 4.0403 |cls_loss 2.0786 |iou_loss 2.2558 |num_fg 5.9798 |Data 0.026s |Batch 2.120s
+grid11| train: total_epoch[4/10] total_batch[455/1250] batch[80/125] |size: 32x3x768x768 |lr: 0.00005300 |Tot: 0:23:44 |ETA: 0:17:41 |loss 8.3766 |conf_loss 4.0539 |cls_loss 2.0687 |iou_loss 2.2541 |num_fg 5.9981 |Data 0.033s |Batch 2.410s
+grid11| train: total_epoch[4/10] total_batch[465/1250] batch[90/125] |size: 32x3x544x544 |lr: 0.00005535 |Tot: 0:27:19 |ETA: 0:12:55 |loss 8.3277 |conf_loss 4.0212 |cls_loss 2.0565 |iou_loss 2.2500 |num_fg 5.9839 |Data 0.008s |Batch 2.137s
+grid11| train: total_epoch[4/10] total_batch[475/1250] batch[100/125] |size: 32x3x576x576 |lr: 0.00005776 |Tot: 0:29:54 |ETA: 0:06:39 |loss 8.2837 |conf_loss 3.9911 |cls_loss 2.0452 |iou_loss 2.2475 |num_fg 5.9870 |Data 1.794s |Batch 4.027s
+grid11| train: total_epoch[4/10] total_batch[485/1250] batch[110/125] |size: 32x3x704x704 |lr: 0.00006022 |Tot: 0:31:20 |ETA: 0:02:20 |loss 8.2638 |conf_loss 3.9818 |cls_loss 2.0377 |iou_loss 2.2443 |num_fg 6.0020 |Data 0.001s |Batch 2.416s
+grid11| train: total_epoch[4/10] total_batch[495/1250] batch[120/125] |size: 32x3x544x544 |lr: 0.00006273 |Tot: 0:33:43 |ETA: 0:01:29 |loss 8.2380 |conf_loss 3.9617 |cls_loss 2.0290 |iou_loss 2.2472 |num_fg 5.9855 |Data 0.000s |Batch 0.429s
+grid11| val: total_epoch[4/10] total_batch[10/251] batch[10/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:14 |ETA: 0:06:17 |loss 8.2423 |conf_loss 4.7009 |cls_loss 1.6318 |iou_loss 1.9096 |num_fg 6.8621 |Data 0.014s |Batch 0.530s
+grid11| val: total_epoch[4/10] total_batch[20/251] batch[20/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:20 |ETA: 0:02:13 |loss 8.4684 |conf_loss 4.7663 |cls_loss 1.7114 |iou_loss 1.9907 |num_fg 6.7951 |Data 0.001s |Batch 0.506s
+grid11| val: total_epoch[4/10] total_batch[30/251] batch[30/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:25 |ETA: 0:01:56 |loss 8.4720 |conf_loss 4.6293 |cls_loss 1.8224 |iou_loss 2.0204 |num_fg 6.6958 |Data 0.010s |Batch 0.538s
+grid11| val: total_epoch[4/10] total_batch[40/251] batch[40/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:29 |ETA: 0:01:40 |loss 8.3738 |conf_loss 4.5702 |cls_loss 1.8236 |iou_loss 1.9800 |num_fg 6.7678 |Data 0.003s |Batch 0.499s
+grid11| val: total_epoch[4/10] total_batch[50/251] batch[50/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:35 |ETA: 0:01:42 |loss 8.3954 |conf_loss 4.5881 |cls_loss 1.8335 |iou_loss 1.9738 |num_fg 6.7857 |Data 0.010s |Batch 0.550s
+grid11| val: total_epoch[4/10] total_batch[60/251] batch[60/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:40 |ETA: 0:01:44 |loss 8.4517 |conf_loss 4.6434 |cls_loss 1.8238 |iou_loss 1.9845 |num_fg 6.7718 |Data 0.001s |Batch 0.480s
+grid11| val: total_epoch[4/10] total_batch[70/251] batch[70/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:45 |ETA: 0:01:33 |loss 8.5067 |conf_loss 4.6361 |cls_loss 1.8814 |iou_loss 1.9892 |num_fg 6.7634 |Data 0.011s |Batch 0.459s
+grid11| val: total_epoch[4/10] total_batch[80/251] batch[80/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:49 |ETA: 0:01:23 |loss 8.4154 |conf_loss 4.5941 |cls_loss 1.8703 |iou_loss 1.9510 |num_fg 6.8376 |Data 0.004s |Batch 0.458s
+grid11| val: total_epoch[4/10] total_batch[90/251] batch[90/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:00:55 |ETA: 0:01:28 |loss 8.3964 |conf_loss 4.5717 |cls_loss 1.8654 |iou_loss 1.9592 |num_fg 6.8487 |Data 0.017s |Batch 0.476s
+grid11| val: total_epoch[4/10] total_batch[100/251] batch[100/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:00 |ETA: 0:01:17 |loss 8.3280 |conf_loss 4.5389 |cls_loss 1.8477 |iou_loss 1.9415 |num_fg 6.8777 |Data 0.010s |Batch 0.446s
+grid11| val: total_epoch[4/10] total_batch[110/251] batch[110/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:05 |ETA: 0:01:13 |loss 8.3135 |conf_loss 4.5069 |cls_loss 1.8684 |iou_loss 1.9382 |num_fg 6.8842 |Data 0.001s |Batch 0.520s
+grid11| val: total_epoch[4/10] total_batch[120/251] batch[120/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:10 |ETA: 0:01:16 |loss 8.3895 |conf_loss 4.5753 |cls_loss 1.8793 |iou_loss 1.9350 |num_fg 6.9168 |Data 0.009s |Batch 0.507s
+grid11| val: total_epoch[4/10] total_batch[130/251] batch[130/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:16 |ETA: 0:01:04 |loss 8.4309 |conf_loss 4.5973 |cls_loss 1.8787 |iou_loss 1.9550 |num_fg 6.8981 |Data 0.015s |Batch 0.584s
+grid11| val: total_epoch[4/10] total_batch[140/251] batch[140/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:21 |ETA: 0:01:02 |loss 8.4105 |conf_loss 4.5779 |cls_loss 1.8744 |iou_loss 1.9582 |num_fg 6.8816 |Data 0.011s |Batch 0.516s
+grid11| val: total_epoch[4/10] total_batch[150/251] batch[150/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:26 |ETA: 0:00:54 |loss 8.4514 |conf_loss 4.6212 |cls_loss 1.8743 |iou_loss 1.9559 |num_fg 6.8776 |Data 0.001s |Batch 0.700s
+grid11| val: total_epoch[4/10] total_batch[160/251] batch[160/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:31 |ETA: 0:00:49 |loss 8.4357 |conf_loss 4.6140 |cls_loss 1.8731 |iou_loss 1.9486 |num_fg 6.8975 |Data 0.017s |Batch 0.365s
+grid11| val: total_epoch[4/10] total_batch[170/251] batch[170/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:36 |ETA: 0:00:39 |loss 8.4417 |conf_loss 4.6304 |cls_loss 1.8624 |iou_loss 1.9490 |num_fg 6.8953 |Data 0.028s |Batch 0.738s
+grid11| val: total_epoch[4/10] total_batch[180/251] batch[180/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:41 |ETA: 0:00:39 |loss 8.4134 |conf_loss 4.6205 |cls_loss 1.8499 |iou_loss 1.9430 |num_fg 6.9067 |Data 0.006s |Batch 0.525s
+grid11| val: total_epoch[4/10] total_batch[190/251] batch[190/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:47 |ETA: 0:00:33 |loss 8.3816 |conf_loss 4.5936 |cls_loss 1.8479 |iou_loss 1.9401 |num_fg 6.9162 |Data 0.007s |Batch 0.530s
+grid11| val: total_epoch[4/10] total_batch[200/251] batch[200/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:52 |ETA: 0:00:26 |loss 8.3720 |conf_loss 4.5985 |cls_loss 1.8386 |iou_loss 1.9349 |num_fg 6.9320 |Data 0.026s |Batch 0.537s
+grid11| val: total_epoch[4/10] total_batch[210/251] batch[210/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:01:58 |ETA: 0:00:26 |loss 8.4266 |conf_loss 4.6432 |cls_loss 1.8423 |iou_loss 1.9411 |num_fg 6.9169 |Data 0.016s |Batch 0.521s
+grid11| val: total_epoch[4/10] total_batch[220/251] batch[220/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:02:02 |ETA: 0:00:15 |loss 8.4808 |conf_loss 4.6862 |cls_loss 1.8437 |iou_loss 1.9510 |num_fg 6.8893 |Data 0.005s |Batch 0.506s
+grid11| val: total_epoch[4/10] total_batch[230/251] batch[230/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:02:06 |ETA: 0:00:12 |loss 8.4940 |conf_loss 4.7027 |cls_loss 1.8381 |iou_loss 1.9532 |num_fg 6.8903 |Data 0.000s |Batch 0.132s
+grid11| val: total_epoch[4/10] total_batch[240/251] batch[240/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:02:07 |ETA: 0:00:05 |loss 8.4915 |conf_loss 4.6855 |cls_loss 1.8360 |iou_loss 1.9700 |num_fg 6.8527 |Data 0.000s |Batch 0.057s
+grid11| val: total_epoch[4/10] total_batch[250/251] batch[250/251] |size: 4x3x640x640 |lr: 0.00006400 |Tot: 0:02:08 |ETA: 0:00:01 |loss 8.4894 |conf_loss 4.6861 |cls_loss 1.8265 |iou_loss 1.9768 |num_fg 6.8467 |Data 0.000s |Batch 0.060s
+Loading and preparing results...
+DONE (t=0.29s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.26s).
+Accumulating evaluation results...
+DONE (t=0.55s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.042
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.067
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.045
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.018
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.054
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.118
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.182
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.188
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.060
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.228
+
+epoch 4, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_best.pth
+epoch 4, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[5/10] total_batch[510/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00006659 |Tot: 0:04:14 |ETA: 0:54:17 |loss 8.1475 |conf_loss 4.0708 |cls_loss 1.9193 |iou_loss 2.1574 |num_fg 6.1996 |Data 0.018s |Batch 2.261s
+grid11| train: total_epoch[5/10] total_batch[520/1250] batch[20/125] |size: 32x3x576x576 |lr: 0.00006922 |Tot: 0:08:26 |ETA: 0:44:30 |loss 7.9704 |conf_loss 3.8590 |cls_loss 1.9045 |iou_loss 2.2068 |num_fg 6.0564 |Data 0.001s |Batch 2.180s
+grid11| train: total_epoch[5/10] total_batch[530/1250] batch[30/125] |size: 32x3x576x576 |lr: 0.00007191 |Tot: 0:12:05 |ETA: 0:35:02 |loss 7.9456 |conf_loss 3.8257 |cls_loss 1.8921 |iou_loss 2.2278 |num_fg 5.9858 |Data 0.015s |Batch 2.362s
+grid11| train: total_epoch[5/10] total_batch[540/1250] batch[40/125] |size: 32x3x512x512 |lr: 0.00007465 |Tot: 0:12:27 |ETA: 0:03:08 |loss 7.9129 |conf_loss 3.7833 |cls_loss 1.9020 |iou_loss 2.2277 |num_fg 5.9679 |Data 0.008s |Batch 2.354s
+grid11| train: total_epoch[5/10] total_batch[550/1250] batch[50/125] |size: 32x3x448x448 |lr: 0.00007744 |Tot: 0:16:18 |ETA: 0:29:14 |loss 7.8888 |conf_loss 3.7521 |cls_loss 1.8955 |iou_loss 2.2413 |num_fg 5.9162 |Data 0.015s |Batch 2.069s
+grid11| train: total_epoch[5/10] total_batch[560/1250] batch[60/125] |size: 32x3x672x672 |lr: 0.00008028 |Tot: 0:20:16 |ETA: 0:26:13 |loss 7.9239 |conf_loss 3.7803 |cls_loss 1.8946 |iou_loss 2.2489 |num_fg 5.9469 |Data 0.001s |Batch 2.668s
+grid11| train: total_epoch[5/10] total_batch[570/1250] batch[70/125] |size: 32x3x576x576 |lr: 0.00008317 |Tot: 0:20:38 |ETA: 0:02:07 |loss 7.9229 |conf_loss 3.7789 |cls_loss 1.8930 |iou_loss 2.2510 |num_fg 5.9411 |Data 0.029s |Batch 2.065s
+grid11| train: total_epoch[5/10] total_batch[580/1250] batch[80/125] |size: 32x3x736x736 |lr: 0.00008612 |Tot: 0:24:18 |ETA: 0:16:50 |loss 7.9351 |conf_loss 3.7974 |cls_loss 1.8913 |iou_loss 2.2464 |num_fg 5.9725 |Data 0.018s |Batch 2.614s
+grid11| train: total_epoch[5/10] total_batch[590/1250] batch[90/125] |size: 32x3x640x640 |lr: 0.00008911 |Tot: 0:28:09 |ETA: 0:13:53 |loss 7.9297 |conf_loss 3.7982 |cls_loss 1.8855 |iou_loss 2.2460 |num_fg 5.9817 |Data 0.001s |Batch 2.246s
+grid11| train: total_epoch[5/10] total_batch[600/1250] batch[100/125] |size: 32x3x768x768 |lr: 0.00009216 |Tot: 0:32:01 |ETA: 0:10:03 |loss 7.9356 |conf_loss 3.8119 |cls_loss 1.8809 |iou_loss 2.2428 |num_fg 5.9949 |Data 0.000s |Batch 2.380s
+grid11| train: total_epoch[5/10] total_batch[610/1250] batch[110/125] |size: 32x3x800x800 |lr: 0.00009526 |Tot: 0:32:07 |ETA: 0:05:52 |loss 7.9427 |conf_loss 3.8282 |cls_loss 1.8705 |iou_loss 2.2440 |num_fg 6.0094 |Data 0.000s |Batch 0.477s
+grid11| train: total_epoch[5/10] total_batch[620/1250] batch[120/125] |size: 32x3x800x800 |lr: 0.00009841 |Tot: 0:35:15 |ETA: 0:01:53 |loss 7.9402 |conf_loss 3.8381 |cls_loss 1.8630 |iou_loss 2.2391 |num_fg 6.0340 |Data 0.000s |Batch 0.493s
+epoch 5, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[6/10] total_batch[635/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00009991 |Tot: 0:04:28 |ETA: 0:57:15 |loss 7.8552 |conf_loss 3.9015 |cls_loss 1.7917 |iou_loss 2.1620 |num_fg 6.3930 |Data 0.030s |Batch 2.341s
+grid11| train: total_epoch[6/10] total_batch[645/1250] batch[20/125] |size: 32x3x480x480 |lr: 0.00009963 |Tot: 0:07:56 |ETA: 0:36:40 |loss 7.6927 |conf_loss 3.6984 |cls_loss 1.7805 |iou_loss 2.2139 |num_fg 6.1924 |Data 0.001s |Batch 2.409s
+grid11| train: total_epoch[6/10] total_batch[655/1250] batch[30/125] |size: 32x3x736x736 |lr: 0.00009916 |Tot: 0:11:27 |ETA: 0:32:10 |loss 7.7507 |conf_loss 3.7484 |cls_loss 1.7862 |iou_loss 2.2161 |num_fg 6.2310 |Data 10.445s |Batch 12.558s
+grid11| train: total_epoch[6/10] total_batch[665/1250] batch[40/125] |size: 32x3x480x480 |lr: 0.00009851 |Tot: 0:11:53 |ETA: 0:05:15 |loss 7.7062 |conf_loss 3.6974 |cls_loss 1.7771 |iou_loss 2.2317 |num_fg 6.1379 |Data 0.014s |Batch 1.937s
+grid11| train: total_epoch[6/10] total_batch[675/1250] batch[50/125] |size: 32x3x512x512 |lr: 0.00009768 |Tot: 0:15:28 |ETA: 0:27:16 |loss 7.6715 |conf_loss 3.6605 |cls_loss 1.7700 |iou_loss 2.2410 |num_fg 6.0703 |Data 0.011s |Batch 2.102s
+grid11| train: total_epoch[6/10] total_batch[685/1250] batch[60/125] |size: 32x3x768x768 |lr: 0.00009666 |Tot: 0:18:57 |ETA: 0:22:54 |loss 7.7103 |conf_loss 3.7044 |cls_loss 1.7695 |iou_loss 2.2363 |num_fg 6.0956 |Data 0.001s |Batch 2.443s
+grid11| train: total_epoch[6/10] total_batch[695/1250] batch[70/125] |size: 32x3x480x480 |lr: 0.00009548 |Tot: 0:19:29 |ETA: 0:02:56 |loss 7.6591 |conf_loss 3.6584 |cls_loss 1.7636 |iou_loss 2.2371 |num_fg 6.0706 |Data 0.040s |Batch 3.014s
+grid11| train: total_epoch[6/10] total_batch[705/1250] batch[80/125] |size: 32x3x736x736 |lr: 0.00009412 |Tot: 0:23:25 |ETA: 0:18:14 |loss 7.6506 |conf_loss 3.6624 |cls_loss 1.7548 |iou_loss 2.2335 |num_fg 6.0820 |Data 0.012s |Batch 1.252s
+grid11| train: total_epoch[6/10] total_batch[715/1250] batch[90/125] |size: 32x3x448x448 |lr: 0.00009261 |Tot: 0:26:52 |ETA: 0:12:22 |loss 7.6314 |conf_loss 3.6396 |cls_loss 1.7525 |iou_loss 2.2393 |num_fg 6.0438 |Data 0.001s |Batch 2.186s
+grid11| train: total_epoch[6/10] total_batch[725/1250] batch[100/125] |size: 32x3x544x544 |lr: 0.00009093 |Tot: 0:30:45 |ETA: 0:09:11 |loss 7.6213 |conf_loss 3.6277 |cls_loss 1.7527 |iou_loss 2.2409 |num_fg 6.0355 |Data 20.602s |Batch 23.339s
+grid11| train: total_epoch[6/10] total_batch[735/1250] batch[110/125] |size: 32x3x608x608 |lr: 0.00008910 |Tot: 0:31:07 |ETA: 0:01:10 |loss 7.6137 |conf_loss 3.6259 |cls_loss 1.7515 |iou_loss 2.2363 |num_fg 6.0466 |Data 0.001s |Batch 2.050s
+grid11| train: total_epoch[6/10] total_batch[745/1250] batch[120/125] |size: 32x3x768x768 |lr: 0.00008713 |Tot: 0:34:15 |ETA: 0:01:54 |loss 7.6299 |conf_loss 3.6469 |cls_loss 1.7483 |iou_loss 2.2347 |num_fg 6.0625 |Data 0.000s |Batch 0.462s
+grid11| val: total_epoch[6/10] total_batch[10/251] batch[10/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:14 |ETA: 0:06:18 |loss 7.6915 |conf_loss 4.4140 |cls_loss 1.3958 |iou_loss 1.8817 |num_fg 7.0023 |Data 0.006s |Batch 0.492s
+grid11| val: total_epoch[6/10] total_batch[20/251] batch[20/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:20 |ETA: 0:02:16 |loss 7.8570 |conf_loss 4.4546 |cls_loss 1.4517 |iou_loss 1.9507 |num_fg 6.8949 |Data 0.008s |Batch 0.505s
+grid11| val: total_epoch[6/10] total_batch[30/251] batch[30/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:25 |ETA: 0:01:55 |loss 7.8631 |conf_loss 4.3034 |cls_loss 1.5518 |iou_loss 2.0079 |num_fg 6.8097 |Data 0.011s |Batch 0.562s
+grid11| val: total_epoch[6/10] total_batch[40/251] batch[40/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:29 |ETA: 0:01:32 |loss 7.7404 |conf_loss 4.2480 |cls_loss 1.5352 |iou_loss 1.9573 |num_fg 6.8729 |Data 0.029s |Batch 0.507s
+grid11| val: total_epoch[6/10] total_batch[50/251] batch[50/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:35 |ETA: 0:01:44 |loss 7.7534 |conf_loss 4.2683 |cls_loss 1.5310 |iou_loss 1.9542 |num_fg 6.8832 |Data 0.021s |Batch 0.569s
+grid11| val: total_epoch[6/10] total_batch[60/251] batch[60/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:39 |ETA: 0:01:45 |loss 7.7938 |conf_loss 4.3045 |cls_loss 1.5301 |iou_loss 1.9593 |num_fg 6.8760 |Data 0.043s |Batch 0.502s
+grid11| val: total_epoch[6/10] total_batch[70/251] batch[70/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:45 |ETA: 0:01:35 |loss 7.8528 |conf_loss 4.2966 |cls_loss 1.5886 |iou_loss 1.9676 |num_fg 6.8637 |Data 0.033s |Batch 0.543s
+grid11| val: total_epoch[6/10] total_batch[80/251] batch[80/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:49 |ETA: 0:01:23 |loss 7.7413 |conf_loss 4.2479 |cls_loss 1.5628 |iou_loss 1.9306 |num_fg 6.9339 |Data 0.021s |Batch 0.396s
+grid11| val: total_epoch[6/10] total_batch[90/251] batch[90/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:00:54 |ETA: 0:01:23 |loss 7.7206 |conf_loss 4.2166 |cls_loss 1.5676 |iou_loss 1.9364 |num_fg 6.9447 |Data 0.011s |Batch 0.445s
+grid11| val: total_epoch[6/10] total_batch[100/251] batch[100/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:00 |ETA: 0:01:18 |loss 7.6678 |conf_loss 4.1957 |cls_loss 1.5536 |iou_loss 1.9186 |num_fg 6.9668 |Data 0.017s |Batch 0.556s
+grid11| val: total_epoch[6/10] total_batch[110/251] batch[110/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:05 |ETA: 0:01:15 |loss 7.6674 |conf_loss 4.1819 |cls_loss 1.5693 |iou_loss 1.9162 |num_fg 6.9673 |Data 0.006s |Batch 0.522s
+grid11| val: total_epoch[6/10] total_batch[120/251] batch[120/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:10 |ETA: 0:01:14 |loss 7.7353 |conf_loss 4.2449 |cls_loss 1.5785 |iou_loss 1.9119 |num_fg 6.9971 |Data 0.004s |Batch 0.598s
+grid11| val: total_epoch[6/10] total_batch[130/251] batch[130/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:15 |ETA: 0:01:03 |loss 7.7651 |conf_loss 4.2566 |cls_loss 1.5833 |iou_loss 1.9252 |num_fg 6.9867 |Data 0.010s |Batch 0.548s
+grid11| val: total_epoch[6/10] total_batch[140/251] batch[140/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:21 |ETA: 0:01:01 |loss 7.7529 |conf_loss 4.2393 |cls_loss 1.5861 |iou_loss 1.9276 |num_fg 6.9701 |Data 0.020s |Batch 0.571s
+grid11| val: total_epoch[6/10] total_batch[150/251] batch[150/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:26 |ETA: 0:00:54 |loss 7.7723 |conf_loss 4.2603 |cls_loss 1.5835 |iou_loss 1.9285 |num_fg 6.9679 |Data 0.010s |Batch 0.666s
+grid11| val: total_epoch[6/10] total_batch[160/251] batch[160/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:31 |ETA: 0:00:49 |loss 7.7674 |conf_loss 4.2581 |cls_loss 1.5881 |iou_loss 1.9211 |num_fg 6.9870 |Data 0.026s |Batch 0.438s
+grid11| val: total_epoch[6/10] total_batch[170/251] batch[170/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:36 |ETA: 0:00:40 |loss 7.7814 |conf_loss 4.2799 |cls_loss 1.5790 |iou_loss 1.9226 |num_fg 6.9852 |Data 0.024s |Batch 0.801s
+grid11| val: total_epoch[6/10] total_batch[180/251] batch[180/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:41 |ETA: 0:00:39 |loss 7.7579 |conf_loss 4.2709 |cls_loss 1.5690 |iou_loss 1.9180 |num_fg 6.9879 |Data 0.028s |Batch 0.475s
+grid11| val: total_epoch[6/10] total_batch[190/251] batch[190/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:47 |ETA: 0:00:34 |loss 7.7268 |conf_loss 4.2456 |cls_loss 1.5689 |iou_loss 1.9123 |num_fg 6.9994 |Data 0.011s |Batch 0.545s
+grid11| val: total_epoch[6/10] total_batch[200/251] batch[200/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:52 |ETA: 0:00:27 |loss 7.7150 |conf_loss 4.2436 |cls_loss 1.5632 |iou_loss 1.9083 |num_fg 7.0158 |Data 0.021s |Batch 0.542s
+grid11| val: total_epoch[6/10] total_batch[210/251] batch[210/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:01:57 |ETA: 0:00:24 |loss 7.7553 |conf_loss 4.2774 |cls_loss 1.5634 |iou_loss 1.9145 |num_fg 7.0020 |Data 0.019s |Batch 0.454s
+grid11| val: total_epoch[6/10] total_batch[220/251] batch[220/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:02:02 |ETA: 0:00:16 |loss 7.7992 |conf_loss 4.3137 |cls_loss 1.5637 |iou_loss 1.9219 |num_fg 6.9762 |Data 0.021s |Batch 0.574s
+grid11| val: total_epoch[6/10] total_batch[230/251] batch[230/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:02:06 |ETA: 0:00:12 |loss 7.8191 |conf_loss 4.3329 |cls_loss 1.5614 |iou_loss 1.9248 |num_fg 6.9751 |Data 0.000s |Batch 0.085s
+grid11| val: total_epoch[6/10] total_batch[240/251] batch[240/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:02:07 |ETA: 0:00:03 |loss 7.8230 |conf_loss 4.3196 |cls_loss 1.5633 |iou_loss 1.9401 |num_fg 6.9425 |Data 0.000s |Batch 0.059s
+grid11| val: total_epoch[6/10] total_batch[250/251] batch[250/251] |size: 4x3x640x640 |lr: 0.00008609 |Tot: 0:02:08 |ETA: 0:00:01 |loss 7.8212 |conf_loss 4.3194 |cls_loss 1.5559 |iou_loss 1.9458 |num_fg 6.9363 |Data 0.000s |Batch 0.062s
+Loading and preparing results...
+DONE (t=0.34s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.48s).
+Accumulating evaluation results...
+DONE (t=0.59s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.063
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.102
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.070
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.039
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.078
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.164
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.236
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.245
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.005
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.083
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.293
+
+epoch 6, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_best.pth
+epoch 6, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[7/10] total_batch[760/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00008391 |Tot: 0:04:32 |ETA: 0:58:03 |loss 7.8165 |conf_loss 3.9055 |cls_loss 1.7004 |iou_loss 2.2107 |num_fg 6.3363 |Data 0.001s |Batch 2.491s
+grid11| train: total_epoch[7/10] total_batch[770/1250] batch[20/125] |size: 32x3x768x768 |lr: 0.00008161 |Tot: 0:08:38 |ETA: 0:43:33 |loss 7.6723 |conf_loss 3.8014 |cls_loss 1.6771 |iou_loss 2.1938 |num_fg 6.3598 |Data 0.028s |Batch 2.225s
+grid11| train: total_epoch[7/10] total_batch[780/1250] batch[30/125] |size: 32x3x640x640 |lr: 0.00007920 |Tot: 0:12:12 |ETA: 0:30:28 |loss 7.6827 |conf_loss 3.7863 |cls_loss 1.6947 |iou_loss 2.2017 |num_fg 6.2801 |Data 22.985s |Batch 25.520s
+grid11| train: total_epoch[7/10] total_batch[790/1250] batch[40/125] |size: 32x3x544x544 |lr: 0.00007668 |Tot: 0:12:46 |ETA: 0:08:13 |loss 7.6194 |conf_loss 3.7080 |cls_loss 1.7008 |iou_loss 2.2107 |num_fg 6.2202 |Data 0.031s |Batch 2.318s
+grid11| train: total_epoch[7/10] total_batch[800/1250] batch[50/125] |size: 32x3x448x448 |lr: 0.00007406 |Tot: 0:16:26 |ETA: 0:27:56 |loss 7.6074 |conf_loss 3.6640 |cls_loss 1.7176 |iou_loss 2.2257 |num_fg 6.1645 |Data 0.021s |Batch 2.008s
+grid11| train: total_epoch[7/10] total_batch[810/1250] batch[60/125] |size: 32x3x576x576 |lr: 0.00007136 |Tot: 0:19:58 |ETA: 0:21:48 |loss 7.6036 |conf_loss 3.6573 |cls_loss 1.7138 |iou_loss 2.2325 |num_fg 6.1344 |Data 12.997s |Batch 15.454s
+grid11| train: total_epoch[7/10] total_batch[820/1250] batch[70/125] |size: 32x3x544x544 |lr: 0.00006859 |Tot: 0:20:21 |ETA: 0:03:24 |loss 7.5832 |conf_loss 3.6331 |cls_loss 1.7178 |iou_loss 2.2323 |num_fg 6.1152 |Data 0.001s |Batch 2.535s
+grid11| train: total_epoch[7/10] total_batch[830/1250] batch[80/125] |size: 32x3x800x800 |lr: 0.00006575 |Tot: 0:24:12 |ETA: 0:17:41 |loss 7.6086 |conf_loss 3.6638 |cls_loss 1.7111 |iou_loss 2.2337 |num_fg 6.1141 |Data 0.001s |Batch 2.506s
+grid11| train: total_epoch[7/10] total_batch[840/1250] batch[90/125] |size: 32x3x512x512 |lr: 0.00006286 |Tot: 0:27:38 |ETA: 0:12:22 |loss 7.5891 |conf_loss 3.6479 |cls_loss 1.7123 |iou_loss 2.2289 |num_fg 6.1145 |Data 0.014s |Batch 2.444s
+grid11| train: total_epoch[7/10] total_batch[850/1250] batch[100/125] |size: 32x3x768x768 |lr: 0.00005993 |Tot: 0:31:12 |ETA: 0:08:18 |loss 7.5920 |conf_loss 3.6598 |cls_loss 1.7091 |iou_loss 2.2231 |num_fg 6.1428 |Data 22.024s |Batch 24.934s
+grid11| train: total_epoch[7/10] total_batch[860/1250] batch[110/125] |size: 32x3x800x800 |lr: 0.00005697 |Tot: 0:31:51 |ETA: 0:01:39 |loss 7.6100 |conf_loss 3.6842 |cls_loss 1.7062 |iou_loss 2.2195 |num_fg 6.1622 |Data 0.000s |Batch 2.259s
+grid11| train: total_epoch[7/10] total_batch[870/1250] batch[120/125] |size: 32x3x736x736 |lr: 0.00005399 |Tot: 0:34:39 |ETA: 0:01:42 |loss 7.6031 |conf_loss 3.6806 |cls_loss 1.7051 |iou_loss 2.2174 |num_fg 6.1699 |Data 0.000s |Batch 0.520s
+epoch 7, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[8/10] total_batch[885/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00004952 |Tot: 0:04:16 |ETA: 0:54:33 |loss 7.8152 |conf_loss 3.8850 |cls_loss 1.7505 |iou_loss 2.1797 |num_fg 6.3113 |Data 0.033s |Batch 2.427s
+grid11| train: total_epoch[8/10] total_batch[895/1250] batch[20/125] |size: 32x3x736x736 |lr: 0.00004655 |Tot: 0:08:24 |ETA: 0:43:51 |loss 7.7051 |conf_loss 3.8104 |cls_loss 1.6948 |iou_loss 2.1999 |num_fg 6.2145 |Data 0.018s |Batch 2.365s
+grid11| train: total_epoch[8/10] total_batch[905/1250] batch[30/125] |size: 32x3x704x704 |lr: 0.00004360 |Tot: 0:11:52 |ETA: 0:31:20 |loss 7.6894 |conf_loss 3.8123 |cls_loss 1.6853 |iou_loss 2.1917 |num_fg 6.2048 |Data 12.247s |Batch 14.385s
+grid11| train: total_epoch[8/10] total_batch[915/1250] batch[40/125] |size: 32x3x608x608 |lr: 0.00004069 |Tot: 0:12:15 |ETA: 0:05:07 |loss 7.6482 |conf_loss 3.7639 |cls_loss 1.6854 |iou_loss 2.1988 |num_fg 6.1783 |Data 0.031s |Batch 2.163s
+grid11| train: total_epoch[8/10] total_batch[925/1250] batch[50/125] |size: 32x3x800x800 |lr: 0.00003782 |Tot: 0:16:10 |ETA: 0:28:10 |loss 7.6405 |conf_loss 3.7648 |cls_loss 1.6800 |iou_loss 2.1957 |num_fg 6.2066 |Data 14.700s |Batch 16.842s
+grid11| train: total_epoch[8/10] total_batch[935/1250] batch[60/125] |size: 32x3x672x672 |lr: 0.00003501 |Tot: 0:19:39 |ETA: 0:24:32 |loss 7.6435 |conf_loss 3.7608 |cls_loss 1.6795 |iou_loss 2.2032 |num_fg 6.1807 |Data 0.037s |Batch 2.098s
+grid11| train: total_epoch[8/10] total_batch[945/1250] batch[70/125] |size: 32x3x736x736 |lr: 0.00003228 |Tot: 0:20:11 |ETA: 0:03:02 |loss 7.6264 |conf_loss 3.7477 |cls_loss 1.6770 |iou_loss 2.2018 |num_fg 6.1815 |Data 0.001s |Batch 2.232s
+grid11| train: total_epoch[8/10] total_batch[955/1250] batch[80/125] |size: 32x3x640x640 |lr: 0.00002962 |Tot: 0:23:47 |ETA: 0:16:32 |loss 7.6093 |conf_loss 3.7309 |cls_loss 1.6779 |iou_loss 2.2005 |num_fg 6.1790 |Data 0.001s |Batch 2.777s
+grid11| train: total_epoch[8/10] total_batch[965/1250] batch[90/125] |size: 32x3x640x640 |lr: 0.00002705 |Tot: 0:27:16 |ETA: 0:12:19 |loss 7.5896 |conf_loss 3.7156 |cls_loss 1.6764 |iou_loss 2.1977 |num_fg 6.1809 |Data 4.046s |Batch 6.261s
+grid11| train: total_epoch[8/10] total_batch[975/1250] batch[100/125] |size: 32x3x512x512 |lr: 0.00002458 |Tot: 0:30:49 |ETA: 0:08:19 |loss 7.5673 |conf_loss 3.6868 |cls_loss 1.6777 |iou_loss 2.2027 |num_fg 6.1623 |Data 25.896s |Batch 28.161s
+grid11| train: total_epoch[8/10] total_batch[985/1250] batch[110/125] |size: 32x3x608x608 |lr: 0.00002222 |Tot: 0:31:29 |ETA: 0:01:49 |loss 7.5546 |conf_loss 3.6769 |cls_loss 1.6754 |iou_loss 2.2023 |num_fg 6.1634 |Data 0.000s |Batch 0.561s
+grid11| train: total_epoch[8/10] total_batch[995/1250] batch[120/125] |size: 32x3x640x640 |lr: 0.00001998 |Tot: 0:34:18 |ETA: 0:01:41 |loss 7.5443 |conf_loss 3.6714 |cls_loss 1.6717 |iou_loss 2.2012 |num_fg 6.1691 |Data 1.635s |Batch 2.075s
+grid11| val: total_epoch[8/10] total_batch[10/251] batch[10/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:14 |ETA: 0:06:14 |loss 7.4640 |conf_loss 4.3088 |cls_loss 1.3345 |iou_loss 1.8207 |num_fg 6.9598 |Data 0.010s |Batch 0.472s
+grid11| val: total_epoch[8/10] total_batch[20/251] batch[20/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:20 |ETA: 0:02:13 |loss 7.6878 |conf_loss 4.3866 |cls_loss 1.3863 |iou_loss 1.9149 |num_fg 6.8811 |Data 0.011s |Batch 0.527s
+grid11| val: total_epoch[8/10] total_batch[30/251] batch[30/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:25 |ETA: 0:01:55 |loss 7.6957 |conf_loss 4.2315 |cls_loss 1.4830 |iou_loss 1.9812 |num_fg 6.8060 |Data 0.001s |Batch 0.535s
+grid11| val: total_epoch[8/10] total_batch[40/251] batch[40/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:29 |ETA: 0:01:32 |loss 7.5881 |conf_loss 4.1930 |cls_loss 1.4696 |iou_loss 1.9254 |num_fg 6.8621 |Data 0.021s |Batch 0.518s
+grid11| val: total_epoch[8/10] total_batch[50/251] batch[50/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:34 |ETA: 0:01:37 |loss 7.5812 |conf_loss 4.1969 |cls_loss 1.4658 |iou_loss 1.9185 |num_fg 6.8866 |Data 0.005s |Batch 0.560s
+grid11| val: total_epoch[8/10] total_batch[60/251] batch[60/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:39 |ETA: 0:01:44 |loss 7.6025 |conf_loss 4.2174 |cls_loss 1.4701 |iou_loss 1.9149 |num_fg 6.8757 |Data 0.001s |Batch 0.535s
+grid11| val: total_epoch[8/10] total_batch[70/251] batch[70/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:45 |ETA: 0:01:37 |loss 7.6743 |conf_loss 4.2247 |cls_loss 1.5218 |iou_loss 1.9277 |num_fg 6.8615 |Data 0.015s |Batch 0.480s
+grid11| val: total_epoch[8/10] total_batch[80/251] batch[80/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:49 |ETA: 0:01:21 |loss 7.5626 |conf_loss 4.1791 |cls_loss 1.4933 |iou_loss 1.8902 |num_fg 6.9389 |Data 0.021s |Batch 0.486s
+grid11| val: total_epoch[8/10] total_batch[90/251] batch[90/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:54 |ETA: 0:01:26 |loss 7.5443 |conf_loss 4.1461 |cls_loss 1.5027 |iou_loss 1.8954 |num_fg 6.9502 |Data 0.021s |Batch 0.410s
+grid11| val: total_epoch[8/10] total_batch[100/251] batch[100/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:00:59 |ETA: 0:01:17 |loss 7.4942 |conf_loss 4.1246 |cls_loss 1.4901 |iou_loss 1.8795 |num_fg 6.9729 |Data 0.031s |Batch 0.459s
+grid11| val: total_epoch[8/10] total_batch[110/251] batch[110/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:05 |ETA: 0:01:14 |loss 7.4874 |conf_loss 4.1043 |cls_loss 1.5056 |iou_loss 1.8776 |num_fg 6.9775 |Data 0.022s |Batch 0.544s
+grid11| val: total_epoch[8/10] total_batch[120/251] batch[120/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:10 |ETA: 0:01:13 |loss 7.5590 |conf_loss 4.1707 |cls_loss 1.5139 |iou_loss 1.8744 |num_fg 7.0083 |Data 0.011s |Batch 0.626s
+grid11| val: total_epoch[8/10] total_batch[130/251] batch[130/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:15 |ETA: 0:01:01 |loss 7.5895 |conf_loss 4.1860 |cls_loss 1.5170 |iou_loss 1.8866 |num_fg 6.9979 |Data 0.001s |Batch 0.526s
+grid11| val: total_epoch[8/10] total_batch[140/251] batch[140/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:21 |ETA: 0:01:02 |loss 7.5813 |conf_loss 4.1707 |cls_loss 1.5210 |iou_loss 1.8896 |num_fg 6.9852 |Data 0.005s |Batch 0.497s
+grid11| val: total_epoch[8/10] total_batch[150/251] batch[150/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:26 |ETA: 0:00:53 |loss 7.5994 |conf_loss 4.1870 |cls_loss 1.5206 |iou_loss 1.8918 |num_fg 6.9820 |Data 0.006s |Batch 0.691s
+grid11| val: total_epoch[8/10] total_batch[160/251] batch[160/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:31 |ETA: 0:00:49 |loss 7.5993 |conf_loss 4.1860 |cls_loss 1.5284 |iou_loss 1.8849 |num_fg 7.0036 |Data 0.001s |Batch 0.364s
+grid11| val: total_epoch[8/10] total_batch[170/251] batch[170/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:36 |ETA: 0:00:40 |loss 7.6227 |conf_loss 4.2156 |cls_loss 1.5207 |iou_loss 1.8864 |num_fg 7.0003 |Data 0.006s |Batch 0.732s
+grid11| val: total_epoch[8/10] total_batch[180/251] batch[180/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:41 |ETA: 0:00:37 |loss 7.5999 |conf_loss 4.2064 |cls_loss 1.5114 |iou_loss 1.8821 |num_fg 7.0063 |Data 0.033s |Batch 0.599s
+grid11| val: total_epoch[8/10] total_batch[190/251] batch[190/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:46 |ETA: 0:00:35 |loss 7.5718 |conf_loss 4.1819 |cls_loss 1.5134 |iou_loss 1.8765 |num_fg 7.0167 |Data 0.030s |Batch 0.468s
+grid11| val: total_epoch[8/10] total_batch[200/251] batch[200/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:51 |ETA: 0:00:26 |loss 7.5600 |conf_loss 4.1814 |cls_loss 1.5062 |iou_loss 1.8724 |num_fg 7.0339 |Data 0.024s |Batch 0.462s
+grid11| val: total_epoch[8/10] total_batch[210/251] batch[210/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:01:57 |ETA: 0:00:27 |loss 7.6013 |conf_loss 4.2166 |cls_loss 1.5056 |iou_loss 1.8792 |num_fg 7.0234 |Data 0.011s |Batch 0.353s
+grid11| val: total_epoch[8/10] total_batch[220/251] batch[220/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:02:02 |ETA: 0:00:17 |loss 7.6485 |conf_loss 4.2541 |cls_loss 1.5070 |iou_loss 1.8874 |num_fg 6.9988 |Data 0.006s |Batch 0.497s
+grid11| val: total_epoch[8/10] total_batch[230/251] batch[230/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:02:06 |ETA: 0:00:11 |loss 7.6702 |conf_loss 4.2750 |cls_loss 1.5048 |iou_loss 1.8905 |num_fg 6.9964 |Data 0.000s |Batch 0.163s
+grid11| val: total_epoch[8/10] total_batch[240/251] batch[240/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:02:07 |ETA: 0:00:03 |loss 7.6748 |conf_loss 4.2619 |cls_loss 1.5066 |iou_loss 1.9063 |num_fg 6.9659 |Data 0.000s |Batch 0.059s
+grid11| val: total_epoch[8/10] total_batch[250/251] batch[250/251] |size: 4x3x640x640 |lr: 0.00001891 |Tot: 0:02:07 |ETA: 0:00:01 |loss 7.6737 |conf_loss 4.2618 |cls_loss 1.4988 |iou_loss 1.9131 |num_fg 6.9586 |Data 0.000s |Batch 0.061s
+Loading and preparing results...
+DONE (t=0.31s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.53s).
+Accumulating evaluation results...
+DONE (t=0.60s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.076
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.122
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.086
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.003
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.048
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.094
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.177
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.252
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.261
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.010
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.096
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.316
+
+epoch 8, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_best.pth
+epoch 8, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[9/10] total_batch[1010/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00001687 |Tot: 0:02:03 |ETA: 0:26:07 |loss 9.2475 |conf_loss 4.9429 |cls_loss 1.5662 |iou_loss 1.9278 |l1_loss 0.8107 |num_fg 6.9410 |Data 0.022s |Batch 2.440s
+grid11| train: total_epoch[9/10] total_batch[1020/1250] batch[20/125] |size: 32x3x480x480 |lr: 0.00001497 |Tot: 0:03:20 |ETA: 0:13:29 |loss 8.3381 |conf_loss 4.1742 |cls_loss 1.5229 |iou_loss 1.8693 |l1_loss 0.7717 |num_fg 6.9561 |Data 0.012s |Batch 2.854s
+grid11| train: total_epoch[9/10] total_batch[1030/1250] batch[30/125] |size: 32x3x736x736 |lr: 0.00001321 |Tot: 0:04:46 |ETA: 0:11:35 |loss 8.3539 |conf_loss 4.1900 |cls_loss 1.5053 |iou_loss 1.8715 |l1_loss 0.7871 |num_fg 6.9587 |Data 14.330s |Batch 16.703s
+grid11| train: total_epoch[9/10] total_batch[1040/1250] batch[40/125] |size: 32x3x576x576 |lr: 0.00001161 |Tot: 0:05:11 |ETA: 0:05:34 |loss 8.2420 |conf_loss 4.0540 |cls_loss 1.5055 |iou_loss 1.8893 |l1_loss 0.7931 |num_fg 6.8881 |Data 0.001s |Batch 2.744s
+grid11| train: total_epoch[9/10] total_batch[1050/1250] batch[50/125] |size: 32x3x576x576 |lr: 0.00001018 |Tot: 0:06:41 |ETA: 0:11:25 |loss 8.1528 |conf_loss 3.9606 |cls_loss 1.5128 |iou_loss 1.8901 |l1_loss 0.7892 |num_fg 6.8895 |Data 0.039s |Batch 2.266s
+grid11| train: total_epoch[9/10] total_batch[1060/1250] batch[60/125] |size: 32x3x480x480 |lr: 0.00000891 |Tot: 0:07:53 |ETA: 0:07:55 |loss 8.0498 |conf_loss 3.8497 |cls_loss 1.5251 |iou_loss 1.8936 |l1_loss 0.7815 |num_fg 6.8706 |Data 0.027s |Batch 2.807s
+grid11| train: total_epoch[9/10] total_batch[1070/1250] batch[70/125] |size: 32x3x768x768 |lr: 0.00000781 |Tot: 0:08:19 |ETA: 0:02:26 |loss 8.0505 |conf_loss 3.8536 |cls_loss 1.5223 |iou_loss 1.8871 |l1_loss 0.7875 |num_fg 6.8892 |Data 0.023s |Batch 2.283s
+grid11| train: total_epoch[9/10] total_batch[1080/1250] batch[80/125] |size: 32x3x800x800 |lr: 0.00000689 |Tot: 0:09:52 |ETA: 0:07:12 |loss 8.0293 |conf_loss 3.8537 |cls_loss 1.5243 |iou_loss 1.8708 |l1_loss 0.7806 |num_fg 6.9395 |Data 0.004s |Batch 2.101s
+grid11| train: total_epoch[9/10] total_batch[1090/1250] batch[90/125] |size: 32x3x768x768 |lr: 0.00000614 |Tot: 0:11:19 |ETA: 0:05:11 |loss 8.0078 |conf_loss 3.8366 |cls_loss 1.5255 |iou_loss 1.8642 |l1_loss 0.7815 |num_fg 6.9661 |Data 0.001s |Batch 3.106s
+grid11| train: total_epoch[9/10] total_batch[1100/1250] batch[100/125] |size: 32x3x512x512 |lr: 0.00000558 |Tot: 0:12:30 |ETA: 0:01:26 |loss 7.9387 |conf_loss 3.7885 |cls_loss 1.5187 |iou_loss 1.8566 |l1_loss 0.7749 |num_fg 6.9668 |Data 38.855s |Batch 41.207s
+grid11| train: total_epoch[9/10] total_batch[1110/1250] batch[110/125] |size: 32x3x800x800 |lr: 0.00000521 |Tot: 0:12:40 |ETA: 0:01:43 |loss 7.9360 |conf_loss 3.7877 |cls_loss 1.5107 |iou_loss 1.8590 |l1_loss 0.7787 |num_fg 6.9734 |Data 0.000s |Batch 0.475s
+grid11| train: total_epoch[9/10] total_batch[1120/1250] batch[120/125] |size: 32x3x640x640 |lr: 0.00000502 |Tot: 0:13:27 |ETA: 0:00:29 |loss 7.9344 |conf_loss 3.7757 |cls_loss 1.5149 |iou_loss 1.8617 |l1_loss 0.7821 |num_fg 6.9694 |Data 0.000s |Batch 0.428s
+grid11| val: total_epoch[9/10] total_batch[10/251] batch[10/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:13 |ETA: 0:06:02 |loss 6.5004 |conf_loss 3.5053 |cls_loss 1.3270 |iou_loss 1.6680 |num_fg 7.2020 |Data 0.008s |Batch 0.486s
+grid11| val: total_epoch[9/10] total_batch[20/251] batch[20/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:19 |ETA: 0:02:06 |loss 6.8532 |conf_loss 3.6986 |cls_loss 1.3869 |iou_loss 1.7676 |num_fg 7.0770 |Data 0.018s |Batch 0.529s
+grid11| val: total_epoch[9/10] total_batch[30/251] batch[30/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:24 |ETA: 0:02:02 |loss 6.9858 |conf_loss 3.6435 |cls_loss 1.4730 |iou_loss 1.8693 |num_fg 6.9253 |Data 0.037s |Batch 0.571s
+grid11| val: total_epoch[9/10] total_batch[40/251] batch[40/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:29 |ETA: 0:01:36 |loss 6.8746 |conf_loss 3.6105 |cls_loss 1.4594 |iou_loss 1.8048 |num_fg 7.0021 |Data 0.016s |Batch 0.465s
+grid11| val: total_epoch[9/10] total_batch[50/251] batch[50/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:34 |ETA: 0:01:40 |loss 6.8426 |conf_loss 3.6051 |cls_loss 1.4508 |iou_loss 1.7868 |num_fg 7.0020 |Data 0.001s |Batch 0.627s
+grid11| val: total_epoch[9/10] total_batch[60/251] batch[60/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:39 |ETA: 0:01:44 |loss 6.8580 |conf_loss 3.6207 |cls_loss 1.4519 |iou_loss 1.7854 |num_fg 6.9922 |Data 0.006s |Batch 0.466s
+grid11| val: total_epoch[9/10] total_batch[70/251] batch[70/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:44 |ETA: 0:01:34 |loss 6.9726 |conf_loss 3.6589 |cls_loss 1.5118 |iou_loss 1.8018 |num_fg 6.9879 |Data 0.018s |Batch 0.494s
+grid11| val: total_epoch[9/10] total_batch[80/251] batch[80/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:49 |ETA: 0:01:22 |loss 6.8380 |conf_loss 3.5915 |cls_loss 1.4865 |iou_loss 1.7600 |num_fg 7.0692 |Data 0.011s |Batch 0.511s
+grid11| val: total_epoch[9/10] total_batch[90/251] batch[90/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:54 |ETA: 0:01:22 |loss 6.8234 |conf_loss 3.5606 |cls_loss 1.5046 |iou_loss 1.7583 |num_fg 7.0962 |Data 0.017s |Batch 0.486s
+grid11| val: total_epoch[9/10] total_batch[100/251] batch[100/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:59 |ETA: 0:01:17 |loss 6.7745 |conf_loss 3.5424 |cls_loss 1.4888 |iou_loss 1.7433 |num_fg 7.1106 |Data 0.018s |Batch 0.469s
+grid11| val: total_epoch[9/10] total_batch[110/251] batch[110/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:04 |ETA: 0:01:12 |loss 6.7719 |conf_loss 3.5262 |cls_loss 1.5078 |iou_loss 1.7380 |num_fg 7.1189 |Data 0.032s |Batch 0.469s
+grid11| val: total_epoch[9/10] total_batch[120/251] batch[120/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:10 |ETA: 0:01:15 |loss 6.8021 |conf_loss 3.5509 |cls_loss 1.5138 |iou_loss 1.7374 |num_fg 7.1557 |Data 0.016s |Batch 0.554s
+grid11| val: total_epoch[9/10] total_batch[130/251] batch[130/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:15 |ETA: 0:01:07 |loss 6.8268 |conf_loss 3.5596 |cls_loss 1.5200 |iou_loss 1.7472 |num_fg 7.1521 |Data 0.019s |Batch 0.540s
+grid11| val: total_epoch[9/10] total_batch[140/251] batch[140/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:20 |ETA: 0:00:57 |loss 6.8205 |conf_loss 3.5457 |cls_loss 1.5241 |iou_loss 1.7508 |num_fg 7.1366 |Data 0.014s |Batch 0.484s
+grid11| val: total_epoch[9/10] total_batch[150/251] batch[150/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:25 |ETA: 0:00:54 |loss 6.8259 |conf_loss 3.5472 |cls_loss 1.5235 |iou_loss 1.7553 |num_fg 7.1281 |Data 0.012s |Batch 0.642s
+grid11| val: total_epoch[9/10] total_batch[160/251] batch[160/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:30 |ETA: 0:00:49 |loss 6.8184 |conf_loss 3.5392 |cls_loss 1.5305 |iou_loss 1.7487 |num_fg 7.1489 |Data 0.029s |Batch 0.525s
+grid11| val: total_epoch[9/10] total_batch[170/251] batch[170/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:35 |ETA: 0:00:41 |loss 6.8322 |conf_loss 3.5582 |cls_loss 1.5226 |iou_loss 1.7515 |num_fg 7.1411 |Data 0.004s |Batch 0.677s
+grid11| val: total_epoch[9/10] total_batch[180/251] batch[180/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:40 |ETA: 0:00:37 |loss 6.8095 |conf_loss 3.5456 |cls_loss 1.5154 |iou_loss 1.7485 |num_fg 7.1506 |Data 0.009s |Batch 0.576s
+grid11| val: total_epoch[9/10] total_batch[190/251] batch[190/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:46 |ETA: 0:00:34 |loss 6.7861 |conf_loss 3.5261 |cls_loss 1.5158 |iou_loss 1.7441 |num_fg 7.1684 |Data 0.031s |Batch 0.588s
+grid11| val: total_epoch[9/10] total_batch[200/251] batch[200/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:51 |ETA: 0:00:26 |loss 6.7750 |conf_loss 3.5245 |cls_loss 1.5101 |iou_loss 1.7404 |num_fg 7.1848 |Data 0.001s |Batch 0.520s
+grid11| val: total_epoch[9/10] total_batch[210/251] batch[210/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:56 |ETA: 0:00:24 |loss 6.7907 |conf_loss 3.5356 |cls_loss 1.5060 |iou_loss 1.7491 |num_fg 7.1704 |Data 0.011s |Batch 0.505s
+grid11| val: total_epoch[9/10] total_batch[220/251] batch[220/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:01 |ETA: 0:00:16 |loss 6.8194 |conf_loss 3.5593 |cls_loss 1.5056 |iou_loss 1.7544 |num_fg 7.1456 |Data 0.011s |Batch 0.470s
+grid11| val: total_epoch[9/10] total_batch[230/251] batch[230/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:05 |ETA: 0:00:11 |loss 6.8328 |conf_loss 3.5692 |cls_loss 1.5034 |iou_loss 1.7602 |num_fg 7.1404 |Data 0.000s |Batch 0.205s
+grid11| val: total_epoch[9/10] total_batch[240/251] batch[240/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:06 |ETA: 0:00:04 |loss 6.8535 |conf_loss 3.5714 |cls_loss 1.5055 |iou_loss 1.7766 |num_fg 7.1106 |Data 0.000s |Batch 0.055s
+grid11| val: total_epoch[9/10] total_batch[250/251] batch[250/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:07 |ETA: 0:00:01 |loss 6.8483 |conf_loss 3.5670 |cls_loss 1.4985 |iou_loss 1.7827 |num_fg 7.1048 |Data 0.000s |Batch 0.055s
+Loading and preparing results...
+DONE (t=0.17s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.90s).
+Accumulating evaluation results...
+DONE (t=0.47s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.080
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.120
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.089
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.002
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.046
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.100
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.187
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.260
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.266
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.008
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.085
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.330
+
+epoch 9, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_best.pth
+epoch 9, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
+shuffle images list in /user/home/bq18557/scratch/TACO/fold1/instances_train2017.json
+multi size training: [[448, 448], [480, 480], [512, 512], [544, 544], [576, 576], [608, 608], [640, 640], [672, 672], [704, 704], [736, 736], [768, 768], [800, 800]]
+Invalid SOS parameters for sequential JPEG
+grid11| train: total_epoch[10/10] total_batch[1135/1250] batch[10/125] |size: 32x3x800x800 |lr: 0.00000500 |Tot: 0:01:59 |ETA: 0:25:12 |loss 7.7735 |conf_loss 3.7658 |cls_loss 1.5050 |iou_loss 1.7285 |l1_loss 0.7742 |num_fg 7.2965 |Data 0.017s |Batch 2.125s
+grid11| train: total_epoch[10/10] total_batch[1145/1250] batch[20/125] |size: 32x3x768x768 |lr: 0.00000500 |Tot: 0:03:23 |ETA: 0:14:53 |loss 7.8388 |conf_loss 3.7473 |cls_loss 1.5091 |iou_loss 1.7987 |l1_loss 0.7837 |num_fg 7.1621 |Data 0.001s |Batch 1.736s
+grid11| train: total_epoch[10/10] total_batch[1155/1250] batch[30/125] |size: 32x3x800x800 |lr: 0.00000500 |Tot: 0:04:49 |ETA: 0:12:32 |loss 7.8699 |conf_loss 3.7759 |cls_loss 1.4845 |iou_loss 1.8083 |l1_loss 0.8012 |num_fg 7.1092 |Data 7.448s |Batch 9.610s
+grid11| train: total_epoch[10/10] total_batch[1165/1250] batch[40/125] |size: 32x3x576x576 |lr: 0.00000500 |Tot: 0:05:12 |ETA: 0:04:15 |loss 7.7851 |conf_loss 3.6852 |cls_loss 1.4918 |iou_loss 1.8174 |l1_loss 0.7907 |num_fg 7.0671 |Data 0.001s |Batch 2.686s
+grid11| train: total_epoch[10/10] total_batch[1175/1250] batch[50/125] |size: 32x3x448x448 |lr: 0.00000500 |Tot: 0:06:44 |ETA: 0:11:45 |loss 7.7365 |conf_loss 3.6203 |cls_loss 1.4894 |iou_loss 1.8431 |l1_loss 0.7837 |num_fg 6.9619 |Data 0.001s |Batch 2.080s
+grid11| train: total_epoch[10/10] total_batch[1185/1250] batch[60/125] |size: 32x3x800x800 |lr: 0.00000500 |Tot: 0:08:15 |ETA: 0:10:01 |loss 7.7296 |conf_loss 3.6204 |cls_loss 1.4911 |iou_loss 1.8372 |l1_loss 0.7809 |num_fg 6.9774 |Data 0.001s |Batch 2.522s
+grid11| train: total_epoch[10/10] total_batch[1195/1250] batch[70/125] |size: 32x3x704x704 |lr: 0.00000500 |Tot: 0:08:40 |ETA: 0:02:20 |loss 7.7259 |conf_loss 3.6217 |cls_loss 1.4965 |iou_loss 1.8332 |l1_loss 0.7746 |num_fg 6.9908 |Data 0.001s |Batch 2.407s
+grid11| train: total_epoch[10/10] total_batch[1205/1250] batch[80/125] |size: 32x3x480x480 |lr: 0.00000500 |Tot: 0:09:53 |ETA: 0:05:41 |loss 7.7120 |conf_loss 3.5837 |cls_loss 1.5054 |iou_loss 1.8474 |l1_loss 0.7755 |num_fg 6.9396 |Data 0.007s |Batch 1.547s
+grid11| train: total_epoch[10/10] total_batch[1215/1250] batch[90/125] |size: 32x3x704x704 |lr: 0.00000500 |Tot: 0:11:09 |ETA: 0:04:30 |loss 7.6933 |conf_loss 3.5818 |cls_loss 1.5024 |iou_loss 1.8367 |l1_loss 0.7723 |num_fg 6.9707 |Data 0.001s |Batch 2.102s
+grid11| train: total_epoch[10/10] total_batch[1225/1250] batch[100/125] |size: 32x3x800x800 |lr: 0.00000500 |Tot: 0:12:27 |ETA: 0:03:24 |loss 7.7021 |conf_loss 3.5832 |cls_loss 1.5112 |iou_loss 1.8347 |l1_loss 0.7730 |num_fg 6.9901 |Data 0.001s |Batch 2.095s
+grid11| train: total_epoch[10/10] total_batch[1235/1250] batch[110/125] |size: 32x3x672x672 |lr: 0.00000500 |Tot: 0:12:47 |ETA: 0:00:34 |loss 7.7132 |conf_loss 3.5961 |cls_loss 1.5069 |iou_loss 1.8350 |l1_loss 0.7752 |num_fg 6.9919 |Data 0.001s |Batch 1.862s
+grid11| train: total_epoch[10/10] total_batch[1245/1250] batch[120/125] |size: 32x3x512x512 |lr: 0.00000500 |Tot: 0:13:26 |ETA: 0:00:24 |loss 7.7080 |conf_loss 3.5817 |cls_loss 1.5087 |iou_loss 1.8414 |l1_loss 0.7763 |num_fg 6.9795 |Data 0.000s |Batch 0.455s
+grid11| val: total_epoch[10/10] total_batch[10/251] batch[10/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:14 |ETA: 0:06:06 |loss 6.3985 |conf_loss 3.4069 |cls_loss 1.3164 |iou_loss 1.6752 |num_fg 7.2105 |Data 0.005s |Batch 0.444s
+grid11| val: total_epoch[10/10] total_batch[20/251] batch[20/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:19 |ETA: 0:02:03 |loss 6.7820 |conf_loss 3.6313 |cls_loss 1.3836 |iou_loss 1.7672 |num_fg 7.0898 |Data 0.009s |Batch 0.512s
+grid11| val: total_epoch[10/10] total_batch[30/251] batch[30/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:24 |ETA: 0:01:56 |loss 6.9297 |conf_loss 3.5905 |cls_loss 1.4703 |iou_loss 1.8689 |num_fg 6.9367 |Data 0.011s |Batch 0.523s
+grid11| val: total_epoch[10/10] total_batch[40/251] batch[40/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:28 |ETA: 0:01:33 |loss 6.8186 |conf_loss 3.5582 |cls_loss 1.4579 |iou_loss 1.8025 |num_fg 7.0078 |Data 0.005s |Batch 0.424s
+grid11| val: total_epoch[10/10] total_batch[50/251] batch[50/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:34 |ETA: 0:01:39 |loss 6.7837 |conf_loss 3.5491 |cls_loss 1.4530 |iou_loss 1.7816 |num_fg 7.0075 |Data 0.005s |Batch 0.569s
+grid11| val: total_epoch[10/10] total_batch[60/251] batch[60/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:39 |ETA: 0:01:41 |loss 6.7957 |conf_loss 3.5612 |cls_loss 1.4541 |iou_loss 1.7804 |num_fg 6.9967 |Data 0.027s |Batch 0.501s
+grid11| val: total_epoch[10/10] total_batch[70/251] batch[70/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:44 |ETA: 0:01:33 |loss 6.9157 |conf_loss 3.6047 |cls_loss 1.5144 |iou_loss 1.7966 |num_fg 6.9942 |Data 0.032s |Batch 0.549s
+grid11| val: total_epoch[10/10] total_batch[80/251] batch[80/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:48 |ETA: 0:01:21 |loss 6.7835 |conf_loss 3.5380 |cls_loss 1.4883 |iou_loss 1.7571 |num_fg 7.0785 |Data 0.026s |Batch 0.558s
+grid11| val: total_epoch[10/10] total_batch[90/251] batch[90/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:53 |ETA: 0:01:23 |loss 6.7692 |conf_loss 3.5072 |cls_loss 1.5058 |iou_loss 1.7561 |num_fg 7.1058 |Data 0.026s |Batch 0.425s
+grid11| val: total_epoch[10/10] total_batch[100/251] batch[100/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:58 |ETA: 0:01:16 |loss 6.7225 |conf_loss 3.4909 |cls_loss 1.4909 |iou_loss 1.7406 |num_fg 7.1203 |Data 0.022s |Batch 0.148s
+grid11| val: total_epoch[10/10] total_batch[110/251] batch[110/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:00:59 |ETA: 0:01:06 |loss 6.7164 |conf_loss 3.4703 |cls_loss 1.5099 |iou_loss 1.7361 |num_fg 7.1258 |Data 0.001s |Batch 0.063s
+grid11| val: total_epoch[10/10] total_batch[120/251] batch[120/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:07 |ETA: 0:00:52 |loss 6.7428 |conf_loss 3.4910 |cls_loss 1.5164 |iou_loss 1.7355 |num_fg 7.1633 |Data 3.979s |Batch 4.526s
+grid11| val: total_epoch[10/10] total_batch[130/251] batch[130/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:13 |ETA: 0:01:54 |loss 6.7671 |conf_loss 3.5004 |cls_loss 1.5219 |iou_loss 1.7448 |num_fg 7.1588 |Data 0.001s |Batch 0.584s
+grid11| val: total_epoch[10/10] total_batch[140/251] batch[140/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:19 |ETA: 0:01:07 |loss 6.7614 |conf_loss 3.4875 |cls_loss 1.5259 |iou_loss 1.7480 |num_fg 7.1434 |Data 0.009s |Batch 0.564s
+grid11| val: total_epoch[10/10] total_batch[150/251] batch[150/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:26 |ETA: 0:01:05 |loss 6.7646 |conf_loss 3.4870 |cls_loss 1.5252 |iou_loss 1.7525 |num_fg 7.1344 |Data 0.001s |Batch 0.667s
+grid11| val: total_epoch[10/10] total_batch[160/251] batch[160/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:31 |ETA: 0:00:51 |loss 6.7569 |conf_loss 3.4788 |cls_loss 1.5320 |iou_loss 1.7461 |num_fg 7.1555 |Data 0.039s |Batch 0.526s
+grid11| val: total_epoch[10/10] total_batch[170/251] batch[170/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:36 |ETA: 0:00:44 |loss 6.7715 |conf_loss 3.4985 |cls_loss 1.5242 |iou_loss 1.7488 |num_fg 7.1467 |Data 0.021s |Batch 0.701s
+grid11| val: total_epoch[10/10] total_batch[180/251] batch[180/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:42 |ETA: 0:00:41 |loss 6.7485 |conf_loss 3.4855 |cls_loss 1.5171 |iou_loss 1.7459 |num_fg 7.1566 |Data 0.004s |Batch 0.521s
+grid11| val: total_epoch[10/10] total_batch[190/251] batch[190/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:47 |ETA: 0:00:31 |loss 6.7252 |conf_loss 3.4665 |cls_loss 1.5177 |iou_loss 1.7411 |num_fg 7.1747 |Data 0.001s |Batch 0.527s
+grid11| val: total_epoch[10/10] total_batch[200/251] batch[200/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:52 |ETA: 0:00:27 |loss 6.7125 |conf_loss 3.4640 |cls_loss 1.5112 |iou_loss 1.7373 |num_fg 7.1915 |Data 0.017s |Batch 0.468s
+grid11| val: total_epoch[10/10] total_batch[210/251] batch[210/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:01:57 |ETA: 0:00:23 |loss 6.7267 |conf_loss 3.4742 |cls_loss 1.5071 |iou_loss 1.7455 |num_fg 7.1774 |Data 0.010s |Batch 0.485s
+grid11| val: total_epoch[10/10] total_batch[220/251] batch[220/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:02 |ETA: 0:00:17 |loss 6.7545 |conf_loss 3.4965 |cls_loss 1.5068 |iou_loss 1.7512 |num_fg 7.1528 |Data 0.001s |Batch 0.485s
+grid11| val: total_epoch[10/10] total_batch[230/251] batch[230/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:06 |ETA: 0:00:11 |loss 6.7676 |conf_loss 3.5061 |cls_loss 1.5049 |iou_loss 1.7566 |num_fg 7.1473 |Data 0.000s |Batch 0.225s
+grid11| val: total_epoch[10/10] total_batch[240/251] batch[240/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:07 |ETA: 0:00:04 |loss 6.7893 |conf_loss 3.5092 |cls_loss 1.5068 |iou_loss 1.7734 |num_fg 7.1172 |Data 0.000s |Batch 0.054s
+grid11| val: total_epoch[10/10] total_batch[250/251] batch[250/251] |size: 4x3x640x640 |lr: 0.00000500 |Tot: 0:02:08 |ETA: 0:00:01 |loss 6.7834 |conf_loss 3.5046 |cls_loss 1.4996 |iou_loss 1.7792 |num_fg 7.1101 |Data 0.000s |Batch 0.053s
+Loading and preparing results...
+DONE (t=0.17s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.77s).
+Accumulating evaluation results...
+DONE (t=0.45s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.082
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.122
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.093
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.002
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.043
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.103
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.189
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.264
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.270
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.009
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.084
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.335
+
+epoch 10, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_best.pth
+epoch 10, save weight to /user/home/bq18557/Transformer-YOLOX/exp/grid11/model_last.pth
