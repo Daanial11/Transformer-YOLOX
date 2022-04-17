@@ -141,6 +141,18 @@ class ConvNeXt(nn.Module):
                 x_out = norm_layer(x)
                 outs.append(x_out)
 
+        features = {
+            "x0": outs[0],
+            "x1": outs[1],
+            "x2": outs[2],
+            "x3": outs[3],
+        }
+
+        #convert to correct output dimensions
+
+        #width = 1, outChan = 256, 512, 1024
+        outs = [features["x1"], features["x2"], features["x3"]]
+
         return tuple(outs)
 
     def forward(self, x):
