@@ -8,7 +8,7 @@ def get_cmap(n, name='hsv'):
     return plt.cm.get_cmap(name, n)
 
 
-with open ('new_merged.json',"r") as f:
+with open ('data/new_merged.json',"r") as f:
     data = json.load(f)
 
 
