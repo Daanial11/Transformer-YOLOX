@@ -182,7 +182,7 @@ for i in range(len(opt.gpus) - 1):
         slave_chunk_size += 1
     opt.chunk_sizes.append(slave_chunk_size)
 opt.root_dir = os.path.dirname(__file__)
-opt.save_dir = os.path.join(opt.root_dir, 'exp', opt.exp_id)
+opt.save_dir = os.path.join(getDataDir(), 'exp', opt.exp_id)
 if opt.resume and opt.load_model == '':
     opt.load_model = os.path.join(opt.save_dir, 'model_last.pth')
 if opt.random_size is not None and (opt.random_size[1] - opt.random_size[0] > 1):
