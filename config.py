@@ -123,6 +123,7 @@ opt.nms_thresh = 0.65  # nms IOU threshold in post process
 opt.occupy_mem = False  # pre-allocate gpu memory for training to avoid memory Fragmentation.
 opt.cache = False
 opt.fold = None
+opt.taco_one = False
 
 opt.rgb_means = [0.485, 0.456, 0.406]
 opt.std = [0.229, 0.224, 0.225]
@@ -154,8 +155,13 @@ if opt.coco_train:
 
 # do not modify the following params
 if opt.fold != None:
-    opt.train_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_train2017.json"
-    opt.val_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_val2017.json"
+    if opt.taco_one:
+        opt.train_ann = opt.dataset_path + f"/onefold{opt.fold}/" + "instances_train2017.json"
+        opt.val_ann = opt.dataset_path + f"/onefold{opt.fold}/" + "instances_val2017.json"
+        opt.label_name = ['litter']
+    else:
+        opt.train_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_train2017.json"
+        opt.val_ann = opt.dataset_path + f"/fold{opt.fold}/" + "instances_val2017.json"
 else:
     opt.train_ann = opt.dataset_path + "/annotations/instances_train2017.json"
     opt.val_ann = opt.dataset_path + "/annotations/instances_val2017.json"
