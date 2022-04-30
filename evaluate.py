@@ -135,7 +135,6 @@ def evaluate():
 
 
 
-    print("average ious: " + np.average(ious))
     #use grab annotaion function from coco, pass in all ids from test set
     #test with main below
 
@@ -171,7 +170,7 @@ def evaluate():
     #     coco_eval.evaluate()
     #     coco_eval.accumulate()
     #     coco_eval.summarize()
-    os.remove(result_file)
+   # os.remove(result_file)
 
 
 
