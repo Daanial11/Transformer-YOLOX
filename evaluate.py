@@ -25,11 +25,17 @@ from models.yolox import Detector
 
 
 def evaluate():
+
+    if '~' in opt.test_ann:
+        opt.test_ann = os.path.expanduser(opt.test_ann)
+        opt.load_model = os.path.expanduser(opt.load_model)
+
     detector = Detector(opt)
     gt_ann = opt.val_ann if "test_ann" not in opt.keys() else opt.test_ann
     img_dir = os.getenv("YOLOX_DATADIR", None) + "TACO/images"
     batch_size = opt.batch_size
 
+    
     assert os.path.isfile(gt_ann), 'cannot find gt {}'.format(gt_ann)
     coco = coco_.COCO(gt_ann)
     images = coco.getImgIds()
