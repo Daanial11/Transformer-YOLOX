@@ -27,7 +27,7 @@ from models.yolox import Detector
 def evaluate():
     detector = Detector(opt)
     gt_ann = opt.val_ann if "test_ann" not in opt.keys() else opt.test_ann
-    img_dir = opt.dataset_path + "/" + ("test2017" if "test" in os.path.basename(gt_ann) else "val2017")
+    img_dir = os.getenv("YOLOX_DATADIR", None) + "TACO/images"
     batch_size = opt.batch_size
 
     assert os.path.isfile(gt_ann), 'cannot find gt {}'.format(gt_ann)
