@@ -7,7 +7,7 @@ import torchvision.ops.boxes as box
 import pycocotools.coco as coco_
 from pycocotools.cocoeval import COCOeval
 
-result_file_path = 'result_Swin-l_640.json'
+result_file_path = 'result_Yolo-l_640.json'
 ann_path = 'instances_val2017.json'
 
 
