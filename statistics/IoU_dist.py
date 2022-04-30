@@ -75,17 +75,10 @@ ious = []
 for k,v in preds_per_image_highest_ious.items():
     print(f"imageID {k}, preds ious: {v}")
 
-    for iou in v:    
-            if iou > 0:
-                ious.append(iou)
+with open(f"ious_{result_file_path.split('_')[1]}.json", 'w') as w:
+    json.dump(preds_per_image_highest_ious, w)
 
 
-plt.hist(ious, density=True, bins=30)
-
-plt.ylabel('Probability')
-plt.xlabel('Data')
-
-plt.show()
 
 
 
