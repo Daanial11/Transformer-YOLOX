@@ -159,7 +159,7 @@ def evaluate():
     coco_eval.summarize()
     
     
-    
+    print()
 
     
     # Each class is evaluated separately
