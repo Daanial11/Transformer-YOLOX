@@ -124,6 +124,7 @@ opt.occupy_mem = False  # pre-allocate gpu memory for training to avoid memory F
 opt.cache = False
 opt.fold = None
 opt.taco_one = False
+opt.eval_result_name = None
 
 opt.rgb_means = [0.485, 0.456, 0.406]
 opt.std = [0.229, 0.224, 0.225]

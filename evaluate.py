@@ -50,7 +50,7 @@ def evaluate():
     print("==>> evaluating batch_size={}".format(batch_size))
     print('find {} samples in {}'.format(num_samples, gt_ann))
 
-    result_file = "result_{}_{}.json".format(opt.backbone, opt.test_size[0])
+    result_file = "eval_results/result_{}.json".format(opt.eval_result_name)
     coco_res = []
     
     samples_idx = list(range(num_samples))
@@ -98,40 +98,9 @@ def evaluate():
                      'image_id': int(img_id),
                      'score': conf})
                 
-                box1 = torch.tensor([[gt_box[0], gt_box[1], gt_box[2] - gt_box[0], gt_box[3] - gt_box[1]]], dtype=torch.float)
-                box2 = torch.tensor([[bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]]], dtype=torch.float)
-
-                iou = bops.box_iou(box1, box2)
-                #average iou yolo = 0.012
-                #average iou swin = 0.011
-                if iou > highest_iou_for_image:
-                    highest_iou_for_image = iou
-                    current_best_prediction = class_ids[cls_index]
-                    
-            
-            if current_best_prediction is not None:
-                preds_matrix.append(current_best_prediction)
-                labels_matrix.append(gt_label)
-                ious.append(highest_iou_for_image)    
+                 
         
-    categdf=pd.DataFrame({
-                 'y_true': labels_matrix,
-                 'y_pred': preds_matrix
-                })
 
-    cm = confusion_matrix(categdf['y_true'], categdf['y_pred'], labels=class_labels)
-
-    #rounding
-    """for i in range(0, len(class_labels)):
-        for j in range(0, len(class_labels)):
-            value = cm[i][j]
-            cm[i][j] = round(value, 2)"""
-
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=display_labels)
-    disp.plot()
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.savefig(f'{opt.backbone}_matrix.png', dpi = 300)
 
 
 
