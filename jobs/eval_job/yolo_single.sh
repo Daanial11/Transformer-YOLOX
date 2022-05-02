@@ -17,11 +17,11 @@ source ~/work-env/bin/activate
 cd ~/Transformer-YOLOX
 
 
-python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f1" taco_one=True load_model="~/scratch/weights/one/o_yolo_f1.pth" test_ann="~/scratch/TACO/onefold1/instances_val2017.json" test_size=[640,640]
-python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f2" taco_one=True load_model="~/scratch/weights/one/o_yolo_f2.pth" test_ann="~/scratch/TACO/onefold2/instances_val2017.json" test_size=[640,640]
-python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f3" taco_one=True load_model="~/scratch/weights/one/o_yolo_f3.pth" test_ann="~/scratch/TACO/onefold3/instances_val2017.json" test_size=[640,640]
-python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f4" taco_one=True load_model="~/scratch/weights/one/o_yolo_f4.pth" test_ann="~/scratch/TACO/onefold4/instances_val2017.json" test_size=[640,640]
-python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f5" taco_one=True load_model="~/scratch/weights/one/o_yolo_f5.pth" test_ann="~/scratch/TACO/onefold5/instances_val2017.json" test_size=[640,640]
+python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f1" fold=1 taco_one=True load_model="~/scratch/weights/one/o_yolo_f1.pth" test_ann="~/scratch/TACO/onefold1/instances_val2017.json" test_size=[640,640]
+python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f2" fold=2 taco_one=True load_model="~/scratch/weights/one/o_yolo_f2.pth" test_ann="~/scratch/TACO/onefold2/instances_val2017.json" test_size=[640,640]
+python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f3" fold=3 taco_one=True load_model="~/scratch/weights/one/o_yolo_f3.pth" test_ann="~/scratch/TACO/onefold3/instances_val2017.json" test_size=[640,640]
+python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f4" fold=4 taco_one=True load_model="~/scratch/weights/one/o_yolo_f4.pth" test_ann="~/scratch/TACO/onefold4/instances_val2017.json" test_size=[640,640]
+python evaluate.py gpus='0,1,2,3' backbone="Yolo-l" eval_result_name="o_yolo_f5" fold=5 taco_one=True load_model="~/scratch/weights/one/o_yolo_f5.pth" test_ann="~/scratch/TACO/onefold5/instances_val2017.json" test_size=[640,640]
 
 
 sleep 60
