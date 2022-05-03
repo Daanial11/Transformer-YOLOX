@@ -1,5 +1,6 @@
 from cProfile import label
 import os
+from tkinter import font
 from types import new_class
 
 import matplotlib.pyplot as plt
@@ -13,22 +14,24 @@ def interpolate(array):
 train_loss = {}
 val_loss = {}
 
-with open('data/taco_swin_70epoch.txt', 'r') as f:
+with open('data/loss_data/taco_swin_70epoch.txt', 'r') as f:
     for line in f:
         splitted = line.split('|')
 
         if len(splitted) != 0:
 
             if 'train epoch' in splitted[0]:
-
+                if int(splitted[0].split(' ')[3]) > 50:
+                    break
                 train_loss[int(splitted[0].split(' ')[3])] = float(splitted[1].split(' ')[1])
 
             if 'val epoch' in splitted[0]:
+                
 
                 val_loss[int(splitted[0].split(' ')[3])] = float(splitted[1].split(' ')[1])
 
 
-        
+
 
 val_losses = list(val_loss.values())
 
@@ -45,14 +48,20 @@ for i, l in enumerate(val_losses):
 
 train_losses = list(train_loss.values())
 
-train_losses.pop(len(train_loss)-1)
+#train_losses.pop(len(train_loss)-1)
 
 print(new_val_losses)
-xs = [i for i in range(1, 73, 1)]
+xs = [i for i in range(1, 51, 1)]
+plt.figure(figsize=(11,8))
+plt.plot(xs, new_val_losses, label='Validation loss')
+plt.plot(xs, train_losses, label='Train loss')
+plt.xlabel("Number of epochs", fontsize=20)
+plt.ylabel("Loss", fontsize=20)
+plt.xticks(fontsize=18)
+plt.yticks(fontsize=18)
+plt.legend(fontsize=20)
 
-plt.plot(xs, new_val_losses, label='val')
-plt.plot(xs, train_losses, label='train')
-plt.legend()
+
 
 plt.show()
 
