@@ -41,8 +41,9 @@ print('According to MS COCO Evaluation. This dataset has:')
 print(np.sum(np.array(obj_areas_sqrt_fraction)<0.15), 'small objects (area<32*32 px)')
 print(np.sum(np.array(obj_areas_sqrt_fraction)>0.15), 'medium objects (area<96*96 px)')
 
-
-plt.hist(obj_areas_sqrt_fraction, color = "skyblue", edgecolor='black', bins=40)
+plt.figure(figsize=(17,13))
+plt.grid(axis='y', alpha=0.4, zorder=5)
+plt.hist(obj_areas_sqrt_fraction, color = "skyblue", edgecolor='black', bins=40, zorder=2)
 plt.xticks(fontsize=18)
 plt.yticks(fontsize=18)
 plt.ylabel("Number of objects", fontsize=20)

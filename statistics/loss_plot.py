@@ -56,13 +56,14 @@ print(len(new_val_losses))
 print(new_val_losses)
 xs = [i for i in range(1, 51, 1)]
 plt.figure(figsize=(11,8))
-plt.plot(xs, new_val_losses, label='Validation loss')
-plt.plot(xs, train_losses, label='Train loss')
+plt.grid(alpha=0.4)
+plt.plot(xs, new_val_losses, label='Validation loss', linewidth=2.0)
+plt.plot(xs, train_losses, label='Training loss', linewidth=2.0)
 plt.xlabel("Number of epochs", fontsize=20)
 plt.ylabel("Loss", fontsize=20)
 plt.xticks(fontsize=18)
 plt.yticks(fontsize=18)
-plt.legend(fontsize=20)
+plt.legend(fontsize=18)
 
 
 
