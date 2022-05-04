@@ -6,7 +6,7 @@ from pycocotools.cocoeval import COCOeval
 
 
 m_o = "o"
-
+model = "cov"
 
 
 
@@ -14,7 +14,7 @@ avg_results = {}
 
 for i in range(1, 6):
     gt_ann = f"data/annotations/{m_o}/fold{i}.json"
-    results_file = f"data/results_{m_o}/result_{m_o}_yolo_f{i}.json"
+    results_file = f"data/results_{m_o}/result_{m_o}_{model}_f{i}.json"
     coco = coco_.COCO(gt_ann)
     coco_det = coco.loadRes(results_file)
     coco_eval = COCOeval(coco, coco_det, 'bbox')

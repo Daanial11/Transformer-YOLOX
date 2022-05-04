@@ -14,7 +14,7 @@ def interpolate(array):
 train_loss = {}
 val_loss = {}
 
-with open('data/loss_data/taco_swin_70epoch.txt', 'r') as f:
+with open('data/loss_data/yolo_loss.txt', 'r') as f:
     for line in f:
         splitted = line.split('|')
 
@@ -32,8 +32,10 @@ with open('data/loss_data/taco_swin_70epoch.txt', 'r') as f:
 
 
 
-
+val_loss[42] = 6.218
 val_losses = list(val_loss.values())
+
+
 
 
 new_val_losses = [9.645562]
@@ -48,7 +50,8 @@ for i, l in enumerate(val_losses):
 
 train_losses = list(train_loss.values())
 
-#train_losses.pop(len(train_loss)-1)
+print(len(train_losses))
+print(len(new_val_losses))
 
 print(new_val_losses)
 xs = [i for i in range(1, 51, 1)]
