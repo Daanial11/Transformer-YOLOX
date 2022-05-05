@@ -2,7 +2,7 @@
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:4
 #SBATCH --partition gpu_short
-#SBATCH --job-name=evalCov
+#SBATCH --job-name=evalYOlo
 #SBATCH --mem=85000M
 
 

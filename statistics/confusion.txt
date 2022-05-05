@@ -1,0 +1,21 @@
+Swin low rates of predictions for the classes with a miniroty of objects
+while large amounts of prdictions for domaintating classes
+senstivity to class imbalance
+
+
+CNN predictions are slightly less focused on the majority of classes, pop tab etc. maybe feature maps produced are providing more
+distinction between different classes in some cases compared to Swin featuure maps, could the texture bias be benefical in this case?
+since pop tab is a very small object, perhaphs the uncommon shiny texture compared to possible backgrounds is allowing
+the cnn feature maps to pick up on it.
+however it seems like texture bias is disadvantaging the CNN models, similar texture objects Can and pop tab are being confused
+while in swin transformer no confusion is being made between these two
+
+deformable, multi texture objects such as pb/w being confused with the background more often with yolo compared to swin
+
+
+
+
+would be interesting to test on a textureless version of TACO to see how this confusion changes
+
+ConvNeXt model improves on predictions on some areas, lids, less bottle/pop tab misclassifications, but also less correct
+for pb/w and pop tabs, perhaphs it has the best correct balance of texture/shape bias, verify this

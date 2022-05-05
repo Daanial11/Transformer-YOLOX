@@ -12,11 +12,11 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
 
-#class_labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-#display_labels = ['BG', 'Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'PB/W', 'Pop tab', 'Straw']
+class_labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+display_labels = ['BG', 'Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid', 'Other', 'PB/W', 'Pop tab', 'Straw']
 
-class_labels = [0, 1]
-display_labels = ['BG', 'Litter']
+"""class_labels = [0, 1]
+display_labels = ['BG', 'Litter']"""
 
 
 iou_threshold = 0.45
@@ -27,8 +27,8 @@ labels_array = []
 preds_array = []
 
 
-m_o = "o"
-model= "swin"
+m_o = "m"
+model= "cov"
 
 for fold in range(1, 6):
     iou_data_path = f"data/iou_data_{m_o}/iou_{model}_f{fold}.json"
