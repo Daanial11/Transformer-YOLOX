@@ -13,7 +13,7 @@ display_labels = ['BG', 'Bottle', 'Bottle cap', 'Can', 'Cigarette', 'Cup', 'Lid'
 
 
 iou_threshold = 0.35
-model = "swin"
+model = "yolo"
 m_o = "o"
 
 for fold in range(1, 6):
@@ -70,8 +70,8 @@ for fold in range(1, 6):
             for pred in predictions_for_img:
                 bbox = pred['bbox']
 
-                box1 = torch.tensor([[gt_box[0], gt_box[1], gt_box[2] - gt_box[0], gt_box[3] - gt_box[1]]], dtype=torch.float)
-                box2 = torch.tensor([[bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]]], dtype=torch.float)
+                box1 = torch.tensor([[gt_box[0], gt_box[1], gt_box[0] + gt_box[2], gt_box[3] + gt_box[1]]], dtype=torch.float)
+                box2 = torch.tensor([[bbox[0], bbox[1], bbox[0]+bbox[2], bbox[1]+bbox[3]]], dtype=torch.float)
 
                 iou = box.box_iou(box1, box2)
 

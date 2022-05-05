@@ -14,6 +14,13 @@ buckets = [round(x,1) for x in np.arange(0.0, 1.1, 0.1)]
 
 data = {"swin":[], "yolo":[], "cov": []}
 
+swin_total_iou = 0
+yolo_total_iou = 0
+cov_total_iou = 0
+num_swin = 0
+num_cov = 0
+num_yolo = 0
+
 for fold in range(1, 6):
     swin_path = f"data/iou_data_{m_o}/iou_swin_f{fold}.json"
     yolo_path = f"data/iou_data_{m_o}/iou_yolo_f{fold}.json"
@@ -28,7 +35,24 @@ for fold in range(1, 6):
     with open(cov_path, 'r') as f:
         cov_data = json.load(f)
 
+    for k,v in swin_data.items():
+        for result_data in v:
+            iou=result_data[0]
+            swin_total_iou+=iou
+            num_swin+=1
+    
+    for k,v in yolo_data.items():
+        for result_data in v:
+            iou=result_data[0]
+            yolo_total_iou+=iou
+            num_yolo+=1
 
+    for k,v in cov_data.items():
+        for result_data in v:
+            iou=result_data[0]
+            cov_total_iou+=iou
+            num_cov+=1
+    
 
     for i, bucket_value in enumerate(buckets):
         if i == len(buckets)-1:
@@ -39,9 +63,8 @@ for fold in range(1, 6):
         for k,v in swin_data.items():
             for result_data in v:
                 iou = result_data[0]
-                if iou>0:
-                    if iou >=b1 and iou <=b2:
-                        data["swin"].append(round(b1+0.05,2))
+                if iou >=b1 and iou <b2:
+                    data["swin"].append(round(b1+0.05,2))
 
     for i, bucket_value in enumerate(buckets):
         if i == len(buckets)-1:
@@ -52,9 +75,8 @@ for fold in range(1, 6):
         for k,v in yolo_data.items():
             for result_data in v:
                 iou=result_data[0]
-                if iou>0:
-                    if iou >=b1 and iou <=b2:
-                        data["yolo"].append(round(b1+0.05,2))
+                if iou >=b1 and iou <b2:
+                    data["yolo"].append(round(b1+0.05,2))
 
     for i, bucket_value in enumerate(buckets):
         if i == len(buckets)-1:
@@ -65,9 +87,19 @@ for fold in range(1, 6):
         for k,v in cov_data.items():
             for result_data in v:
                 iou=result_data[0]
-                if iou>0:
-                    if iou >=b1 and iou <=b2:
-                        data["cov"].append(round(b1+0.05,2))
+                if iou >=b1 and iou <b2:
+                    data["cov"].append(round(b1+0.05,2))
+
+
+
+
+avg_swin = swin_total_iou/num_swin
+avg_yolo = yolo_total_iou/num_yolo
+avg_cov = cov_total_iou/num_cov
+
+print(f"swin: {avg_swin}, count {num_swin}")
+print(f"yolo: {avg_yolo}, count {num_yolo}")
+print(f"cov: {avg_cov}, count {num_cov}")
 
 
 plt.figure(figsize=(11,8))
