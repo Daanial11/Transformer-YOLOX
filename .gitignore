@@ -10,8 +10,6 @@
 *.pth
 *.pt
 
-*.png
-
 *.mp4
 *.avi
 *.flv
