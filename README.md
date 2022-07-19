@@ -14,3 +14,5 @@ Completed for my MEng final project. I explore the performance of vision transfo
 ## <ins>TACO-1 training results:</ins>
 
 ![](statistics/data/tables/TACO_single_class.png)
+
+A full write up is avaliable here: https://drive.google.com/file/d/1LmvOhcAhT2ITvQBB9SzmN1lFzOvx8wtO/view?usp=sharing
